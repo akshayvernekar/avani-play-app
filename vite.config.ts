@@ -18,7 +18,8 @@ export default defineConfig({
         background_color: '#E0F7FA',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
+        start_url: '/avani-play-app/',
+        scope: '/avani-play-app/',
         icons: [
           {
             src: 'pwa-192x192.svg',
