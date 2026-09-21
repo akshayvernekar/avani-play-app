@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="120" fill="#4FC3F7"/>
+  <g transform="translate(256, 256) scale(0.85)">
+    <!-- Sun header -->
+    <circle cx="0" cy="-60" r="90" fill="#FFE082"/>
+    <circle cx="0" cy="-60" r="70" fill="#FFCA28"/>
+    <!-- Puzzle Piece icon -->
+    <path d="M -80 0 
+             L -40 0 C -40 -25 -15 -25 -15 0 C 15 0 15 -25 15 0 L 80 0 
+             L 80 50 C 105 50 105 75 80 75 C 80 105 105 105 80 130 L 80 160 
+             L 0 160 C 0 135 -25 135 -25 160 L -80 160 Z" 
+          fill="#FF7043" stroke="#D84315" stroke-width="8"/>
+  </g>
+</svg>

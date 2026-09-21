@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/avani-play-app/sw.js', { scope: '/avani-play-app/' })})}

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="wingLeftTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4081"/>
+      <stop offset="100%" stop-color="#AB47BC"/>
+    </linearGradient>
+    <linearGradient id="wingLeftBottom" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C4DFF"/>
+      <stop offset="100%" stop-color="#536DFE"/>
+    </linearGradient>
+    <linearGradient id="wingRightTop" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF4081"/>
+      <stop offset="100%" stop-color="#AB47BC"/>
+    </linearGradient>
+    <linearGradient id="wingRightBottom" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7C4DFF"/>
+      <stop offset="100%" stop-color="#536DFE"/>
+    </linearGradient>
+  </defs>
+  
+  <g transform="translate(250,250)">
+    <!-- Wings Left -->
+    <path d="M -10 -20 C -120 -180 -230 -80 -160 30 C -110 90 -40 20 -10 0 Z" fill="url(#wingLeftTop)" stroke="#8E24AA" stroke-width="6"/>
+    <path d="M -10 10 C -150 70 -190 180 -100 200 C -40 210 -20 100 -10 20 Z" fill="url(#wingLeftBottom)" stroke="#3F51B5" stroke-width="6"/>
+    
+    <!-- Wing decorations -->
+    <circle cx="-110" cy="-70" r="30" fill="#FFEB3B" opacity="0.9"/>
+    <circle cx="-110" cy="-70" r="15" fill="#FF5722"/>
+    <circle cx="-100" cy="120" r="22" fill="#00E676" opacity="0.9"/>
+    
+    <!-- Wings Right -->
+    <path d="M 10 -20 C 120 -180 230 -80 160 30 C 110 90 40 20 10 0 Z" fill="url(#wingRightTop)" stroke="#8E24AA" stroke-width="6"/>
+    <path d="M 10 10 C 150 70 190 180 100 200 C 40 210 20 100 10 20 Z" fill="url(#wingRightBottom)" stroke="#3F51B5" stroke-width="6"/>
+    
+    <!-- Wing decorations right -->
+    <circle cx="110" cy="-70" r="30" fill="#FFEB3B" opacity="0.9"/>
+    <circle cx="110" cy="-70" r="15" fill="#FF5722"/>
+    <circle cx="100" cy="120" r="22" fill="#00E676" opacity="0.9"/>
+    
+    <!-- Body -->
+    <rect x="-18" y="-90" width="36" height="200" rx="18" fill="#4E342E" stroke="#3E2723" stroke-width="5"/>
+    <!-- Head -->
+    <circle cx="0" cy="-115" r="32" fill="#6D4C41" stroke="#3E2723" stroke-width="5"/>
+    
+    <!-- Antennae -->
+    <path d="M -10 -140 Q -40 -190 -60 -180" fill="none" stroke="#3E2723" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="-62" cy="-180" r="10" fill="#FF4081"/>
+    <path d="M 10 -140 Q 40 -190 60 -180" fill="none" stroke="#3E2723" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="62" cy="-180" r="10" fill="#FF4081"/>
+    
+    <!-- Cute Face -->
+    <circle cx="-10" cy="-120" r="6" fill="#FFF"/>
+    <circle cx="-10" cy="-120" r="3" fill="#000"/>
+    <circle cx="10" cy="-120" r="6" fill="#FFF"/>
+    <circle cx="10" cy="-120" r="3" fill="#000"/>
+    <path d="M -8 -108 Q 0 -98 8 -108" fill="none" stroke="#212121" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="-18" cy="-112" r="5" fill="#FF8A80" opacity="0.7"/>
+    <circle cx="18" cy="-112" r="5" fill="#FF8A80" opacity="0.7"/>
+  </g>
+</svg>

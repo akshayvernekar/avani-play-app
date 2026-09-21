@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 960" width="540" height="960" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Sky Gradient -->
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="40%" stop-color="#81D4FA"/>
+      <stop offset="70%" stop-color="#E0F7FA"/>
+      <stop offset="100%" stop-color="#E8F5E9"/>
+    </linearGradient>
+
+    <!-- Hill Gradients -->
+    <linearGradient id="hillBack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C5E1A5"/>
+      <stop offset="100%" stop-color="#9CCC65"/>
+    </linearGradient>
+
+    <linearGradient id="hillMid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#AED581"/>
+      <stop offset="100%" stop-color="#7CB342"/>
+    </linearGradient>
+
+    <linearGradient id="hillFront" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#81C784"/>
+      <stop offset="100%" stop-color="#4CAF50"/>
+    </linearGradient>
+
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF176"/>
+      <stop offset="100%" stop-color="#FBC02D"/>
+    </linearGradient>
+
+    <linearGradient id="pathGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#FFE082"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 1. Sky Base -->
+  <rect width="540" height="960" fill="url(#sky)"/>
+
+  <!-- 2. Happy Sun in Top Right -->
+  <g transform="translate(450, 100)">
+    <!-- Sun Rays -->
+    <g stroke="#FBC02D" stroke-width="6" stroke-linecap="round" opacity="0.8">
+      <line x1="0" y1="-65" x2="0" y2="-80"/>
+      <line x1="46" y1="-46" x2="57" y2="-57"/>
+      <line x1="65" y1="0" x2="80" y2="0"/>
+      <line x1="46" y1="46" x2="57" y2="57"/>
+      <line x1="0" y1="65" x2="0" y2="80"/>
+      <line x1="-46" y1="46" x2="-57" y2="57"/>
+      <line x1="-65" y1="0" x2="-80" y2="0"/>
+      <line x1="-46" y1="-46" x2="-57" y2="-57"/>
+    </g>
+    <!-- Sun Body -->
+    <circle cx="0" cy="0" r="50" fill="url(#sunGrad)" stroke="#F57F17" stroke-width="4"/>
+    <!-- Sun Face -->
+    <circle cx="-16" cy="-8" r="5" fill="#3E2723"/>
+    <circle cx="16" cy="-8" r="5" fill="#3E2723"/>
+    <path d="M -15 12 Q 0 26 15 12" fill="none" stroke="#3E2723" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="-24" cy="4" r="6" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="24" cy="4" r="6" fill="#FF8A80" opacity="0.6"/>
+  </g>
+
+  <!-- 3. Fluffy Clouds -->
+  <g fill="#FFFFFF" opacity="0.95">
+    <path d="M 30 110 Q 55 70 95 85 Q 125 65 155 90 Q 185 85 195 115 Q 200 135 170 145 L 30 145 Z"/>
+    <path d="M 280 70 Q 300 45 330 55 Q 350 40 375 60 Q 395 55 405 75 L 270 75 Z"/>
+  </g>
+
+  <!-- 4. Back Distant Hills -->
+  <path d="M -50 420 Q 140 280 340 380 Q 450 330 600 430 L 600 960 L -50 960 Z" fill="url(#hillBack)"/>
+
+  <!-- 5. Trees on Back Hill -->
+  <g transform="translate(60, 270)">
+    <!-- Tree 1 -->
+    <rect x="25" y="60" width="10" height="30" fill="#5D4037"/>
+    <circle cx="30" cy="50" r="28" fill="#558B2F"/>
+    <circle cx="18" cy="42" r="20" fill="#689F38"/>
+    <circle cx="42" cy="42" r="20" fill="#7CB342"/>
+  </g>
+
+  <g transform="translate(460, 290)">
+    <!-- Tree 2 -->
+    <rect x="20" y="50" width="10" height="30" fill="#5D4037"/>
+    <circle cx="25" cy="40" r="25" fill="#33691E"/>
+    <circle cx="15" cy="35" r="18" fill="#558B2F"/>
+    <circle cx="35" cy="35" r="18" fill="#689F38"/>
+  </g>
+
+  <!-- 6. Little Country House on Hill (matching reference image) -->
+  <g transform="translate(360, 230)">
+    <!-- House Base -->
+    <rect x="20" y="50" width="70" height="50" fill="#FFF8E1" stroke="#D7CCC8" stroke-width="3" rx="4"/>
+    <!-- Roof -->
+    <polygon points="10,55 55,10 100,55" fill="#FF7043" stroke="#D84315" stroke-width="4"/>
+    <!-- Chimney -->
+    <rect x="70" y="20" width="12" height="22" fill="#D32F2F"/>
+    <!-- Window -->
+    <rect x="35" y="62" width="18" height="18" fill="#80DEEA" stroke="#0097A7" stroke-width="3" rx="3"/>
+    <!-- Door -->
+    <rect x="62" y="70" width="16" height="30" fill="#8D6E63" rx="2"/>
+  </g>
+
+  <!-- 7. Winding Path down the Hill -->
+  <path d="M 410 330 Q 380 390 320 430 Q 240 480 280 540 Q 320 600 220 700 Q 150 780 180 960 L 320 960 Q 380 750 380 620 Q 420 500 440 330 Z" fill="url(#pathGrad)" opacity="0.85"/>
+
+  <!-- 8. Middle Hill -->
+  <path d="M -50 480 Q 180 400 380 490 Q 480 450 600 520 L 600 960 L -50 960 Z" fill="url(#hillMid)"/>
+
+  <!-- 9. Front Lawn Hill -->
+  <path d="M -50 560 Q 150 510 360 570 Q 480 530 600 580 L 600 960 L -50 960 Z" fill="url(#hillFront)"/>
+
+  <!-- 10. Colorful Flowers in Meadow Grass -->
+  <!-- Pink Flowers -->
+  <g fill="#FF4081">
+    <circle cx="40" cy="530" r="8"/>
+    <circle cx="70" cy="580" r="9"/>
+    <circle cx="490" cy="520" r="8"/>
+    <circle cx="460" cy="560" r="10"/>
+    <circle cx="50" cy="910" r="9"/>
+    <circle cx="490" cy="920" r="10"/>
+  </g>
+  <!-- Flower Centers -->
+  <g fill="#FFEB3B">
+    <circle cx="40" cy="530" r="3"/>
+    <circle cx="70" cy="580" r="3.5"/>
+    <circle cx="490" cy="520" r="3"/>
+    <circle cx="460" cy="560" r="4"/>
+    <circle cx="50" cy="910" r="3.5"/>
+    <circle cx="490" cy="920" r="4"/>
+  </g>
+
+  <!-- Yellow Flowers -->
+  <g fill="#FFEA00">
+    <circle cx="110" cy="540" r="7"/>
+    <circle cx="430" cy="540" r="8"/>
+    <circle cx="100" cy="930" r="8"/>
+    <circle cx="440" cy="910" r="7"/>
+  </g>
+  <g fill="#FF6D00">
+    <circle cx="110" cy="540" r="2.5"/>
+    <circle cx="430" cy="540" r="3"/>
+    <circle cx="100" cy="930" r="3"/>
+    <circle cx="440" cy="910" r="2.5"/>
+  </g>
+</svg>

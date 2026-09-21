@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1744"/>
+      <stop offset="70%" stop-color="#D50000"/>
+      <stop offset="100%" stop-color="#B71C1C"/>
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#76FF03"/>
+      <stop offset="100%" stop-color="#33691E"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(250, 260)">
+    <!-- Stem -->
+    <path d="M 0 -170 Q 20 -230 40 -240" fill="none" stroke="#4E342E" stroke-width="14" stroke-linecap="round"/>
+    
+    <!-- Leaf -->
+    <path d="M 10 -190 C 80 -250 160 -210 130 -150 C 90 -130 30 -170 10 -190 Z" fill="url(#leafGrad)" stroke="#1B5E20" stroke-width="4"/>
+    
+    <!-- Apple Body -->
+    <path d="M 0 -160 
+             C 80 -200 210 -120 200 30 
+             C 190 180 80 210 0 170 
+             C -80 210 -190 180 -200 30 
+             C -210 -120 -80 -200 0 -160 Z" 
+          fill="url(#appleGrad)" stroke="#900C3F" stroke-width="8"/>
+    
+    <!-- Glossy Highlight -->
+    <path d="M -130 -80 A 120 120 0 0 1 -70 -140" fill="none" stroke="#FFF" stroke-width="16" stroke-linecap="round" opacity="0.45"/>
+    
+    <!-- Cute Eyes & Cheerful Mouth -->
+    <circle cx="-50" cy="-20" r="14" fill="#212121"/>
+    <circle cx="-45" cy="-25" r="5" fill="#FFF"/>
+    <circle cx="50" cy="-20" r="14" fill="#212121"/>
+    <circle cx="55" cy="-25" r="5" fill="#FFF"/>
+    
+    <path d="M -30 20 Q 0 50 30 20" fill="none" stroke="#212121" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- Rosy Cheeks -->
+    <circle cx="-80" cy="10" r="15" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="80" cy="10" r="15" fill="#FF8A80" opacity="0.6"/>
+  </g>
+</svg>

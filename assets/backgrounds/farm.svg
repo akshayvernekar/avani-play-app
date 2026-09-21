@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#81D4FA"/>
+      <stop offset="60%" stop-color="#E0F7FA"/>
+      <stop offset="100%" stop-color="#FFF9C4"/>
+    </linearGradient>
+    <linearGradient id="hill1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#AED581"/>
+      <stop offset="100%" stop-color="#7CB342"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C5E1A5"/>
+      <stop offset="100%" stop-color="#8BC34A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="1200" fill="url(#skyGrad)"/>
+
+  <!-- Sun -->
+  <circle cx="700" cy="150" r="80" fill="#FFEE58"/>
+  <circle cx="700" cy="150" r="100" fill="#FFF59D" opacity="0.4"/>
+
+  <!-- Clouds -->
+  <g fill="#FFFFFF" opacity="0.9">
+    <path d="M 100 220 Q 140 170 200 200 Q 250 170 300 210 Q 330 250 280 270 Q 150 280 100 220 Z"/>
+    <path d="M 500 180 Q 530 140 580 160 Q 620 140 660 170 Q 680 200 640 220 Q 520 230 500 180 Z"/>
+  </g>
+
+  <!-- Back Hills -->
+  <path d="M -100 650 Q 200 480 500 620 Q 700 520 900 650 L 900 1200 L -100 1200 Z" fill="url(#hill2)"/>
+  
+  <!-- Front Hills -->
+  <path d="M -100 800 Q 150 720 400 850 Q 650 700 900 820 L 900 1200 L -100 1200 Z" fill="url(#hill1)"/>
+
+  <!-- Wooden Barn in background -->
+  <g transform="translate(50, 560)">
+    <polygon points="100,50 30,120 170,120" fill="#E53935"/>
+    <rect x="40" y="120" width="120" height="100" fill="#D32F2F"/>
+    <rect x="80" y="160" width="40" height="60" fill="#FFFFFF"/>
+    <path d="M 80 160 L 120 220 M 120 160 L 80 220" stroke="#D32F2F" stroke-width="4"/>
+  </g>
+
+  <!-- Wooden Fence -->
+  <g stroke="#795548" stroke-width="8" fill="#8D6E63">
+    <rect x="0" y="920" width="800" height="16" rx="4"/>
+    <rect x="0" y="970" width="800" height="16" rx="4"/>
+    <rect x="60" y="880" width="24" height="120" rx="4"/>
+    <rect x="180" y="880" width="24" height="120" rx="4"/>
+    <rect x="300" y="880" width="24" height="120" rx="4"/>
+    <rect x="420" y="880" width="24" height="120" rx="4"/>
+    <rect x="540" y="880" width="24" height="120" rx="4"/>
+    <rect x="660" y="880" width="24" height="120" rx="4"/>
+  </g>
+</svg>

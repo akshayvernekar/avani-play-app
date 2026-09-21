@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="busBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFEE58"/>
+      <stop offset="100%" stop-color="#FDD835"/>
+    </linearGradient>
+    <linearGradient id="windowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0F7FA"/>
+      <stop offset="100%" stop-color="#80DEEA"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <g filter="url(#shadow)">
+    <!-- Bus main chassis -->
+    <rect x="60" y="160" width="380" height="200" rx="35" fill="url(#busBody)" stroke="#F57F17" stroke-width="8"/>
+    <!-- Front nose protrusion -->
+    <rect x="380" y="240" width="60" height="120" rx="20" fill="#FDD835" stroke="#F57F17" stroke-width="8"/>
+    
+    <!-- Stripe -->
+    <rect x="60" y="290" width="380" height="20" fill="#212121"/>
+    
+    <!-- Windows -->
+    <rect x="90" y="190" width="65" height="75" rx="12" fill="url(#windowGrad)" stroke="#0097A7" stroke-width="5"/>
+    <rect x="175" y="190" width="65" height="75" rx="12" fill="url(#windowGrad)" stroke="#0097A7" stroke-width="5"/>
+    <rect x="260" y="190" width="65" height="75" rx="12" fill="url(#windowGrad)" stroke="#0097A7" stroke-width="5"/>
+    
+    <!-- Windshield with eyes -->
+    <rect x="345" y="185" width="80" height="85" rx="15" fill="url(#windowGrad)" stroke="#0097A7" stroke-width="5"/>
+    <!-- Eyes -->
+    <circle cx="370" cy="225" r="10" fill="#212121"/>
+    <circle cx="373" cy="222" r="3" fill="#FFF"/>
+    <circle cx="405" cy="225" r="10" fill="#212121"/>
+    <circle cx="408" cy="222" r="3" fill="#FFF"/>
+    <!-- Cheerful mouth -->
+    <path d="M 375 245 Q 388 258 400 245" fill="none" stroke="#212121" stroke-width="5" stroke-linecap="round"/>
+    
+    <!-- Wheels -->
+    <g transform="translate(130, 360)">
+      <circle cx="0" cy="0" r="42" fill="#212121" stroke="#424242" stroke-width="4"/>
+      <circle cx="0" cy="0" r="22" fill="#B0BEC5"/>
+      <circle cx="0" cy="0" r="10" fill="#78909C"/>
+    </g>
+    <g transform="translate(350, 360)">
+      <circle cx="0" cy="0" r="42" fill="#212121" stroke="#424242" stroke-width="4"/>
+      <circle cx="0" cy="0" r="22" fill="#B0BEC5"/>
+      <circle cx="0" cy="0" r="10" fill="#78909C"/>
+    </g>
+    
+    <!-- Headlight -->
+    <circle cx="435" cy="285" r="14" fill="#FFF59D" stroke="#FBC02D" stroke-width="4"/>
+  </g>
+</svg>
