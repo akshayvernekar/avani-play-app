@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div class="home-container" :style="bgStyle">
     <!-- Header Section -->
     <header class="home-header">
       <div class="title-wrap">
@@ -78,13 +78,17 @@ function handleSettings() {
   const isMuted = audioManager.toggleMute();
   alert(isMuted ? "Audio Sound Muted 🔇" : "Audio Sound Enabled 🔊");
 }
+
+const bgStyle = {
+  backgroundImage: `url('${import.meta.env.BASE_URL}assets/backgrounds/home_bg.svg')`
+};
 </script>
 
 <style scoped>
 .home-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: url('/assets/backgrounds/home_bg.svg') center top / cover no-repeat;
+  background: center top / cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;

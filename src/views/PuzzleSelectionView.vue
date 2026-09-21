@@ -1,5 +1,5 @@
 <template>
-  <div class="selection-container">
+  <div class="selection-container" :style="bgStyle">
     <!-- Top Navigation Bar -->
     <header class="top-nav">
       <NavigationButton type="back" label="Back to Home" @click="goHome" />
@@ -39,13 +39,17 @@ function goHome() {
 function handleSelectPuzzle(puzzle: PuzzleItem) {
   router.push(`/puzzle/${puzzle.id}`);
 }
+
+const bgStyle = {
+  backgroundImage: `url('${import.meta.env.BASE_URL}assets/backgrounds/home_bg.svg')`
+};
 </script>
 
 <style scoped>
 .selection-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: url('/assets/backgrounds/home_bg.svg') center top / cover no-repeat;
+  background: center top / cover no-repeat;
   display: flex;
   flex-direction: column;
   padding: 20px;

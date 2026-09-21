@@ -12,13 +12,17 @@ export interface PuzzleItem {
   cardBgColor: string;
 }
 
+// Resolve asset paths correctly for both local dev and GitHub Pages deployment.
+// import.meta.env.BASE_URL is '/' locally and '/avani-play-app/' on GitHub Pages.
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // strip trailing slash
+
 export const puzzles: PuzzleItem[] = [
   {
     id: "fish",
     title: "Fish",
-    image: "/assets/puzzles/fish.png",
+    image: `${base}/assets/puzzles/fish.png`,
     background: "underwater",
-    bgImage: "/assets/backgrounds/underwater.png",
+    bgImage: `${base}/assets/backgrounds/underwater.png`,
     rows: 2,
     columns: 3,
     difficulty: "easy",
@@ -29,9 +33,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "tractor",
     title: "Tractor",
-    image: "/assets/puzzles/tractor.png",
+    image: `${base}/assets/puzzles/tractor.png`,
     background: "farm",
-    bgImage: "/assets/backgrounds/farm.svg",
+    bgImage: `${base}/assets/backgrounds/farm.svg`,
     rows: 2,
     columns: 2,
     difficulty: "easy",
@@ -42,9 +46,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "dog",
     title: "Dog",
-    image: "/assets/puzzles/dog.png",
+    image: `${base}/assets/puzzles/dog.png`,
     background: "meadow",
-    bgImage: "/assets/backgrounds/meadow.svg",
+    bgImage: `${base}/assets/backgrounds/meadow.svg`,
     rows: 2,
     columns: 2,
     difficulty: "easy",
@@ -55,9 +59,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "elephant",
     title: "Elephant",
-    image: "/assets/puzzles/elephant.png",
+    image: `${base}/assets/puzzles/elephant.png`,
     background: "meadow",
-    bgImage: "/assets/backgrounds/meadow.svg",
+    bgImage: `${base}/assets/backgrounds/meadow.svg`,
     rows: 2,
     columns: 3,
     difficulty: "easy",
@@ -68,9 +72,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "bus",
     title: "Bus",
-    image: "/assets/puzzles/bus.svg",
+    image: `${base}/assets/puzzles/bus.svg`,
     background: "farm",
-    bgImage: "/assets/backgrounds/farm.svg",
+    bgImage: `${base}/assets/backgrounds/farm.svg`,
     rows: 2,
     columns: 3,
     difficulty: "easy",
@@ -81,9 +85,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "butterfly",
     title: "Butterfly",
-    image: "/assets/puzzles/butterfly.svg",
+    image: `${base}/assets/puzzles/butterfly.svg`,
     background: "meadow",
-    bgImage: "/assets/backgrounds/meadow.svg",
+    bgImage: `${base}/assets/backgrounds/meadow.svg`,
     rows: 2,
     columns: 2,
     difficulty: "easy",
@@ -94,9 +98,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "apple",
     title: "Apple",
-    image: "/assets/puzzles/apple.svg",
+    image: `${base}/assets/puzzles/apple.svg`,
     background: "farm",
-    bgImage: "/assets/backgrounds/farm.svg",
+    bgImage: `${base}/assets/backgrounds/farm.svg`,
     rows: 2,
     columns: 2,
     difficulty: "easy",
@@ -107,9 +111,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "lion",
     title: "Lion",
-    image: "/assets/puzzles/lion.svg",
+    image: `${base}/assets/puzzles/lion.svg`,
     background: "meadow",
-    bgImage: "/assets/backgrounds/meadow.svg",
+    bgImage: `${base}/assets/backgrounds/meadow.svg`,
     rows: 2,
     columns: 3,
     difficulty: "easy",
