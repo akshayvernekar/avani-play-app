@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="100%" stop-color="#0288D1"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <rect width="192" height="192" rx="40" fill="url(#bg)"/>
+  <!-- Star shape -->
+  <text x="96" y="130" font-size="110" text-anchor="middle" font-family="Arial">🧩</text>
+  <!-- App name -->
+  <text x="96" y="175" font-size="18" font-weight="bold" text-anchor="middle" font-family="Arial, sans-serif" fill="white">Avani</text>
+</svg>
