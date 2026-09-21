@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="meadowSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="70%" stop-color="#B2EBF2"/>
+      <stop offset="100%" stop-color="#E8F5E9"/>
+    </linearGradient>
+    <linearGradient id="grassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#81C784"/>
+      <stop offset="100%" stop-color="#4CAF50"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1200" fill="url(#meadowSky)"/>
+
+  <!-- Rainbow -->
+  <g opacity="0.35" stroke-width="14" fill="none" transform="translate(400, 450)">
+    <path d="M -300 0 A 300 300 0 0 1 300 0" stroke="#FF5252"/>
+    <path d="M -285 0 A 285 285 0 0 1 285 0" stroke="#FF4081"/>
+    <path d="M -270 0 A 270 270 0 0 1 270 0" stroke="#FFEB3B"/>
+    <path d="M -255 0 A 255 255 0 0 1 255 0" stroke="#69F0AE"/>
+    <path d="M -240 0 A 240 240 0 0 1 240 0" stroke="#40C4FF"/>
+  </g>
+
+  <!-- Rolling Meadow Hills -->
+  <path d="M -100 600 Q 200 480 550 580 Q 750 520 900 620 L 900 1200 L -100 1200 Z" fill="#A5D6A7"/>
+  <path d="M -100 750 Q 250 660 500 780 Q 700 680 900 760 L 900 1200 L -100 1200 Z" fill="url(#grassGrad)"/>
+
+  <!-- Flowers in foreground -->
+  <g transform="translate(100, 950)">
+    <circle cx="0" cy="0" r="16" fill="#FF4081"/>
+    <circle cx="0" cy="0" r="6" fill="#FFEB3B"/>
+    <path d="M 0 0 L 0 80" stroke="#388E3C" stroke-width="6"/>
+  </g>
+  <g transform="translate(250, 980)">
+    <circle cx="0" cy="0" r="18" fill="#7C4DFF"/>
+    <circle cx="0" cy="0" r="7" fill="#FFEB3B"/>
+    <path d="M 0 0 L 0 80" stroke="#388E3C" stroke-width="6"/>
+  </g>
+  <g transform="translate(650, 930)">
+    <circle cx="0" cy="0" r="20" fill="#FF6D00"/>
+    <circle cx="0" cy="0" r="8" fill="#FFF"/>
+    <path d="M 0 0 L 0 80" stroke="#388E3C" stroke-width="6"/>
+  </g>
+</svg>
