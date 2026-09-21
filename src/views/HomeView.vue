@@ -18,15 +18,6 @@
       </p>
     </header>
 
-    <!-- Banner Graphic -->
-    <div class="hero-banner">
-      <div class="hero-illustration">
-        <div class="character-girl">👧🏻</div>
-        <div class="character-puppy">🐶</div>
-        <div class="rainbow-mini">🌈</div>
-      </div>
-    </div>
-
     <!-- Game Tiles Grid -->
     <main class="tiles-grid">
       <GameTile 
@@ -93,12 +84,12 @@ function handleSettings() {
 .home-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: linear-gradient(180deg, #E0F7FA 0%, #FFF9C4 50%, #E8F5E9 100%);
+  background: url('/assets/backgrounds/home_bg.svg') center top / cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 20px 20px 20px;
+  padding: 24px 20px 24px 20px;
   box-sizing: border-box;
   max-width: 540px;
   margin: 0 auto;
@@ -106,7 +97,9 @@ function handleSettings() {
 
 .home-header {
   text-align: center;
-  margin-bottom: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.8));
 }
 
 .title-wrap {
@@ -118,19 +111,20 @@ function handleSettings() {
 
 .main-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   font-weight: 700;
-  color: #FF5252;
+  color: #FF4081;
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
-  text-shadow: 0 4px 10px rgba(255, 82, 82, 0.15);
+  gap: 10px;
+  text-shadow: 0 4px 12px rgba(255, 64, 129, 0.2), 0 0 10px #FFFFFF;
 }
 
 .sun-icon {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   animation: spinSlow 12s linear infinite;
+  filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
 }
 
 @keyframes spinSlow {
@@ -140,63 +134,29 @@ function handleSettings() {
 
 .sub-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 2.6rem;
+  font-size: 3rem;
   font-weight: 700;
-  color: #7E57C2;
+  color: #651FFF;
   margin: 0;
-  text-shadow: 0 4px 10px rgba(126, 87, 194, 0.15);
+  text-shadow: 0 4px 12px rgba(101, 31, 255, 0.2), 0 0 10px #FFFFFF;
 }
 
 .tagline {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #5C6BC0;
-  margin: 8px 0 0 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1A237E;
+  margin: 10px 0 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
 }
 
 .heart {
-  color: #FF5252;
-  font-size: 0.95rem;
-}
-
-/* Hero Illustration Graphic */
-.hero-banner {
-  width: 100%;
-  background: linear-gradient(180deg, #A5D6A7 0%, #81C784 100%);
-  border-radius: 32px;
-  border: 4px solid #FFFFFF;
-  padding: 16px 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hero-illustration {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-size: 3.8rem;
-}
-
-.character-girl {
-  animation: bounceSlow 2s infinite ease-in-out alternate;
-}
-.character-puppy {
-  font-size: 3.2rem;
-  animation: bounceSlow 2s infinite ease-in-out alternate;
-  animation-delay: 0.3s;
-}
-.rainbow-mini {
-  font-size: 3rem;
-}
-
-@keyframes bounceSlow {
-  from { transform: translateY(0); }
-  to { transform: translateY(-6px); }
+  color: #FF4081;
+  font-size: 1.1rem;
 }
 
 /* Grid Layout */
@@ -204,8 +164,8 @@ function handleSettings() {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 18px;
+  margin-bottom: 24px;
 }
 
 /* Footer */
@@ -218,17 +178,18 @@ function handleSettings() {
 }
 
 .settings-btn {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #FFFFFF;
-  border: 3px solid #B0BEC5;
-  color: #546E7A;
+  border: 3.5px solid #29B6F6;
+  color: #0288D1;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   outline: none;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
   transition: transform 0.15s;
 }
 
@@ -237,17 +198,19 @@ function handleSettings() {
 }
 
 .settings-icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5px;
 }
 
 .made-with {
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #78909C;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 </style>

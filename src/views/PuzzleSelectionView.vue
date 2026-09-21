@@ -45,7 +45,7 @@ function handleSelectPuzzle(puzzle: PuzzleItem) {
 .selection-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: linear-gradient(180deg, #E0F7FA 0%, #FFF9C4 100%);
+  background: url('/assets/backgrounds/home_bg.svg') center top / cover no-repeat;
   display: flex;
   flex-direction: column;
   padding: 20px;
