@@ -99,10 +99,10 @@ export class PuzzleScene extends Phaser.Scene {
       this.createUnderwaterBubbles(width, height);
     }
 
-    // 2. Generate Board Target Width with generous margins for surrounding pieces
+    // 2. Generate Larger Puzzle Board (320px - 340px) for high visibility
     const boardTargetWidth = isPortrait
-      ? Math.min(width * 0.54, height * 0.30, 240)
-      : Math.min(width * 0.35, height * 0.48, 240);
+      ? Math.min(width * 0.72, height * 0.40, 320)
+      : Math.min(width * 0.46, height * 0.62, 340);
 
     const sourceKey = `source_${this.puzzleData.id}`;
     this.generatedPuzzle = PuzzleGenerator.generatePuzzle(
@@ -126,8 +126,8 @@ export class PuzzleScene extends Phaser.Scene {
 
     // 4. Calculate Non-Overlapping Perimeter Scatter Positions
     const firstPiece = this.generatedPuzzle.pieces[0];
-    const avgPieceW = firstPiece ? firstPiece.width : 100;
-    const avgPieceH = firstPiece ? firstPiece.height : 100;
+    const avgPieceW = firstPiece ? firstPiece.width : 120;
+    const avgPieceH = firstPiece ? firstPiece.height : 120;
 
     const scatterPositions = this.calculateNonOverlappingPositions(
       width,
@@ -156,7 +156,6 @@ export class PuzzleScene extends Phaser.Scene {
       sprite.setDepth(50);
       sprite.setInteractive({ draggable: true, useHandCursor: true });
 
-      // Apply scale if needed so piece sprite fits slot bounds comfortably
       if (slotPos.scale && slotPos.scale !== 1.0) {
         sprite.setScale(slotPos.scale);
       }
@@ -186,7 +185,8 @@ export class PuzzleScene extends Phaser.Scene {
       audioManager.playPickup();
 
       // Lift piece
-      gameObject.setScale(1.10);
+      const currentScale = gameObject.scaleX || 1.0;
+      gameObject.setScale(currentScale * 1.08);
       gameObject.setDepth(1000);
     });
 
@@ -204,8 +204,8 @@ export class PuzzleScene extends Phaser.Scene {
 
       const dist = Phaser.Math.Distance.Between(gameObject.x, gameObject.y, data.targetX, data.targetY);
 
-      // Magnetic Snap Radius (85 pixels tolerance for 2-year-olds)
-      const snapRadius = 85;
+      // Magnetic Snap Radius (90 pixels tolerance for 2-year-olds)
+      const snapRadius = 90;
 
       if (dist <= snapRadius) {
         // Correct Placement! Lock & Snap into target slot
@@ -274,19 +274,16 @@ export class PuzzleScene extends Phaser.Scene {
 
     const halfPW = pieceW / 2;
     const halfPH = pieceH / 2;
-    const gap = 24; // Minimum gap between objects
+    const gap = 16;
 
     if (!isPortrait) {
       // LANDSCAPE MODE (e.g. 800x400)
-      // Available left margin width: boardLeft
-      // Available right margin width: screenWidth - boardRight
-      const leftMarginCenter = Math.max(halfPW + 15, (boardLeft - 15) / 2);
-      const rightMarginCenter = Math.min(screenWidth - halfPW - 15, boardRight + (screenWidth - boardRight) / 2);
+      const leftMarginCenter = Math.max(halfPW + 10, (boardLeft - 10) / 2);
+      const rightMarginCenter = Math.min(screenWidth - halfPW - 10, boardRight + (screenWidth - boardRight) / 2);
 
-      // Check if piece width exceeds margin width; if so, scale down slightly
       let scale = 1.0;
-      if (leftMarginCenter - halfPW < 10) {
-        scale = 0.85;
+      if (leftMarginCenter - halfPW < 5 || boardLeft - (leftMarginCenter + halfPW) < 5) {
+        scale = 0.88;
       }
 
       const effectivePH = halfPH * 2 * scale;
@@ -302,8 +299,8 @@ export class PuzzleScene extends Phaser.Scene {
         );
       } else {
         // 6 Pieces: 2 Left, 2 Center (Top/Bottom), 2 Right
-        const topY = Math.max(effectivePH / 2 + 15, boardTop - effectivePH / 2 - gap);
-        const bottomY = Math.min(screenHeight - effectivePH / 2 - 15, boardBottom + effectivePH / 2 + gap);
+        const topY = Math.max(effectivePH / 2 + 10, boardTop - effectivePH / 2 - gap);
+        const bottomY = Math.min(screenHeight - effectivePH / 2 - 10, boardBottom + effectivePH / 2 + gap);
 
         positions.push(
           { x: leftMarginCenter, y: boardY - yOffset, scale },
@@ -316,7 +313,6 @@ export class PuzzleScene extends Phaser.Scene {
       }
     } else {
       // PORTRAIT MODE (e.g. 390x840)
-      // Place pieces in Top Row and Bottom Row
       let scale = 1.0;
       const topY = Math.max(halfPH + 70, boardTop - halfPH - gap);
       const bottomY = Math.min(screenHeight - halfPH - 60, boardBottom + halfPH + gap);
@@ -332,12 +328,12 @@ export class PuzzleScene extends Phaser.Scene {
       } else {
         // 6 Pieces: 3 Top, 3 Bottom
         positions.push(
-          { x: screenWidth * 0.20, y: topY, scale: 0.9 },
-          { x: screenWidth * 0.50, y: topY, scale: 0.9 },
-          { x: screenWidth * 0.80, y: topY, scale: 0.9 },
-          { x: screenWidth * 0.20, y: bottomY, scale: 0.9 },
-          { x: screenWidth * 0.50, y: bottomY, scale: 0.9 },
-          { x: screenWidth * 0.80, y: bottomY, scale: 0.9 }
+          { x: screenWidth * 0.20, y: topY, scale: 0.95 },
+          { x: screenWidth * 0.50, y: topY, scale: 0.95 },
+          { x: screenWidth * 0.80, y: topY, scale: 0.95 },
+          { x: screenWidth * 0.20, y: bottomY, scale: 0.95 },
+          { x: screenWidth * 0.50, y: bottomY, scale: 0.95 },
+          { x: screenWidth * 0.80, y: bottomY, scale: 0.95 }
         );
       }
     }
