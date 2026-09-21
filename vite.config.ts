@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import path from 'path'
 
 export default defineConfig({
+  base: '/avani-play-app/', // GitHub Pages base path
   plugins: [
     vue(),
     VitePWA({
@@ -20,17 +21,17 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'https://via.placeholder.com/192.png?text=Avani',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'https://via.placeholder.com/512.png?text=Avani',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'https://via.placeholder.com/512.png?text=Avani',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'

@@ -1,0 +1,26 @@
+/* Global styles for Avani Little World */
+
+/* Reset margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #e0f7fa; /* Light aqua background */
+  color: #212121;
+}
+
+/* Ensure Vue app fills the viewport */
+#app {
+  display: flex;
+  flex-direction: column;
+}
