@@ -1,7 +1,7 @@
 /**
  * Reusable Audio Manager for Avani's Little World
  * Handles button taps, piece pickups, magnetic snaps, spoken vocabulary, and celebration fanfares.
- * Synthesizes audio using Web Audio API and Web Speech API so it works seamlessly offline.
+ * Synthesizes audio using Web Audio API and Web Speech API so it works seamlessly offline and on mobile browsers.
  */
 
 class AudioManager {
@@ -10,7 +10,6 @@ class AudioManager {
   private isUnlocked: boolean = false;
 
   constructor() {
-    // AudioContext initialization on first user tap
     this.setupUnlockListeners();
   }
 
@@ -30,15 +29,32 @@ class AudioManager {
     const unlock = () => {
       this.initCtx();
       this.isUnlocked = true;
+
+      // Warm up SpeechSynthesis for mobile iOS Safari & Android Chrome
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.getVoices();
+          const dummy = new SpeechSynthesisUtterance('');
+          dummy.volume = 0;
+          window.speechSynthesis.speak(dummy);
+        } catch (e) {
+          // ignore warmup errors
+        }
+      }
+
       window.removeEventListener('pointerdown', unlock);
       window.removeEventListener('touchstart', unlock);
     };
+
     window.addEventListener('pointerdown', unlock);
     window.addEventListener('touchstart', unlock);
   }
 
   public toggleMute(): boolean {
     this.isMuted = !this.isMuted;
+    if (this.isMuted && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
     return this.isMuted;
   }
 
@@ -76,7 +92,7 @@ class AudioManager {
   }
 
   /**
-   * Piece pickup sound (soft gentle pop up)
+   * Piece pickup sound
    */
   public playPickup() {
     if (this.isMuted) return;
@@ -105,7 +121,7 @@ class AudioManager {
   }
 
   /**
-   * Magnetic snap sound (satisfying pop / click)
+   * Magnetic snap sound
    */
   public playSnap() {
     if (this.isMuted) return;
@@ -113,7 +129,6 @@ class AudioManager {
     if (!this.ctx) return;
 
     try {
-      // Crisp pop effect
       const osc1 = this.ctx.createOscillator();
       const osc2 = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
@@ -143,7 +158,7 @@ class AudioManager {
   }
 
   /**
-   * Celebration Fanfare when puzzle completes
+   * Celebration Fanfare
    */
   public playCelebration() {
     if (this.isMuted) return;
@@ -151,7 +166,7 @@ class AudioManager {
     if (!this.ctx) return;
 
     try {
-      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 arpeggio
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
       notes.forEach((freq, idx) => {
         if (!this.ctx) return;
         const osc = this.ctx.createOscillator();
@@ -177,7 +192,7 @@ class AudioManager {
   }
 
   /**
-   * Sound effect for specific puzzle object (e.g. bark, engine, splash)
+   * Object specific sound effect
    */
   public playObjectSound(effectType: string) {
     if (this.isMuted) return;
@@ -187,7 +202,6 @@ class AudioManager {
     try {
       const now = this.ctx.currentTime;
       if (effectType === 'bark') {
-        // Woof woof sound
         [0, 0.15].forEach(delay => {
           if (!this.ctx) return;
           const osc = this.ctx.createOscillator();
@@ -222,7 +236,6 @@ class AudioManager {
         osc.start(now);
         osc.stop(now + 0.6);
       } else if (effectType === 'ocean_splash' || effectType === 'splash') {
-        // Water splash sound
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sine';
@@ -238,7 +251,6 @@ class AudioManager {
         osc.start(now);
         osc.stop(now + 0.4);
       } else {
-        // Default happy chime
         this.playCelebration();
       }
     } catch (e) {
@@ -247,26 +259,39 @@ class AudioManager {
   }
 
   /**
-   * Spoken vocabulary word using Web Speech API
+   * Spoken vocabulary word using Web Speech API optimized for mobile Safari & Chrome
    */
   public speak(text: string) {
     if (this.isMuted) return;
 
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel(); // Clear previous speech
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.9; // Slightly slower, clear speech for toddlers
-      utterance.pitch = 1.2; // Slightly higher, friendly pitch
-      utterance.volume = 1.0;
-      
-      // Try to find a friendly English voice if available
-      const voices = window.speechSynthesis.getVoices();
-      const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha')));
-      if (preferredVoice) {
-        utterance.voice = preferredVoice;
+      try {
+        window.speechSynthesis.cancel();
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.85;
+        utterance.pitch = 1.1;
+        utterance.volume = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        if (voices && voices.length > 0) {
+          const preferredVoice = voices.find(
+            v => v.lang.startsWith('en') && (v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Daniel') || v.name.includes('Google') || v.name.includes('Natural'))
+          ) || voices.find(v => v.lang.startsWith('en'));
+
+          if (preferredVoice) {
+            utterance.voice = preferredVoice;
+          }
+        }
+
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn('Speech synthesis error:', err);
       }
-      
-      window.speechSynthesis.speak(utterance);
     }
   }
 }
