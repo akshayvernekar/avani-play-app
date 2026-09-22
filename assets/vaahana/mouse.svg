@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ECEFF1"/>
+      <stop offset="100%" stop-color="#90A4AE"/>
+    </linearGradient>
+    <filter id="mSh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#37474F" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#mSh)" transform="translate(250, 250)">
+    <!-- Long Curly Tail -->
+    <path d="M 80 40 C 170 80 150 -60 190 -40" fill="none" stroke="#78909C" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- Mouse Body -->
+    <ellipse cx="0" cy="40" rx="110" ry="85" fill="url(#mCard)" stroke="#37474F" stroke-width="7"/>
+
+    <!-- Mouse Head -->
+    <circle cx="-75" cy="-20" r="65" fill="url(#mCard)" stroke="#37474F" stroke-width="7"/>
+
+    <!-- Mouse Ears -->
+    <circle cx="-65" cy="-85" r="32" fill="#FF8A80" stroke="#37474F" stroke-width="6"/>
+
+    <!-- Mouse Snout / Nose -->
+    <circle cx="-135" cy="-10" r="14" fill="#E53935"/>
+
+    <!-- Mouse Big Eye -->
+    <circle cx="-95" cy="-30" r="12" fill="#212121"/>
+    <circle cx="-99" cy="-35" r="4.5" fill="#FFF"/>
+
+    <!-- Cute Modak in Paws -->
+    <path d="M -140 30 Q -120 0 -100 30 Z" fill="#FFB300" stroke="#E65100" stroke-width="4"/>
+
+    <!-- Rosy Cheek -->
+    <circle cx="-110" cy="-5" r="12" fill="#FF8A80" opacity="0.6"/>
+  </g>
+</svg>

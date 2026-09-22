@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="kpSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFB74D"/>
+    </linearGradient>
+    <linearGradient id="pFeathers" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E676"/>
+      <stop offset="50%" stop-color="#0288D1"/>
+      <stop offset="100%" stop-color="#651FFF"/>
+    </linearGradient>
+    <filter id="kpShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0288D1" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Aura Glow -->
+  <circle cx="250" cy="220" r="190" fill="#E8F5E9" opacity="0.7"/>
+
+  <g filter="url(#kpShadow)">
+    <!-- Magnificent Peacock Companion behind & beside Kartikeya -->
+    <g transform="translate(250, 260)">
+      <!-- Fan of Tail Feathers -->
+      <g>
+        <path d="M 0 40 Q -180 -100 -120 -160 C -80 -180 0 0 0 40 Z" fill="url(#pFeathers)" opacity="0.9"/>
+        <path d="M 0 40 Q -120 -150 -40 -190 C 0 -190 0 0 0 40 Z" fill="url(#pFeathers)" opacity="0.9"/>
+        <path d="M 0 40 Q 0 -200 40 -190 C 120 -150 0 0 0 40 Z" fill="url(#pFeathers)" opacity="0.9"/>
+        <path d="M 0 40 Q 180 -100 120 -160 C 80 -180 0 0 0 40 Z" fill="url(#pFeathers)" opacity="0.9"/>
+
+        <!-- Feather Eye Dots -->
+        <circle cx="-130" cy="-140" r="14" fill="#FFD54F"/>
+        <circle cx="-130" cy="-140" r="8" fill="#00B0FF"/>
+        <circle cx="-50" cy="-165" r="14" fill="#FFD54F"/>
+        <circle cx="-50" cy="-165" r="8" fill="#00B0FF"/>
+        <circle cx="50" cy="-165" r="14" fill="#FFD54F"/>
+        <circle cx="50" cy="-165" r="8" fill="#00B0FF"/>
+        <circle cx="130" cy="-140" r="14" fill="#FFD54F"/>
+        <circle cx="130" cy="-140" r="8" fill="#00B0FF"/>
+      </g>
+
+      <!-- Peacock Body & Head (Left side) -->
+      <g transform="translate(-110, 40)">
+        <ellipse cx="0" cy="20" rx="45" ry="35" fill="#0288D1" stroke="#01579B" stroke-width="4"/>
+        <path d="M -15 0 C -30 -30 -15 -60 -5 -70 C 10 -60 10 -30 15 0 Z" fill="#0288D1" stroke="#01579B" stroke-width="4"/>
+        <circle cx="-5" cy="-75" r="18" fill="#0288D1" stroke="#01579B" stroke-width="4"/>
+        <path d="M -18 -75 L -30 -72 L -18 -68 Z" fill="#FFD54F"/>
+        <circle cx="-8" cy="-80" r="4" fill="#FFF"/>
+        <circle cx="-9" cy="-80" r="2" fill="#212121"/>
+        <!-- Crest on head -->
+        <line x1="-5" y1="-92" x2="-10" y2="-105" stroke="#FFD54F" stroke-width="2"/>
+        <circle cx="-10" cy="-105" r="3" fill="#00E676"/>
+        <line x1="-5" y1="-92" x2="-3" y2="-107" stroke="#FFD54F" stroke-width="2"/>
+        <circle cx="-3" cy="-107" r="3" fill="#00E676"/>
+      </g>
+    </g>
+
+    <!-- Kartikeya sitting gracefully in front -->
+    <g transform="translate(260, 200)">
+      <!-- Vel Spear -->
+      <g transform="translate(100, -40)">
+        <line x1="0" y1="-40" x2="0" y2="190" stroke="#FFB300" stroke-width="7"/>
+        <path d="M 0 -90 C -25 -50 -15 -20 0 -20 C 15 -20 25 -50 0 -90 Z" fill="#FFE082" stroke="#FF8F00" stroke-width="3"/>
+      </g>
+
+      <!-- Body -->
+      <ellipse cx="0" cy="70" rx="68" ry="55" fill="url(#kpSkin)" stroke="#E65100" stroke-width="4"/>
+      <path d="M -60 45 Q 0 120 60 45 Z" fill="#4CAF50" stroke="#2E7D32" stroke-width="4"/>
+
+      <!-- Head -->
+      <circle cx="0" cy="-25" r="68" fill="url(#kpSkin)" stroke="#E65100" stroke-width="5"/>
+
+      <!-- Crown -->
+      <path d="M -60 -80 L 60 -80 L 45 -155 L 0 -180 L -45 -155 Z" fill="#FFD54F" stroke="#E65100" stroke-width="5"/>
+      <circle cx="0" cy="-130" r="14" fill="#00E676"/>
+
+      <!-- Eyes -->
+      <ellipse cx="-28" cy="-38" rx="11" ry="13" fill="#212121"/>
+      <circle cx="-31" cy="-42" r="4" fill="#FFF"/>
+      <ellipse cx="28" cy="-38" rx="11" ry="13" fill="#212121"/>
+      <circle cx="25" cy="-42" r="4" fill="#FFF"/>
+
+      <!-- Smile -->
+      <path d="M -18 -8 Q 0 12 18 -8" fill="none" stroke="#E65100" stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- Cheeks -->
+      <circle cx="-40" cy="-18" r="12" fill="#FF8A80" opacity="0.6"/>
+      <circle cx="40" cy="-18" r="12" fill="#FF8A80" opacity="0.6"/>
+    </g>
+  </g>
+</svg>
