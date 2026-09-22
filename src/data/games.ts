@@ -18,10 +18,10 @@ const baseUrl = import.meta.env.BASE_URL;
 export const games: GameCategory[] = [
   {
     id: "vaahana",
-    title: "Find My Vaahana",
-    subtitle: "Match Gods & Vehicles!",
+    title: "Gods & Vaahanas",
+    subtitle: "Match the Gods with their Vehicles!",
     iconName: "Sparkles",
-    customIcon: `${baseUrl}assets/vaahana/tile-icon.svg`,
+    customIcon: `${baseUrl}assets/vaahana/ganesha.png`,
     bgColor: "#FFF3E0",
     borderColor: "#FF9800",
     textColor: "#E65100",

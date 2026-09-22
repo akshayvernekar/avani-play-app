@@ -6,7 +6,7 @@
       <p class="deity-question">Who is my Vaahana?</p>
     </div>
 
-    <!-- Main Card Body -->
+    <!-- Main Stage Card -->
     <div 
       ref="dropZoneRef" 
       class="deity-stage" 
@@ -16,7 +16,7 @@
         'is-hinting': isHinting 
       }"
     >
-      <!-- Deity Image (Initial or Success) -->
+      <!-- Deity Image -->
       <div class="image-wrapper">
         <transition name="pop-swap" mode="out-in">
           <img 
@@ -25,6 +25,13 @@
             :alt="deity.deityName" 
             class="deity-illustration" 
           />
+        </transition>
+
+        <!-- Matched Emoji Badge on Success -->
+        <transition name="pop-badge">
+          <div v-if="isSuccess && matchedEmoji" class="matched-vaahana-badge">
+            <span class="badge-emoji">{{ matchedEmoji }}</span>
+          </div>
         </transition>
 
         <!-- Drop Target Overlay Ring (When matching) -->
@@ -36,7 +43,7 @@
         </div>
       </div>
 
-      <!-- Success Overlay Content -->
+      <!-- Success Content Banner -->
       <div v-if="isSuccess" class="success-banner">
         <div class="celebration-badge">
           <span class="star-pop">⭐</span>
@@ -56,11 +63,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { DeityItem } from '../../data/vaahana';
+import { ref, computed } from 'vue';
+import { DeityItem, vaahanas } from '../../data/vaahana';
 import { ArrowRight } from 'lucide-vue-next';
 
-defineProps<{
+const props = defineProps<{
   deity: DeityItem;
   isSuccess: boolean;
   isDragOver: boolean;
@@ -72,6 +79,11 @@ const emit = defineEmits<{
 }>();
 
 const dropZoneRef = ref<HTMLElement | null>(null);
+
+const matchedEmoji = computed(() => {
+  const v = vaahanas.find(item => item.id === props.deity.correctVaahana);
+  return v ? v.emoji : '';
+});
 
 function handleNext() {
   emit('next');
@@ -88,12 +100,12 @@ defineExpose({
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px 0;
+  margin: 6px 0;
 }
 
 .deity-header {
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .deity-name {
@@ -118,11 +130,11 @@ defineExpose({
 .deity-stage {
   position: relative;
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
   background: radial-gradient(circle, #FFFDE7 0%, #FFF3E0 100%);
   border: 5px solid #FFB300;
   border-radius: 36px;
-  padding: 16px;
+  padding: 12px 16px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,7 +147,7 @@ defineExpose({
   border-color: #4CAF50;
   background: radial-gradient(circle, #F1F8E9 0%, #DCEDC8 100%);
   transform: scale(1.03);
-  box-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
+  box-shadow: 0 0 32px rgba(76, 175, 80, 0.5);
 }
 
 .deity-stage.is-success {
@@ -152,33 +164,62 @@ defineExpose({
   to { border-color: #FF5722; box-shadow: 0 0 24px rgba(255, 87, 34, 0.6); transform: scale(1.02); }
 }
 
+/* Image Wrapper - Enlarged for Deity PNGs */
 .image-wrapper {
   position: relative;
   width: 100%;
-  height: 210px;
+  height: 275px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .deity-illustration {
-  max-width: 100%;
-  max-height: 200px;
+  max-width: 95%;
+  max-height: 265px;
   object-fit: contain;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
-  mix-blend-mode: multiply;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.16));
+  transition: transform 0.25s ease;
+}
+
+/* Matched Emoji Badge */
+.matched-vaahana-badge {
+  position: absolute;
+  bottom: 0px;
+  right: 15px;
+  background: #FFFFFF;
+  border: 4px solid #4CAF50;
+  border-radius: 50%;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.35);
+  animation: bounceBadge 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceBadge {
+  0% { transform: scale(0) rotate(-45deg); }
+  70% { transform: scale(1.2) rotate(10deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.badge-emoji {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 /* Drop Zone Ring */
 .drop-zone-ring {
   position: absolute;
-  bottom: 0px;
+  bottom: 4px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   border: 3px dashed #FF9800;
   border-radius: 30px;
-  padding: 6px 18px;
+  padding: 6px 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.25s ease;
   pointer-events: none;
@@ -218,7 +259,7 @@ defineExpose({
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 8px;
   animation: slideUp 0.3s ease-out;
 }
 
@@ -259,7 +300,7 @@ defineExpose({
   font-size: 1.05rem;
   font-weight: 600;
   color: #1B5E20;
-  margin: 8px 0;
+  margin: 6px 0;
   text-align: center;
 }
 
@@ -299,6 +340,14 @@ defineExpose({
 .pop-swap-enter-from,
 .pop-swap-leave-to {
   transform: scale(0.7);
+  opacity: 0;
+}
+
+.pop-badge-enter-active {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pop-badge-enter-from {
+  transform: scale(0);
   opacity: 0;
 }
 </style>

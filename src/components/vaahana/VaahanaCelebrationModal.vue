@@ -13,7 +13,10 @@
       <!-- Grid of all 6 completed Deities -->
       <div class="deities-gallery-grid">
         <div v-for="item in deityList" :key="item.id" class="gallery-item">
-          <img :src="item.successImage" :alt="item.deityName" class="gallery-img" />
+          <div class="gallery-img-box">
+            <img :src="item.deityImage" :alt="item.deityName" class="gallery-img" />
+            <span class="gallery-emoji-badge">{{ getEmoji(item.correctVaahana) }}</span>
+          </div>
           <span class="gallery-name">{{ item.deityName }}</span>
         </div>
       </div>
@@ -36,7 +39,7 @@
 
 <script setup lang="ts">
 import { watch } from 'vue';
-import { DeityItem } from '../../data/vaahana';
+import { DeityItem, vaahanas } from '../../data/vaahana';
 import { RotateCcw, Home } from 'lucide-vue-next';
 import { audioManager } from '../../audio/AudioManager';
 import confetti from 'canvas-confetti';
@@ -52,11 +55,15 @@ const emit = defineEmits<{
   (e: 'close'): void;
 }>();
 
+function getEmoji(vaahanaId: string): string {
+  const v = vaahanas.find(item => item.id === vaahanaId);
+  return v ? v.emoji : '✨';
+}
+
 watch(() => props.show, (newVal) => {
   if (newVal) {
     audioManager.playCelebration();
     audioManager.speak("Amazing! You found all the Vaahanas!");
-    // Festive multi-burst confetti
     confetti({
       particleCount: 100,
       spread: 80,
@@ -193,13 +200,32 @@ function handleBackdropClick() {
   background: #FFFDE7;
   border: 2px solid #FFE082;
   border-radius: 16px;
-  padding: 6px 4px;
+  padding: 8px 4px 6px;
+  position: relative;
+}
+
+.gallery-img-box {
+  position: relative;
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-img {
-  width: 70px;
-  height: 65px;
+  max-width: 90%;
+  max-height: 70px;
   object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
+}
+
+.gallery-emoji-badge {
+  position: absolute;
+  bottom: -4px;
+  right: 2px;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .gallery-name {
@@ -207,7 +233,7 @@ function handleBackdropClick() {
   font-size: 0.85rem;
   font-weight: 700;
   color: #E65100;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .actions-row {
