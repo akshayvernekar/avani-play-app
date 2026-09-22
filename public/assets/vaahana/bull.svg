@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+    <filter id="bSh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#424242" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#bSh)" transform="translate(250, 250)">
+    <!-- Hump -->
+    <circle cx="-40" cy="-35" r="45" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="6"/>
+
+    <!-- Body -->
+    <ellipse cx="10" cy="35" rx="120" ry="80" fill="url(#bCard)" stroke="#9E9E9E" stroke-width="7"/>
+
+    <!-- Red Decorative Cloth -->
+    <path d="M -50 0 Q 10 50 70 0 Z" fill="#E53935" stroke="#B71C1C" stroke-width="4"/>
+
+    <!-- Head -->
+    <ellipse cx="-100" cy="10" rx="60" ry="50" fill="url(#bCard)" stroke="#9E9E9E" stroke-width="7"/>
+
+    <!-- Horns -->
+    <path d="M -125 -25 Q -145 -70 -110 -80 Q -95 -50 -105 -25 Z" fill="#FFE082" stroke="#FFB300" stroke-width="4"/>
+    <path d="M -80 -25 Q -65 -70 -100 -80 Q -85 -50 -70 -25 Z" fill="#FFE082" stroke="#FFB300" stroke-width="4"/>
+
+    <!-- Ears -->
+    <ellipse cx="-135" cy="10" rx="22" ry="14" fill="#FFCDD2" stroke="#9E9E9E" stroke-width="4"/>
+
+    <!-- Eyes -->
+    <ellipse cx="-110" cy="-5" rx="10" ry="13" fill="#212121"/>
+    <circle cx="-113" cy="-9" r="4" fill="#FFF"/>
+
+    <!-- Bell Collar -->
+    <path d="M -130 30 Q -100 65 -65 45" fill="none" stroke="#FFB300" stroke-width="8"/>
+    <circle cx="-95" cy="50" r="12" fill="#FFC107" stroke="#FFA000" stroke-width="3"/>
+
+    <!-- Muzzle -->
+    <ellipse cx="-145" cy="25" rx="20" ry="18" fill="#FFCDD2"/>
+  </g>
+</svg>

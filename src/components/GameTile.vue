@@ -10,10 +10,12 @@
     @click="handleClick"
   >
     <div class="tile-icon-container">
-      <component :is="iconComponent" class="tile-icon" />
+      <img v-if="game.customIcon" :src="game.customIcon" class="custom-tile-icon" :alt="game.title" />
+      <component v-else :is="iconComponent" class="tile-icon" />
     </div>
     
     <span class="tile-title">{{ game.title }}</span>
+    <span v-if="game.subtitle" class="tile-subtitle">{{ game.subtitle }}</span>
 
     <div v-if="game.badge" class="tile-badge">
       {{ game.badge }}
@@ -94,12 +96,28 @@ function handleClick() {
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
+.custom-tile-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
 .tile-title {
   font-family: 'Fredoka', 'Outfit', sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   text-align: center;
   line-height: 1.1;
+}
+
+.tile-subtitle {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 3px;
+  opacity: 0.9;
 }
 
 .tile-badge {

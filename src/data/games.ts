@@ -1,25 +1,44 @@
 export interface GameCategory {
   id: string;
   title: string;
+  subtitle?: string;
   iconName: string; // Lucide icon or custom vector name
+  customIcon?: string;
   bgColor: string;
   borderColor: string;
   textColor: string;
   enabled: boolean;
   comingSoonText?: string;
   badge?: string;
+  route?: string;
 }
+
+const baseUrl = import.meta.env.BASE_URL;
 
 export const games: GameCategory[] = [
   {
-    id: "puzzles",
-    title: "Puzzles",
-    iconName: "Puzzle",
+    id: "vaahana",
+    title: "Find My Vaahana",
+    subtitle: "Match Gods & Vehicles!",
+    iconName: "Sparkles",
+    customIcon: `${baseUrl}assets/vaahana/tile-icon.svg`,
     bgColor: "#FFF3E0",
     borderColor: "#FF9800",
     textColor: "#E65100",
     enabled: true,
-    badge: "8 Fun Puzzles"
+    badge: "New Game!",
+    route: "/vaahana"
+  },
+  {
+    id: "puzzles",
+    title: "Puzzles",
+    iconName: "Puzzle",
+    bgColor: "#E3F2FD",
+    borderColor: "#1E88E5",
+    textColor: "#0D47A1",
+    enabled: true,
+    badge: "8 Fun Puzzles",
+    route: "/puzzles"
   },
   {
     id: "animals",

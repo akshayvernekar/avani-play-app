@@ -66,7 +66,7 @@ const comingSoonMessage = ref('');
 
 function handleSelectGame(game: GameCategory) {
   if (game.enabled) {
-    router.push('/puzzles');
+    router.push(game.route || '/puzzles');
   } else {
     comingSoonMessage.value = game.comingSoonText || `${game.title} games are coming soon!`;
     showComingSoon.value = true;

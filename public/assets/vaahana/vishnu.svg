@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="vSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B3E5FC"/>
+      <stop offset="100%" stop-color="#4FC3F7"/>
+    </linearGradient>
+    <linearGradient id="vCrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+    <linearGradient id="vSilk" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFEE58"/>
+      <stop offset="100%" stop-color="#FBC02D"/>
+    </linearGradient>
+    <filter id="vShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0277BD" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Aura Glow -->
+  <circle cx="250" cy="230" r="180" fill="#E1F5FE" opacity="0.8"/>
+
+  <g filter="url(#vShadow)" transform="translate(250, 250)">
+    <!-- Body & Golden Silk Garment -->
+    <ellipse cx="0" cy="90" rx="80" ry="75" fill="url(#vSkin)" stroke="#0288D1" stroke-width="5"/>
+    <path d="M -75 60 Q 0 150 75 60 Q 0 120 -75 60 Z" fill="url(#vSilk)" stroke="#F57F17" stroke-width="4"/>
+
+    <!-- Lotus & Chakra Emblem Accents on sides -->
+    <g transform="translate(-100, 40)">
+      <!-- Lotus -->
+      <path d="M 0 0 C -20 -30 0 -50 0 -50 C 0 -50 20 -30 0 0 Z" fill="#F48FB1" stroke="#C2185B" stroke-width="2"/>
+    </g>
+    <g transform="translate(100, 40)">
+      <!-- Chakra disc -->
+      <circle cx="0" cy="-20" r="22" fill="#FFD54F" stroke="#FF8F00" stroke-width="3"/>
+      <circle cx="0" cy="-20" r="8" fill="#4FC3F7"/>
+    </g>
+
+    <!-- Head -->
+    <circle cx="0" cy="-30" r="80" fill="url(#vSkin)" stroke="#0288D1" stroke-width="6"/>
+
+    <!-- Eyes (Benevolent & Peaceful) -->
+    <ellipse cx="-35" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="-40" cy="-50" r="5" fill="#FFF"/>
+    <ellipse cx="35" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="30" cy="-50" r="5" fill="#FFF"/>
+
+    <!-- U-shaped Tilak (Namam) -->
+    <path d="M -15 -90 L -15 -70 Q 0 -55 15 -70 L 15 -90 Z" fill="#FFF" stroke="#E53935" stroke-width="2"/>
+    <line x1="0" y1="-85" x2="0" y2="-62" stroke="#E53935" stroke-width="4"/>
+
+    <!-- Crown (Mukut) -->
+    <path d="M -75 -95 L 75 -95 L 55 -185 L 0 -215 L -55 -185 Z" fill="url(#vCrown)" stroke="#F57F17" stroke-width="5"/>
+    <circle cx="0" cy="-155" r="18" fill="#29B6F6"/>
+    <circle cx="0" cy="-155" r="8" fill="#FFF"/>
+
+    <!-- Smile & Cheeks -->
+    <path d="M -22 -10 Q 0 15 22 -10" fill="none" stroke="#0277BD" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="-50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+  </g>
+</svg>

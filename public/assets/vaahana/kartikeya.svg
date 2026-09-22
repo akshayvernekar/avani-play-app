@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="kSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFB74D"/>
+    </linearGradient>
+    <linearGradient id="kCrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+    <filter id="kShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#E65100" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Aura Glow -->
+  <circle cx="250" cy="230" r="180" fill="#E8F5E9" opacity="0.8"/>
+
+  <g filter="url(#kShadow)" transform="translate(250, 250)">
+    <!-- Vel (Divine Spear) -->
+    <g transform="translate(-130, -30)">
+      <line x1="0" y1="-90" x2="0" y2="240" stroke="#FFB300" stroke-width="8" stroke-linecap="round"/>
+      <!-- Spear head (Leaf shape) -->
+      <path d="M 0 -150 C -35 -90 -20 -50 0 -50 C 20 -50 35 -90 0 -150 Z" fill="#FFE082" stroke="#FF8F00" stroke-width="4"/>
+      <circle cx="0" cy="-90" r="8" fill="#E91E63"/>
+    </g>
+
+    <!-- Body & Royal Garment -->
+    <ellipse cx="0" cy="90" rx="80" ry="75" fill="url(#kSkin)" stroke="#E65100" stroke-width="5"/>
+    <path d="M -75 60 Q 0 150 75 60 Q 0 120 -75 60 Z" fill="#4CAF50" stroke="#2E7D32" stroke-width="4"/>
+
+    <!-- Head -->
+    <circle cx="0" cy="-30" r="80" fill="url(#kSkin)" stroke="#E65100" stroke-width="6"/>
+
+    <!-- Peacock Feather on Crown -->
+    <g transform="translate(45, -140)">
+      <ellipse cx="0" cy="0" rx="20" ry="30" fill="#00E676" stroke="#00B0FF" stroke-width="3"/>
+      <ellipse cx="0" cy="5" rx="12" ry="18" fill="#29B6F6"/>
+      <ellipse cx="0" cy="10" rx="6" ry="10" fill="#651FFF"/>
+    </g>
+
+    <!-- Eyes (Bright & Energetic) -->
+    <ellipse cx="-35" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="-40" cy="-50" r="5" fill="#FFF"/>
+    <ellipse cx="35" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="30" cy="-50" r="5" fill="#FFF"/>
+
+    <!-- Tilak -->
+    <path d="M -12 -80 L 12 -80 L 0 -105 Z" fill="#E53935"/>
+    <circle cx="0" cy="-88" r="4" fill="#FFEB3B"/>
+
+    <!-- Crown (Mukut) -->
+    <path d="M -70 -95 L 70 -95 L 50 -185 L 0 -210 L -50 -185 Z" fill="url(#kCrown)" stroke="#E65100" stroke-width="5"/>
+    <circle cx="0" cy="-150" r="16" fill="#00E676"/>
+    <circle cx="0" cy="-150" r="7" fill="#FFF"/>
+
+    <!-- Smile & Rosy Cheeks -->
+    <path d="M -22 -10 Q 0 15 22 -10" fill="none" stroke="#E65100" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="-50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+  </g>
+</svg>

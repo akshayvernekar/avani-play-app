@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gmBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFAB91"/>
+      <stop offset="100%" stop-color="#FF7043"/>
+    </linearGradient>
+    <linearGradient id="gmCrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+    <linearGradient id="mGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CFD8DC"/>
+      <stop offset="100%" stop-color="#78909C"/>
+    </linearGradient>
+    <filter id="gmShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#37474F" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Festive Aura & Flowers -->
+  <circle cx="250" cy="220" r="190" fill="#FFF9C4" opacity="0.7"/>
+  <circle cx="70" cy="100" r="16" fill="#FF4081" opacity="0.8"/>
+  <circle cx="430" cy="110" r="14" fill="#FFC107" opacity="0.8"/>
+  <circle cx="440" cy="300" r="12" fill="#4CAF50" opacity="0.8"/>
+
+  <g filter="url(#gmShadow)">
+    <!-- Cute Mooshika Base/Side Mount -->
+    <g transform="translate(160, 310)">
+      <!-- Mouse Tail -->
+      <path d="M -50 30 C -110 50 -100 -20 -120 -10" fill="none" stroke="#78909C" stroke-width="8" stroke-linecap="round"/>
+      <!-- Mouse Body -->
+      <ellipse cx="20" cy="30" rx="110" ry="60" fill="url(#mGrad)" stroke="#37474F" stroke-width="6"/>
+      <!-- Mouse Head -->
+      <circle cx="-60" cy="10" r="45" fill="url(#mGrad)" stroke="#37474F" stroke-width="6"/>
+      <!-- Mouse Ears -->
+      <circle cx="-50" cy="-30" r="22" fill="#FF8A80" stroke="#37474F" stroke-width="5"/>
+      <!-- Mouse Eye -->
+      <circle cx="-80" cy="0" r="7" fill="#212121"/>
+      <circle cx="-83" cy="-3" r="2.5" fill="#FFF"/>
+      <!-- Mouse Nose -->
+      <circle cx="-102" cy="12" r="6" fill="#E53935"/>
+      <!-- Modak held by Mouse -->
+      <path d="M -110 30 Q -100 10 -90 30 Z" fill="#FFB300" stroke="#E65100" stroke-width="3"/>
+    </g>
+
+    <!-- Ganesha sitting proudly on Mouse -->
+    <g transform="translate(260, 200)">
+      <!-- Body & Dhoti -->
+      <ellipse cx="0" cy="70" rx="75" ry="60" fill="url(#gmBody)" stroke="#E64A19" stroke-width="5"/>
+      <path d="M -65 50 Q 0 130 65 50 Z" fill="#FFF176" stroke="#F57F17" stroke-width="4"/>
+
+      <!-- Arms -->
+      <path d="M -60 30 Q -90 45 -70 70 Z" fill="url(#gmBody)" stroke="#E64A19" stroke-width="4"/>
+      <ellipse cx="-80" cy="55" rx="12" ry="14" fill="#FFB300"/>
+
+      <path d="M 60 30 Q 90 40 80 70 Z" fill="url(#gmBody)" stroke="#E64A19" stroke-width="4"/>
+      <circle cx="75" cy="55" r="12" fill="#FF8A65"/>
+      <circle cx="75" cy="55" r="4" fill="#E53935"/>
+
+      <!-- Ears -->
+      <ellipse cx="-80" cy="-35" rx="45" ry="35" fill="#FFAB91" stroke="#E64A19" stroke-width="4"/>
+      <ellipse cx="-80" cy="-35" rx="25" ry="18" fill="#FF8A65"/>
+      <ellipse cx="80" cy="-35" rx="45" ry="35" fill="#FFAB91" stroke="#E64A19" stroke-width="4"/>
+      <ellipse cx="80" cy="-35" rx="25" ry="18" fill="#FF8A65"/>
+
+      <!-- Head -->
+      <ellipse cx="0" cy="-25" rx="75" ry="65" fill="url(#gmBody)" stroke="#E64A19" stroke-width="5"/>
+
+      <!-- Eyes -->
+      <ellipse cx="-32" cy="-40" rx="11" ry="13" fill="#212121"/>
+      <circle cx="-35" cy="-44" r="4" fill="#FFF"/>
+      <ellipse cx="32" cy="-40" rx="11" ry="13" fill="#212121"/>
+      <circle cx="28" cy="-44" r="4" fill="#FFF"/>
+
+      <!-- Tilak -->
+      <path d="M -14 -90 L 14 -90 L 18 -102 L 0 -115 L -18 -102 Z" fill="#E53935"/>
+      <circle cx="0" cy="-96" r="5" fill="#FFEB3B"/>
+
+      <!-- Trunk -->
+      <path d="M -15 -10 C -25 35 30 45 40 20 C 44 8 28 4 20 16" fill="none" stroke="#E64A19" stroke-width="18" stroke-linecap="round"/>
+      <path d="M -15 -10 C -25 35 30 45 40 20 C 44 8 28 4 20 16" fill="none" stroke="#FFAB91" stroke-width="10" stroke-linecap="round"/>
+
+      <!-- Crown -->
+      <path d="M -55 -85 L 55 -85 L 40 -150 L 0 -175 L -40 -150 Z" fill="url(#gmCrown)" stroke="#F57F17" stroke-width="5"/>
+      <circle cx="0" cy="-125" r="12" fill="#E91E63"/>
+      <circle cx="0" cy="-125" r="5" fill="#FFF"/>
+
+      <!-- Cheeks -->
+      <circle cx="-45" cy="-15" r="12" fill="#FF8A80" opacity="0.6"/>
+      <circle cx="45" cy="-15" r="12" fill="#FF8A80" opacity="0.6"/>
+    </g>
+  </g>
+</svg>
