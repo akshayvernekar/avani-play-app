@@ -13,7 +13,8 @@ export interface DeityItem {
 export interface VaahanaOptionItem {
     id: string;
     name: string;
-    image: string;
+    emoji: string;        // Used now — large emoji display
+    image?: string;       // Reserved for future real artwork
 }
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -23,7 +24,7 @@ export const vaahanaData: DeityItem[] = [
         id: "ganesha",
         deityName: "Ganesha",
         titleName: "Lord Ganesha",
-        deityImage: `${baseUrl}assets/vaahana/ganesha.svg`,
+        deityImage: `${baseUrl}assets/vaahana/ganesha.png`,
         successImage: `${baseUrl}assets/vaahana/ganesha-mouse.svg`,
         correctVaahana: "mouse",
         vaahanaName: "Mouse",
@@ -34,7 +35,7 @@ export const vaahanaData: DeityItem[] = [
         id: "shiva",
         deityName: "Shiva",
         titleName: "Lord Shiva",
-        deityImage: `${baseUrl}assets/vaahana/shiva.svg`,
+        deityImage: `${baseUrl}assets/vaahana/shiva.png`,
         successImage: `${baseUrl}assets/vaahana/shiva-nandi.svg`,
         correctVaahana: "nandi",
         vaahanaName: "Bull",
@@ -45,7 +46,7 @@ export const vaahanaData: DeityItem[] = [
         id: "durga",
         deityName: "Durga",
         titleName: "Goddess Durga",
-        deityImage: `${baseUrl}assets/vaahana/durga.svg`,
+        deityImage: `${baseUrl}assets/vaahana/durga.png`,
         successImage: `${baseUrl}assets/vaahana/durga-lion.svg`,
         correctVaahana: "lion",
         vaahanaName: "Lion",
@@ -56,7 +57,7 @@ export const vaahanaData: DeityItem[] = [
         id: "kartikeya",
         deityName: "Kartikeya",
         titleName: "Kartikeya (Murugan)",
-        deityImage: `${baseUrl}assets/vaahana/kartikeya.svg`,
+        deityImage: `${baseUrl}assets/vaahana/kartikeya.png`,
         successImage: `${baseUrl}assets/vaahana/kartikeya-peacock.svg`,
         correctVaahana: "peacock",
         vaahanaName: "Peacock",
@@ -67,7 +68,7 @@ export const vaahanaData: DeityItem[] = [
         id: "vishnu",
         deityName: "Vishnu",
         titleName: "Lord Vishnu",
-        deityImage: `${baseUrl}assets/vaahana/vishnu.svg`,
+        deityImage: `${baseUrl}assets/vaahana/vishnu.png`,
         successImage: `${baseUrl}assets/vaahana/vishnu-garuda.svg`,
         correctVaahana: "garuda",
         vaahanaName: "Eagle",
@@ -78,7 +79,7 @@ export const vaahanaData: DeityItem[] = [
         id: "saraswati",
         deityName: "Saraswati",
         titleName: "Goddess Saraswati",
-        deityImage: `${baseUrl}assets/vaahana/saraswati.svg`,
+        deityImage: `${baseUrl}assets/vaahana/saraswati.png`,
         successImage: `${baseUrl}assets/vaahana/saraswati-swan.svg`,
         correctVaahana: "swan",
         vaahanaName: "Swan",
@@ -91,32 +92,32 @@ export const vaahanas: VaahanaOptionItem[] = [
     {
         id: "mouse",
         name: "Mouse",
-        image: `${baseUrl}assets/vaahana/mouse.svg`
+        emoji: "🐭"
     },
     {
         id: "nandi",
         name: "Bull",
-        image: `${baseUrl}assets/vaahana/bull.svg`
+        emoji: "🐂"
     },
     {
         id: "lion",
         name: "Lion",
-        image: `${baseUrl}assets/vaahana/lion.svg`
+        emoji: "🦁"
     },
     {
         id: "peacock",
         name: "Peacock",
-        image: `${baseUrl}assets/vaahana/peacock.svg`
+        emoji: "🦚"
     },
     {
         id: "garuda",
         name: "Eagle",
-        image: `${baseUrl}assets/vaahana/garuda.svg`
+        emoji: "🦅"
     },
     {
         id: "swan",
         name: "Swan",
-        image: `${baseUrl}assets/vaahana/swan.svg`
+        emoji: "🦢"
     }
 ];
 
