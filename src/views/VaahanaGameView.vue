@@ -2,15 +2,13 @@
   <div class="game-view-container" :style="bgStyle">
     <!-- Top Bar Navigation & Progress -->
     <header class="top-nav">
-      <NavigationButton type="back" label="Back to Home" @click="goHome" />
+      <NavigationButton type="back" label="Choose Deity" @click="goSelection" />
 
       <div class="nav-center">
         <h1 class="nav-title">Gods & Vaahanas</h1>
-        <GameProgress
-          :current-index="currentIndex"
-          :total="totalDeities"
-          :completed-indices="completedIndices"
-        />
+        <div class="deity-counter-badge">
+          {{ completedCount }} / {{ totalDeities }} Completed ⭐
+        </div>
       </div>
 
       <NavigationButton type="audio" label="Sound Toggle" :is-muted="isMuted" @click="toggleMute" />
@@ -32,7 +30,9 @@
         :is-success="isCurrentSuccess"
         :is-drag-over="isDragOverDropZone"
         :is-hinting="failedAttempts >= 2 && !isCurrentSuccess"
+        :has-next-deity="hasNextDeity"
         @next="handleNextRound"
+        @choose-another="goSelection"
       />
 
       <!-- Bottom Animal Options Grid -->
@@ -65,11 +65,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, ComponentPublicInstance } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, computed, onMounted, ComponentPublicInstance, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { vaahanaData, getRandomVaahanaOptions, DeityItem, VaahanaOptionItem } from '../data/vaahana';
 import NavigationButton from '../components/NavigationButton.vue';
-import GameProgress from '../components/vaahana/GameProgress.vue';
 import DeityCard from '../components/vaahana/DeityCard.vue';
 import VaahanaOption from '../components/vaahana/VaahanaOption.vue';
 import VaahanaCelebrationModal from '../components/vaahana/VaahanaCelebrationModal.vue';
@@ -77,9 +76,10 @@ import { audioManager } from '../audio/AudioManager';
 import confetti from 'canvas-confetti';
 
 const router = useRouter();
+const route = useRoute();
 
 const currentIndex = ref(0);
-const completedIndices = ref<number[]>([]);
+const completedIds = ref<string[]>([]);
 const failedAttempts = ref(0);
 const isCurrentSuccess = ref(false);
 const isDragOverDropZone = ref(false);
@@ -92,11 +92,13 @@ const currentOptions = ref<VaahanaOptionItem[]>([]);
 const deityCardRef = ref<InstanceType<typeof DeityCard> | null>(null);
 const optionRefs = ref<Record<string, InstanceType<typeof VaahanaOption>>>({});
 
-let autoAdvanceTimer: number | null = null;
 let feedbackTimer: number | null = null;
 
 const totalDeities = computed(() => vaahanaData.length);
-const currentDeity = computed<DeityItem>(() => vaahanaData[currentIndex.value]);
+const completedCount = computed(() => completedIds.value.length);
+const currentDeity = computed<DeityItem>(() => vaahanaData[currentIndex.value] || vaahanaData[0]);
+
+const hasNextDeity = computed(() => currentIndex.value < totalDeities.value - 1);
 
 function setOptionRef(el: Element | ComponentPublicInstance | null, id: string) {
   if (el) {
@@ -104,11 +106,16 @@ function setOptionRef(el: Element | ComponentPublicInstance | null, id: string) 
   }
 }
 
-function loadRound(index: number) {
-  if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+function loadDeity(deityId?: string) {
   if (feedbackTimer) clearTimeout(feedbackTimer);
 
-  currentIndex.value = index;
+  let targetIndex = 0;
+  if (deityId) {
+    const idx = vaahanaData.findIndex(d => d.id === deityId);
+    if (idx !== -1) targetIndex = idx;
+  }
+
+  currentIndex.value = targetIndex;
   isCurrentSuccess.value = false;
   isDragOverDropZone.value = false;
   failedAttempts.value = 0;
@@ -123,12 +130,40 @@ function loadRound(index: number) {
   }, 400);
 }
 
+function loadSavedProgress() {
+  const saved = localStorage.getItem('vaahana_completed');
+  if (saved) {
+    try {
+      completedIds.value = JSON.parse(saved);
+    } catch {
+      completedIds.value = [];
+    }
+  }
+}
+
+function saveProgress() {
+  localStorage.setItem('vaahana_completed', JSON.stringify(completedIds.value));
+}
+
 onMounted(() => {
-  loadRound(0);
+  loadSavedProgress();
+  const deityId = route.params.id as string;
+  loadDeity(deityId);
 });
 
+watch(() => route.params.id, (newId) => {
+  if (newId) {
+    loadDeity(newId as string);
+  }
+});
+
+function goSelection() {
+  audioManager.playTap();
+  router.push('/vaahana');
+}
+
 function goHome() {
-  if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+  audioManager.playTap();
   router.push('/');
 }
 
@@ -177,8 +212,9 @@ function checkMatch(option: VaahanaOptionItem) {
   if (option.id === currentDeity.value.correctVaahana) {
     // CORRECT MATCH!
     isCurrentSuccess.value = true;
-    if (!completedIndices.value.includes(currentIndex.value)) {
-      completedIndices.value.push(currentIndex.value);
+    if (!completedIds.value.includes(currentDeity.value.id)) {
+      completedIds.value.push(currentDeity.value.id);
+      saveProgress();
     }
 
     feedbackText.value = '🎉 Good Job! 🎉';
@@ -193,10 +229,11 @@ function checkMatch(option: VaahanaOptionItem) {
       origin: { y: 0.6 }
     });
 
-    // Auto advance after 2.6 seconds
-    autoAdvanceTimer = window.setTimeout(() => {
-      handleNextRound();
-    }, 2600);
+    if (completedIds.value.length === totalDeities.value) {
+      setTimeout(() => {
+        showFinalCelebration.value = true;
+      }, 1800);
+    }
 
   } else {
     // INCORRECT MATCH - Gentle encouragement!
@@ -217,7 +254,7 @@ function checkMatch(option: VaahanaOptionItem) {
     } else {
       feedbackText.value = 'Try again! 😊';
       isHintText.value = false;
-      audioManager.speak('Try again! 😊');
+      audioManager.speak('Try again!');
     }
 
     if (feedbackTimer) clearTimeout(feedbackTimer);
@@ -230,20 +267,19 @@ function checkMatch(option: VaahanaOptionItem) {
 }
 
 function handleNextRound() {
-  if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
-
   if (currentIndex.value < totalDeities.value - 1) {
-    loadRound(currentIndex.value + 1);
+    const nextDeity = vaahanaData[currentIndex.value + 1];
+    router.push(`/vaahana/${nextDeity.id}`);
   } else {
-    // All 6 completed! Show final celebration!
-    showFinalCelebration.value = true;
+    goSelection();
   }
 }
 
 function restartGame() {
   showFinalCelebration.value = false;
-  completedIndices.value = [];
-  loadRound(0);
+  completedIds.value = [];
+  localStorage.removeItem('vaahana_completed');
+  goSelection();
 }
 
 const bgStyle = {
@@ -288,6 +324,17 @@ const bgStyle = {
   color: #C2185B;
   margin: 0;
   text-shadow: 0 2px 6px rgba(255, 255, 255, 0.9);
+}
+
+.deity-counter-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #E65100;
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #FFE082;
+  border-radius: 16px;
+  padding: 2px 10px;
 }
 
 /* Feedback Banner */

@@ -53,10 +53,17 @@
 
         <p class="voice-fact">{{ deity.voiceText }}</p>
 
-        <button class="next-round-btn" @click="handleNext">
-          <span>Next</span>
-          <ArrowRight class="next-icon" />
-        </button>
+        <div class="success-actions">
+          <button class="choose-deity-btn" @click="handleChooseAnother">
+            <Grid class="action-icon" />
+            <span>Choose Deity</span>
+          </button>
+
+          <button v-if="hasNextDeity" class="next-round-btn" @click="handleNext">
+            <span>Next</span>
+            <ArrowRight class="action-icon" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -65,17 +72,19 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { DeityItem, vaahanas } from '../../data/vaahana';
-import { ArrowRight } from 'lucide-vue-next';
+import { ArrowRight, Grid } from 'lucide-vue-next';
 
 const props = defineProps<{
   deity: DeityItem;
   isSuccess: boolean;
   isDragOver: boolean;
   isHinting?: boolean;
+  hasNextDeity?: boolean;
 }>();
 
 const emit = defineEmits<{
   (e: 'next'): void;
+  (e: 'choose-another'): void;
 }>();
 
 const dropZoneRef = ref<HTMLElement | null>(null);
@@ -87,6 +96,10 @@ const matchedEmoji = computed(() => {
 
 function handleNext() {
   emit('next');
+}
+
+function handleChooseAnother() {
+  emit('choose-another');
 }
 
 defineExpose({
@@ -304,31 +317,47 @@ defineExpose({
   text-align: center;
 }
 
+.success-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.choose-deity-btn,
 .next-round-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: linear-gradient(180deg, #66BB6A 0%, #388E3C 100%);
+  gap: 6px;
   color: #FFFFFF;
   border: 3px solid #FFFFFF;
   border-radius: 24px;
-  padding: 10px 24px;
+  padding: 8px 18px;
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(56, 142, 60, 0.3);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.15s;
   outline: none;
 }
 
+.choose-deity-btn {
+  background: linear-gradient(180deg, #FF9800 0%, #F57C00 100%);
+}
+
+.next-round-btn {
+  background: linear-gradient(180deg, #66BB6A 0%, #388E3C 100%);
+}
+
+.choose-deity-btn:active,
 .next-round-btn:active {
   transform: scale(0.94);
 }
 
-.next-icon {
-  width: 24px;
-  height: 24px;
+.action-icon {
+  width: 20px;
+  height: 20px;
   stroke-width: 3px;
 }
 
