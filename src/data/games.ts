@@ -17,6 +17,19 @@ const baseUrl = import.meta.env.BASE_URL;
 
 export const games: GameCategory[] = [
   {
+    id: "identify-god",
+    title: "Identify the God",
+    subtitle: "Where is Ganesha? Tap to find!",
+    iconName: "Sparkles",
+    customIcon: `${baseUrl}assets/vaahana/vishnu.png`,
+    bgColor: "#FFF0F5",
+    borderColor: "#FF4081",
+    textColor: "#C2185B",
+    enabled: true,
+    badge: "New Game!",
+    route: "/identify-god"
+  },
+  {
     id: "vaahana",
     title: "Gods & Vaahanas",
     subtitle: "Match the Gods with their Vehicles!",
@@ -26,7 +39,7 @@ export const games: GameCategory[] = [
     borderColor: "#FF9800",
     textColor: "#E65100",
     enabled: true,
-    badge: "New Game!",
+    badge: "Fun Game!",
     route: "/vaahana"
   },
   {

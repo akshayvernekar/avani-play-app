@@ -261,8 +261,11 @@ class AudioManager {
   /**
    * Spoken vocabulary word using Web Speech API optimized for mobile Safari & Chrome
    */
-  public speak(text: string) {
-    if (this.isMuted) return;
+  public speak(text: string, onStart?: () => void, onEnd?: () => void) {
+    if (this.isMuted) {
+      if (onEnd) onEnd();
+      return;
+    }
 
     if ('speechSynthesis' in window) {
       try {
@@ -276,6 +279,18 @@ class AudioManager {
         utterance.rate = 0.85;
         utterance.pitch = 1.1;
         utterance.volume = 1.0;
+
+        utterance.onstart = () => {
+          if (onStart) onStart();
+        };
+
+        utterance.onend = () => {
+          if (onEnd) onEnd();
+        };
+
+        utterance.onerror = () => {
+          if (onEnd) onEnd();
+        };
 
         const voices = window.speechSynthesis.getVoices();
         if (voices && voices.length > 0) {
@@ -291,7 +306,10 @@ class AudioManager {
         window.speechSynthesis.speak(utterance);
       } catch (err) {
         console.warn('Speech synthesis error:', err);
+        if (onEnd) onEnd();
       }
+    } else {
+      if (onEnd) onEnd();
     }
   }
 }

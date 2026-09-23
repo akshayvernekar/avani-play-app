@@ -4,12 +4,18 @@ import PuzzleSelectionView from '../views/PuzzleSelectionView.vue';
 import PuzzleGameView from '../views/PuzzleGameView.vue';
 import VaahanaSelectionView from '../views/VaahanaSelectionView.vue';
 import VaahanaGameView from '../views/VaahanaGameView.vue';
+import IdentifyGodView from '../views/IdentifyGodView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeView
+  },
+  {
+    path: '/identify-god',
+    name: 'IdentifyGod',
+    component: IdentifyGodView
   },
   {
     path: '/vaahana',
