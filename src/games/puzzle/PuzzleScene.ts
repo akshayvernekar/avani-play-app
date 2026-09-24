@@ -365,13 +365,11 @@ export class PuzzleScene extends Phaser.Scene {
     this.isCompleted = true;
     if (!this.puzzleData) return;
 
+    const puzzleAudio = `assets/audio_gungun/puzzle_complete_${this.puzzleData.id}.mp3`;
+    audioManager.playAudioFile(puzzleAudio, undefined, () => {
+      // Optional fallback handled automatically
+    });
     audioManager.playCelebration();
-    setTimeout(() => {
-      if (this.puzzleData) {
-        audioManager.speak(`${this.puzzleData.vocabulary}! Great job!`);
-        audioManager.playObjectSound(this.puzzleData.soundEffectName);
-      }
-    }, 400);
 
     this.tweens.add({
       targets: Array.from(this.piecesMap.keys()),

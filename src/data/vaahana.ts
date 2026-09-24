@@ -121,6 +121,24 @@ export const vaahanas: VaahanaOptionItem[] = [
     }
 ];
 
+export interface VaahanaQuestion {
+    targetDeity: DeityItem;
+    options: VaahanaOptionItem[];
+}
+
+export function getRandomVaahanaQuestion(lastTargetId?: string): VaahanaQuestion {
+    let candidateDeities = vaahanaData;
+    if (lastTargetId && vaahanaData.length > 1) {
+        candidateDeities = vaahanaData.filter(d => d.id !== lastTargetId);
+    }
+    const targetDeity = candidateDeities[Math.floor(Math.random() * candidateDeities.length)];
+    const options = getRandomVaahanaOptions(targetDeity.correctVaahana);
+    return {
+        targetDeity,
+        options
+    };
+}
+
 export function getRandomVaahanaOptions(correctId: string): VaahanaOptionItem[] {
     const correctOption = vaahanas.find(v => v.id === correctId);
     const otherOptions = vaahanas.filter(v => v.id !== correctId);

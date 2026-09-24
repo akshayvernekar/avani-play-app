@@ -110,11 +110,20 @@ function startNewRound() {
 }
 
 function playQuestionAudio() {
-  audioManager.speak(
-    targetDeity.value.questionText,
+  const audioFile = `assets/audio_gungun/find_god_${targetDeity.value.id}.mp3`;
+  const played = audioManager.playAudioFile(
+    audioFile,
     () => { isPlayingAudio.value = true; },
     () => { isPlayingAudio.value = false; }
   );
+
+  if (!played) {
+    audioManager.speak(
+      targetDeity.value.questionText,
+      () => { isPlayingAudio.value = true; },
+      () => { isPlayingAudio.value = false; }
+    );
+  }
 }
 
 function handleSelectOption(selectedDeity: DeityInfo) {
@@ -130,11 +139,20 @@ function handleSelectOption(selectedDeity: DeityInfo) {
     isHintText.value = false;
 
     audioManager.playCelebration();
-    audioManager.speak(
-      targetDeity.value.successText,
+    const successAudio = `assets/audio_gungun/find_god_success.mp3`;
+    const played = audioManager.playAudioFile(
+      successAudio,
       () => { isPlayingAudio.value = true; },
       () => { isPlayingAudio.value = false; }
     );
+
+    if (!played) {
+      audioManager.speak(
+        targetDeity.value.successText,
+        () => { isPlayingAudio.value = true; },
+        () => { isPlayingAudio.value = false; }
+      );
+    }
 
     confetti({
       particleCount: 70,
@@ -151,15 +169,18 @@ function handleSelectOption(selectedDeity: DeityInfo) {
       cardRef.triggerIncorrectAnimation();
     }
 
-    audioManager.playTap();
+    // Play ride_try_again.mp3 when correct God is not selected
+    feedbackText.value = incorrectAttempts.value >= 2 ? 'Look carefully! 💡' : 'Try again! 😊';
+    isHintText.value = incorrectAttempts.value >= 2;
 
-    if (incorrectAttempts.value >= 2) {
-      feedbackText.value = 'Look carefully! 💡';
-      isHintText.value = true;
-      audioManager.speak('Look carefully!', () => { isPlayingAudio.value = true; }, () => { isPlayingAudio.value = false; });
-    } else {
-      feedbackText.value = 'Try again! 😊';
-      isHintText.value = false;
+    const tryAgainAudio = `assets/audio_gungun/ride_try_again.mp3`;
+    const played = audioManager.playAudioFile(
+      tryAgainAudio,
+      () => { isPlayingAudio.value = true; },
+      () => { isPlayingAudio.value = false; }
+    );
+
+    if (!played) {
       audioManager.speak('Try again!', () => { isPlayingAudio.value = true; }, () => { isPlayingAudio.value = false; });
     }
   }

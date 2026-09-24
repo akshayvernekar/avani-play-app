@@ -1,17 +1,26 @@
 <template>
   <div class="deity-card-container">
-    <!-- Header Prompt -->
+    <!-- Header Prompt with Audio Speaker -->
     <div class="deity-header">
       <h2 class="deity-name">{{ deity.titleName }}</h2>
-      <p class="deity-question">Who is my Vaahana?</p>
+      <div class="question-row">
+        <button 
+          class="inline-speaker-btn"
+          :class="{ 'is-playing': isPlayingAudio }"
+          aria-label="Replay Question Audio"
+          type="button"
+          @click="handlePlayAudio"
+        >
+          <Volume2 class="speaker-icon" :class="{ 'bounce': isPlayingAudio }" />
+        </button>
+        <p class="deity-question">Who is my Vaahana?</p>
+      </div>
     </div>
 
     <!-- Main Stage Card -->
     <div 
-      ref="dropZoneRef" 
       class="deity-stage" 
       :class="{ 
-        'is-drag-over': isDragOver, 
         'is-success': isSuccess,
         'is-hinting': isHinting 
       }"
@@ -33,14 +42,6 @@
             <span class="badge-emoji">{{ matchedEmoji }}</span>
           </div>
         </transition>
-
-        <!-- Drop Target Overlay Ring (When matching) -->
-        <div v-if="!isSuccess" class="drop-zone-ring" :class="{ 'pulse-active': isDragOver || isHinting }">
-          <div class="drop-ring-inner">
-            <span class="drop-icon">✨</span>
-            <span class="drop-text">{{ isDragOver ? 'Release Here!' : 'Drop Vaahana Here' }}</span>
-          </div>
-        </div>
       </div>
 
       <!-- Success Content Banner -->
@@ -54,14 +55,9 @@
         <p class="voice-fact">{{ deity.voiceText }}</p>
 
         <div class="success-actions">
-          <button class="choose-deity-btn" @click="handleChooseAnother">
-            <Grid class="action-icon" />
-            <span>Choose Deity</span>
-          </button>
-
-          <button v-if="hasNextDeity" class="next-round-btn" @click="handleNext">
-            <span>Next</span>
-            <ArrowRight class="action-icon" />
+          <button class="next-round-btn" @click="handleNext">
+            <Sparkles class="action-icon" />
+            <span>Try Another</span>
           </button>
         </div>
       </div>
@@ -70,24 +66,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { DeityItem, vaahanas } from '../../data/vaahana';
-import { ArrowRight, Grid } from 'lucide-vue-next';
+import { Sparkles, Volume2 } from 'lucide-vue-next';
 
 const props = defineProps<{
   deity: DeityItem;
   isSuccess: boolean;
-  isDragOver: boolean;
+  isPlayingAudio?: boolean;
   isHinting?: boolean;
-  hasNextDeity?: boolean;
 }>();
 
 const emit = defineEmits<{
   (e: 'next'): void;
-  (e: 'choose-another'): void;
+  (e: 'play-audio'): void;
 }>();
-
-const dropZoneRef = ref<HTMLElement | null>(null);
 
 const matchedEmoji = computed(() => {
   const v = vaahanas.find(item => item.id === props.deity.correctVaahana);
@@ -98,13 +91,9 @@ function handleNext() {
   emit('next');
 }
 
-function handleChooseAnother() {
-  emit('choose-another');
+function handlePlayAudio() {
+  emit('play-audio');
 }
-
-defineExpose({
-  dropZoneRef
-});
 </script>
 
 <style scoped>
@@ -119,6 +108,59 @@ defineExpose({
 .deity-header {
   text-align: center;
   margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.question-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.inline-speaker-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+  border: 3px solid #FFFFFF;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(245, 124, 0, 0.35);
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.inline-speaker-btn:hover {
+  transform: scale(1.08);
+}
+
+.inline-speaker-btn:active {
+  transform: scale(0.92);
+}
+
+.speaker-icon {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.6px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.speaker-icon.bounce {
+  animation: speakerPulse 0.6s infinite ease-in-out alternate;
+}
+
+@keyframes speakerPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.22); }
 }
 
 .deity-name {
@@ -136,7 +178,7 @@ defineExpose({
   font-size: 1.25rem;
   font-weight: 600;
   color: #F57C00;
-  margin: 2px 0 0 0;
+  margin: 0;
 }
 
 /* Stage Box */
@@ -154,13 +196,6 @@ defineExpose({
   justify-content: center;
   box-shadow: 0 12px 28px rgba(255, 143, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.deity-stage.is-drag-over {
-  border-color: #4CAF50;
-  background: radial-gradient(circle, #F1F8E9 0%, #DCEDC8 100%);
-  transform: scale(1.03);
-  box-shadow: 0 0 32px rgba(76, 175, 80, 0.5);
 }
 
 .deity-stage.is-success {
@@ -223,48 +258,6 @@ defineExpose({
   line-height: 1;
 }
 
-/* Drop Zone Ring */
-.drop-zone-ring {
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.94);
-  border: 3px dashed #FF9800;
-  border-radius: 30px;
-  padding: 6px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.25s ease;
-  pointer-events: none;
-}
-
-.drop-zone-ring.pulse-active {
-  border-color: #4CAF50;
-  background: #E8F5E9;
-  animation: ringBounce 0.8s infinite ease-in-out alternate;
-}
-
-@keyframes ringBounce {
-  from { transform: translateX(-50%) scale(1); }
-  to { transform: translateX(-50%) scale(1.1); }
-}
-
-.drop-ring-inner {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.drop-icon {
-  font-size: 1.1rem;
-}
-
-.drop-text {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #E65100;
-}
 
 /* Success Banner */
 .success-banner {

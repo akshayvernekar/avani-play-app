@@ -63,7 +63,11 @@ function getEmoji(vaahanaId: string): string {
 watch(() => props.show, (newVal) => {
   if (newVal) {
     audioManager.playCelebration();
-    audioManager.speak("Amazing! You found all the Vaahanas!");
+    const gameCompleteAudio = 'assets/audio_gungun/ride_game_complete.mp3';
+    const played = audioManager.playAudioFile(gameCompleteAudio);
+    if (!played) {
+      audioManager.speak("Amazing! You found all the Vaahanas!");
+    }
     confetti({
       particleCount: 100,
       spread: 80,

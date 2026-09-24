@@ -52,8 +52,8 @@ class AudioManager {
 
   public toggleMute(): boolean {
     this.isMuted = !this.isMuted;
-    if (this.isMuted && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+    if (this.isMuted) {
+      this.stopCurrentAudio();
     }
     return this.isMuted;
   }
@@ -258,14 +258,93 @@ class AudioManager {
     }
   }
 
+  private currentAudio: HTMLAudioElement | null = null;
+
   /**
-   * Spoken vocabulary word using Web Speech API optimized for mobile Safari & Chrome
+   * Stop any currently playing pre-recorded audio or speech synthesis
+   */
+  public stopCurrentAudio() {
+    if (this.currentAudio) {
+      try {
+        this.currentAudio.pause();
+        this.currentAudio.currentTime = 0;
+      } catch (e) {
+        // ignore
+      }
+      this.currentAudio = null;
+    }
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {
+        // ignore
+      }
+    }
+  }
+
+  /**
+   * Plays a pre-recorded audio file (e.g. from ElevenLabs audio_gungun).
+   * Automatically resolves base URL if relative path provided.
+   */
+  public playAudioFile(filePath: string, onStart?: () => void, onEnd?: () => void): HTMLAudioElement | null {
+    if (this.isMuted) {
+      if (onEnd) onEnd();
+      return null;
+    }
+
+    this.stopCurrentAudio();
+
+    // Resolve URL with BASE_URL if relative path without leading slash or protocol
+    let fullUrl = filePath;
+    if (!filePath.startsWith('http://') && !filePath.startsWith('https://')) {
+      const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+      const cleanPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
+      fullUrl = `${baseUrl}${cleanPath}`;
+    }
+
+    const audio = new Audio(fullUrl);
+    this.currentAudio = audio;
+
+    audio.onplay = () => {
+      if (onStart) onStart();
+    };
+
+    audio.onended = () => {
+      if (this.currentAudio === audio) {
+        this.currentAudio = null;
+      }
+      if (onEnd) onEnd();
+    };
+
+    audio.onerror = (e) => {
+      console.warn(`Failed to play audio file: ${fullUrl}`, e);
+      if (this.currentAudio === audio) {
+        this.currentAudio = null;
+      }
+      if (onEnd) onEnd();
+    };
+
+    audio.play().catch(err => {
+      console.warn(`Audio play() interrupted or failed: ${fullUrl}`, err);
+      if (this.currentAudio === audio) {
+        this.currentAudio = null;
+      }
+      if (onEnd) onEnd();
+    });
+
+    return audio;
+  }
+
+  /**
+   * Spoken vocabulary word using Web Speech API fallback
    */
   public speak(text: string, onStart?: () => void, onEnd?: () => void) {
     if (this.isMuted) {
       if (onEnd) onEnd();
       return;
     }
+
+    this.stopCurrentAudio();
 
     if ('speechSynthesis' in window) {
       try {
@@ -275,7 +354,7 @@ class AudioManager {
         }
 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
+        utterance.lang = 'en-IN';
         utterance.rate = 0.85;
         utterance.pitch = 1.1;
         utterance.volume = 1.0;
@@ -296,7 +375,7 @@ class AudioManager {
         if (voices && voices.length > 0) {
           const preferredVoice = voices.find(
             v => v.lang.startsWith('en') && (v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Daniel') || v.name.includes('Google') || v.name.includes('Natural'))
-          ) || voices.find(v => v.lang.startsWith('en'));
+          ) || voices.find(v => v.lang.startsWith('en-IN'));
 
           if (preferredVoice) {
             utterance.voice = preferredVoice;

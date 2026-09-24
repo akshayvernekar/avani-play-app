@@ -65,8 +65,12 @@ watch(() => props.show, (newVal) => {
 
 function speakWord() {
   if (props.puzzle) {
-    audioManager.speak(props.puzzle.vocabulary);
-    audioManager.playObjectSound(props.puzzle.soundEffectName);
+    const audioPath = `assets/audio_gungun/puzzle_complete_${props.puzzle.id}.mp3`;
+    const played = audioManager.playAudioFile(audioPath);
+    if (!played) {
+      audioManager.speak(props.puzzle.vocabulary);
+      audioManager.playObjectSound(props.puzzle.soundEffectName);
+    }
   }
 }
 

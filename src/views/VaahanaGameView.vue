@@ -2,12 +2,12 @@
   <div class="game-view-container" :style="bgStyle">
     <!-- Top Bar Navigation & Progress -->
     <header class="top-nav">
-      <NavigationButton type="back" label="Choose Deity" @click="goSelection" />
+      <NavigationButton type="back" label="Home" @click="goHome" />
 
       <div class="nav-center">
         <h1 class="nav-title">Gods & Vaahanas</h1>
         <div class="deity-counter-badge">
-          {{ completedCount }} / {{ totalDeities }} Completed ⭐
+          ⭐ {{ foundCount }} Vaahanas Found
         </div>
       </div>
 
@@ -28,11 +28,10 @@
         ref="deityCardRef"
         :deity="currentDeity"
         :is-success="isCurrentSuccess"
-        :is-drag-over="isDragOverDropZone"
+        :is-playing-audio="isPlayingAudio"
         :is-hinting="failedAttempts >= 2 && !isCurrentSuccess"
-        :has-next-deity="hasNextDeity"
         @next="handleNextRound"
-        @choose-another="goSelection"
+        @play-audio="playQuestionAudio"
       />
 
       <!-- Bottom Animal Options Grid -->
@@ -44,9 +43,6 @@
             :ref="el => setOptionRef(el, opt.id)"
             :option="opt"
             :disabled="isCurrentSuccess"
-            @drag-start="handleDragStart"
-            @drag-move="handleDragMove"
-            @drag-end="handleDragEnd"
             @select="handleOptionSelect"
           />
         </div>
@@ -65,9 +61,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, ComponentPublicInstance, watch } from 'vue';
+import { ref, onMounted, ComponentPublicInstance, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { vaahanaData, getRandomVaahanaOptions, DeityItem, VaahanaOptionItem } from '../data/vaahana';
+import { 
+  vaahanaData, 
+  getRandomVaahanaQuestion, 
+  DeityItem, 
+  VaahanaOptionItem 
+} from '../data/vaahana';
 import NavigationButton from '../components/NavigationButton.vue';
 import DeityCard from '../components/vaahana/DeityCard.vue';
 import VaahanaOption from '../components/vaahana/VaahanaOption.vue';
@@ -78,11 +79,11 @@ import confetti from 'canvas-confetti';
 const router = useRouter();
 const route = useRoute();
 
-const currentIndex = ref(0);
-const completedIds = ref<string[]>([]);
+const currentDeity = ref<DeityItem>(vaahanaData[0]);
+const foundCount = ref(0);
 const failedAttempts = ref(0);
 const isCurrentSuccess = ref(false);
-const isDragOverDropZone = ref(false);
+const isPlayingAudio = ref(false);
 const feedbackText = ref('');
 const isHintText = ref(false);
 const showFinalCelebration = ref(false);
@@ -94,73 +95,85 @@ const optionRefs = ref<Record<string, InstanceType<typeof VaahanaOption>>>({});
 
 let feedbackTimer: number | null = null;
 
-const totalDeities = computed(() => vaahanaData.length);
-const completedCount = computed(() => completedIds.value.length);
-const currentDeity = computed<DeityItem>(() => vaahanaData[currentIndex.value] || vaahanaData[0]);
-
-const hasNextDeity = computed(() => currentIndex.value < totalDeities.value - 1);
-
 function setOptionRef(el: Element | ComponentPublicInstance | null, id: string) {
   if (el) {
     optionRefs.value[id] = el as InstanceType<typeof VaahanaOption>;
   }
 }
 
-function loadDeity(deityId?: string) {
+function playQuestionAudio() {
+  const audioFile = `assets/audio_gungun/ride_q_${currentDeity.value.id}.mp3`;
+  const played = audioManager.playAudioFile(
+    audioFile,
+    () => { isPlayingAudio.value = true; },
+    () => { isPlayingAudio.value = false; }
+  );
+
+  if (!played) {
+    audioManager.speak(
+      `Who is ${currentDeity.value.deityName}'s Vaahana?`,
+      () => { isPlayingAudio.value = true; },
+      () => { isPlayingAudio.value = false; }
+    );
+  }
+}
+
+function startNewRound(specificDeityId?: string) {
   if (feedbackTimer) clearTimeout(feedbackTimer);
 
-  let targetIndex = 0;
-  if (deityId) {
-    const idx = vaahanaData.findIndex(d => d.id === deityId);
-    if (idx !== -1) targetIndex = idx;
+  let question;
+  if (specificDeityId) {
+    const deity = vaahanaData.find(d => d.id === specificDeityId) || vaahanaData[0];
+    question = {
+      targetDeity: deity,
+      options: getRandomVaahanaQuestion(currentDeity.value?.id).options
+    };
+    // Ensure the correct option is included
+    const correctVaahana = deity.correctVaahana;
+    if (!question.options.some(opt => opt.id === correctVaahana)) {
+      question = getRandomVaahanaQuestion(currentDeity.value?.id);
+      question.targetDeity = deity;
+    }
+  } else {
+    question = getRandomVaahanaQuestion(currentDeity.value?.id);
   }
 
-  currentIndex.value = targetIndex;
+  currentDeity.value = question.targetDeity;
+  currentOptions.value = question.options;
+
   isCurrentSuccess.value = false;
-  isDragOverDropZone.value = false;
   failedAttempts.value = 0;
   feedbackText.value = '';
   isHintText.value = false;
 
-  currentOptions.value = getRandomVaahanaOptions(currentDeity.value.correctVaahana);
-
-  // Spoken prompt when starting a round
+  // Play pre-recorded question audio when starting a round
   setTimeout(() => {
-    audioManager.speak(`Who is ${currentDeity.value.deityName}'s Vaahana?`);
-  }, 400);
+    playQuestionAudio();
+  }, 350);
 }
 
-function loadSavedProgress() {
-  const saved = localStorage.getItem('vaahana_completed');
+function loadScore() {
+  const saved = localStorage.getItem('vaahana_found_count');
   if (saved) {
-    try {
-      completedIds.value = JSON.parse(saved);
-    } catch {
-      completedIds.value = [];
-    }
+    foundCount.value = parseInt(saved, 10) || 0;
   }
 }
 
-function saveProgress() {
-  localStorage.setItem('vaahana_completed', JSON.stringify(completedIds.value));
+function saveScore() {
+  localStorage.setItem('vaahana_found_count', foundCount.value.toString());
 }
 
 onMounted(() => {
-  loadSavedProgress();
+  loadScore();
   const deityId = route.params.id as string;
-  loadDeity(deityId);
+  startNewRound(deityId);
 });
 
 watch(() => route.params.id, (newId) => {
   if (newId) {
-    loadDeity(newId as string);
+    startNewRound(newId as string);
   }
 });
-
-function goSelection() {
-  audioManager.playTap();
-  router.push('/vaahana');
-}
 
 function goHome() {
   audioManager.playTap();
@@ -169,37 +182,6 @@ function goHome() {
 
 function toggleMute() {
   isMuted.value = audioManager.toggleMute();
-}
-
-function isOverDropZone(x: number, y: number): boolean {
-  if (!deityCardRef.value || !deityCardRef.value.dropZoneRef) return false;
-  
-  const rect = deityCardRef.value.dropZoneRef.getBoundingClientRect();
-  // Expand hit radius by 30px for toddlers
-  const padding = 30;
-  return (
-    x >= rect.left - padding &&
-    x <= rect.right + padding &&
-    y >= rect.top - padding &&
-    y <= rect.bottom + padding
-  );
-}
-
-function handleDragStart(_option: VaahanaOptionItem) {
-  isDragOverDropZone.value = false;
-}
-
-function handleDragMove(x: number, y: number) {
-  isDragOverDropZone.value = isOverDropZone(x, y);
-}
-
-function handleDragEnd(option: VaahanaOptionItem, endX: number, endY: number) {
-  const droppedOnTarget = isOverDropZone(endX, endY);
-  isDragOverDropZone.value = false;
-
-  if (droppedOnTarget) {
-    checkMatch(option);
-  }
 }
 
 function handleOptionSelect(option: VaahanaOptionItem) {
@@ -212,16 +194,29 @@ function checkMatch(option: VaahanaOptionItem) {
   if (option.id === currentDeity.value.correctVaahana) {
     // CORRECT MATCH!
     isCurrentSuccess.value = true;
-    if (!completedIds.value.includes(currentDeity.value.id)) {
-      completedIds.value.push(currentDeity.value.id);
-      saveProgress();
-    }
+    foundCount.value++;
+    saveScore();
 
     feedbackText.value = '🎉 Good Job! 🎉';
     isHintText.value = false;
 
     audioManager.playCelebration();
-    audioManager.speak(currentDeity.value.voiceText);
+
+    // Play pre-recorded success audio (e.g. ride_success_ganesha.mp3)
+    const successAudio = `assets/audio_gungun/ride_success_${currentDeity.value.id}.mp3`;
+    const played = audioManager.playAudioFile(
+      successAudio,
+      () => { isPlayingAudio.value = true; },
+      () => { isPlayingAudio.value = false; }
+    );
+
+    if (!played) {
+      audioManager.speak(
+        currentDeity.value.voiceText,
+        () => { isPlayingAudio.value = true; },
+        () => { isPlayingAudio.value = false; }
+      );
+    }
 
     confetti({
       particleCount: 60,
@@ -229,17 +224,11 @@ function checkMatch(option: VaahanaOptionItem) {
       origin: { y: 0.6 }
     });
 
-    if (completedIds.value.length === totalDeities.value) {
-      setTimeout(() => {
-        showFinalCelebration.value = true;
-      }, 1800);
-    }
-
   } else {
     // INCORRECT MATCH - Gentle encouragement!
     failedAttempts.value++;
     
-    // Trigger return shake animation on card
+    // Trigger shake animation on tapped option card
     const optionComp = optionRefs.value[option.id];
     if (optionComp) {
       optionComp.triggerIncorrectAnimation();
@@ -250,11 +239,41 @@ function checkMatch(option: VaahanaOptionItem) {
     if (failedAttempts.value >= 2) {
       feedbackText.value = currentDeity.value.hintText || 'Try another one! 😊';
       isHintText.value = true;
-      audioManager.speak(`Hmm... ${currentDeity.value.hintText}`);
+
+      // Play pre-recorded hint audio (e.g. ride_hint_ganesha.mp3)
+      const hintAudio = `assets/audio_gungun/ride_hint_${currentDeity.value.id}.mp3`;
+      const played = audioManager.playAudioFile(
+        hintAudio,
+        () => { isPlayingAudio.value = true; },
+        () => { isPlayingAudio.value = false; }
+      );
+
+      if (!played) {
+        audioManager.speak(
+          `Hmm... ${currentDeity.value.hintText}`,
+          () => { isPlayingAudio.value = true; },
+          () => { isPlayingAudio.value = false; }
+        );
+      }
     } else {
       feedbackText.value = 'Try again! 😊';
       isHintText.value = false;
-      audioManager.speak('Try again!');
+
+      // Play pre-recorded try again audio (ride_try_again.mp3)
+      const tryAgainAudio = `assets/audio_gungun/ride_try_again.mp3`;
+      const played = audioManager.playAudioFile(
+        tryAgainAudio,
+        () => { isPlayingAudio.value = true; },
+        () => { isPlayingAudio.value = false; }
+      );
+
+      if (!played) {
+        audioManager.speak(
+          'Try again!',
+          () => { isPlayingAudio.value = true; },
+          () => { isPlayingAudio.value = false; }
+        );
+      }
     }
 
     if (feedbackTimer) clearTimeout(feedbackTimer);
@@ -267,19 +286,15 @@ function checkMatch(option: VaahanaOptionItem) {
 }
 
 function handleNextRound() {
-  if (currentIndex.value < totalDeities.value - 1) {
-    const nextDeity = vaahanaData[currentIndex.value + 1];
-    router.push(`/vaahana/${nextDeity.id}`);
-  } else {
-    goSelection();
-  }
+  audioManager.playTap();
+  startNewRound();
 }
 
 function restartGame() {
   showFinalCelebration.value = false;
-  completedIds.value = [];
-  localStorage.removeItem('vaahana_completed');
-  goSelection();
+  foundCount.value = 0;
+  localStorage.removeItem('vaahana_found_count');
+  startNewRound();
 }
 
 const bgStyle = {

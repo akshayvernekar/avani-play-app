@@ -19,12 +19,12 @@ const routes = [
   },
   {
     path: '/vaahana',
-    name: 'VaahanaSelection',
-    component: VaahanaSelectionView
+    name: 'VaahanaGame',
+    component: VaahanaGameView
   },
   {
     path: '/vaahana/:id',
-    name: 'VaahanaGame',
+    name: 'VaahanaGameWithId',
     component: VaahanaGameView
   },
   {
