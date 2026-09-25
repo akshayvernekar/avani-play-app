@@ -95,12 +95,16 @@ const bgStyle = {
 .selection-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: center top / cover no-repeat;
+  background: center center / cover no-repeat;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: clamp(10px, 2vh, 20px);
+  padding-left: max(clamp(10px, 2vh, 20px), env(safe-area-inset-left));
+  padding-right: max(clamp(10px, 2vh, 20px), env(safe-area-inset-right));
+  padding-top: max(clamp(10px, 2vh, 20px), env(safe-area-inset-top));
+  padding-bottom: max(clamp(10px, 2vh, 20px), env(safe-area-inset-bottom));
   box-sizing: border-box;
-  max-width: 540px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -108,7 +112,7 @@ const bgStyle = {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: clamp(12px, 2vh, 24px);
 }
 
 .nav-title-group {
@@ -117,7 +121,7 @@ const bgStyle = {
 
 .nav-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.4rem, 4vh, 2.2rem);
   font-weight: 700;
   color: #C2185B;
   margin: 0;
@@ -127,7 +131,7 @@ const bgStyle = {
 
 .nav-subtitle {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.05rem;
+  font-size: clamp(0.85rem, 2vh, 1.05rem);
   font-weight: 600;
   color: #E65100;
 }
@@ -135,8 +139,14 @@ const bgStyle = {
 .deity-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  padding-bottom: 40px;
+  gap: clamp(10px, 2vh, 16px);
+  padding-bottom: 30px;
+}
+
+@media (min-aspect-ratio: 4/3) and (min-width: 600px) {
+  .deity-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .deity-select-card {

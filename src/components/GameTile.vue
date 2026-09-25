@@ -66,15 +66,16 @@ function handleClick() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 12px;
-  border-radius: 28px;
-  border: 4px solid;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
+  padding: clamp(10px, 1.8vh, 18px) clamp(8px, 1.5vw, 14px);
+  border-radius: clamp(20px, 3vh, 28px);
+  border: clamp(3px, 0.6vh, 4px) solid;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08), 0 3px 5px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.18s ease;
-  min-height: 140px;
+  min-height: clamp(100px, 16vh, 145px);
+  box-sizing: border-box;
 }
 
 .game-tile:active {
@@ -86,26 +87,26 @@ function handleClick() {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: clamp(4px, 0.8vh, 8px);
 }
 
 .tile-icon {
-  width: 52px;
-  height: 52px;
+  width: clamp(38px, 6vh, 52px);
+  height: clamp(38px, 6vh, 52px);
   stroke-width: 2.5px;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
 .custom-tile-icon {
-  width: 60px;
-  height: 60px;
+  width: clamp(42px, 7vh, 60px);
+  height: clamp(42px, 7vh, 60px);
   object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
 
 .tile-title {
   font-family: 'Fredoka', 'Outfit', sans-serif;
-  font-size: 1.35rem;
+  font-size: clamp(1.05rem, 2.5vh, 1.35rem);
   font-weight: 700;
   text-align: center;
   line-height: 1.1;
@@ -113,7 +114,7 @@ function handleClick() {
 
 .tile-subtitle {
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.82rem;
+  font-size: clamp(0.72rem, 1.6vh, 0.85rem);
   font-weight: 600;
   text-align: center;
   margin-top: 3px;
@@ -122,28 +123,28 @@ function handleClick() {
 
 .tile-badge {
   position: absolute;
-  top: -10px;
+  top: -8px;
   right: -6px;
   background: #FF5252;
   color: #FFFFFF;
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(255, 82, 82, 0.3);
 }
 
 .coming-soon-tag {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   background: rgba(0, 0, 0, 0.08);
   color: currentColor;
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: 12px;
 }
 

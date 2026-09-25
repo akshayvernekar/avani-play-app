@@ -82,10 +82,10 @@ defineExpose({ cardRef, triggerIncorrectAnimation });
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 4px solid var(--card-border, #4FC3F7);
-  border-radius: 28px;
-  padding: 12px 6px 14px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  border: clamp(3px, 0.7vh, 5px) solid var(--card-border, #4FC3F7);
+  border-radius: clamp(16px, 3vh, 26px);
+  padding: clamp(6px, 1.2vh, 12px) clamp(6px, 1vw, 12px);
+  box-shadow: 0 clamp(4px, 1vh, 10px) clamp(10px, 2vh, 20px) rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -94,17 +94,19 @@ defineExpose({ cardRef, triggerIncorrectAnimation });
     transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     box-shadow 0.18s ease,
     border-color 0.2s ease;
-  min-height: 125px;
   width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .vaahana-option-card:hover:not(:disabled) {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
 }
 
 .vaahana-option-card:active:not(:disabled) {
-  transform: scale(0.94);
+  transform: scale(0.95);
 }
 
 .vaahana-option-card.is-incorrect {
@@ -134,34 +136,36 @@ defineExpose({ cardRef, triggerIncorrectAnimation });
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 74px;
+  flex: 1;
+  min-height: 0;
 }
 
 .option-emoji {
-  font-size: 4rem;
+  font-size: clamp(2.4rem, 8.5vh, 4.2rem);
   line-height: 1;
   display: block;
   text-align: center;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.14));
   transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .vaahana-option-card:hover:not(:disabled) .option-emoji {
-  transform: scale(1.12) rotate(-4deg);
+  transform: scale(1.1) rotate(-3deg);
 }
 
 /* ── Real Artwork (future) ── */
 .option-image-box {
   width: 100%;
-  height: 68px;
+  flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .option-image {
-  max-width: 100%;
-  max-height: 64px;
+  max-width: 90%;
+  max-height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
   pointer-events: none;
@@ -170,11 +174,13 @@ defineExpose({ cardRef, triggerIncorrectAnimation });
 /* ── Name Label ── */
 .option-name {
   font-family: 'Fredoka', 'Outfit', sans-serif;
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 2.6vh, 1.4rem);
   font-weight: 700;
   color: var(--card-text, #01579B);
-  margin-top: 6px;
+  margin-top: clamp(2px, 0.6vh, 6px);
   text-align: center;
   letter-spacing: 0.01em;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 </style>

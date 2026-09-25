@@ -62,21 +62,24 @@ defineExpose({
   align-items: center;
   justify-content: center;
   background: #FFFFFF;
-  border: 4px solid #E0E0E0;
-  border-radius: 24px;
-  padding: 14px 10px 10px 10px;
+  border: clamp(3px, 0.7vh, 5px) solid #E0E0E0;
+  border-radius: clamp(16px, 3vh, 26px);
+  padding: clamp(6px, 1.2vh, 12px) clamp(6px, 1vw, 12px);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 clamp(4px, 1vh, 10px) clamp(10px, 2vh, 20px) rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
   transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.2s, box-shadow 0.2s;
-  min-height: 155px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .deity-option-card:hover:not(.is-disabled) {
   border-color: #FFB74D;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(255, 152, 0, 0.2);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(255, 152, 0, 0.2);
 }
 
 .deity-option-card:active:not(.is-disabled) {
@@ -84,28 +87,32 @@ defineExpose({
 }
 
 .card-image-wrap {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .deity-image {
-  max-width: 95px;
-  max-height: 95px;
+  max-width: 90%;
+  max-height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
   transition: transform 0.3s;
+  pointer-events: none;
 }
 
 .deity-label {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2.5vh, 1.35rem);
   font-weight: 700;
   color: #37474F;
-  margin-top: 6px;
+  margin-top: clamp(2px, 0.6vh, 6px);
   text-align: center;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 /* Correct Answer State */
@@ -117,19 +124,19 @@ defineExpose({
 }
 
 .is-correct .deity-image {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 @keyframes gentleCelebrate {
-  0% { transform: scale(1.02) rotate(-1deg); }
-  100% { transform: scale(1.06) rotate(1deg); }
+  0% { transform: scale(1.01) rotate(-1deg); }
+  100% { transform: scale(1.04) rotate(1deg); }
 }
 
 .star-badge {
   position: absolute;
-  top: -12px;
-  right: -8px;
-  font-size: 1.6rem;
+  top: clamp(-10px, -1.5vh, -6px);
+  right: clamp(-8px, -1.2vw, -4px);
+  font-size: clamp(1.4rem, 3.5vh, 2rem);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   animation: starPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }

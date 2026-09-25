@@ -1,31 +1,31 @@
 <template>
-  <div class="deity-card-container">
-    <!-- Header Prompt with Audio Speaker -->
-    <div class="deity-header">
-      <h2 class="deity-name">{{ deity.titleName }}</h2>
-      <div class="question-row">
-        <button 
-          class="inline-speaker-btn"
-          :class="{ 'is-playing': isPlayingAudio }"
-          aria-label="Replay Question Audio"
-          type="button"
-          @click="handlePlayAudio"
-        >
-          <Volume2 class="speaker-icon" :class="{ 'bounce': isPlayingAudio }" />
-        </button>
-        <p class="deity-question">Who is my Vaahana?</p>
+  <div 
+    class="deity-card-panel" 
+    :class="{ 
+      'is-success': isSuccess,
+      'is-hinting': isHinting 
+    }"
+  >
+    <!-- Unified Question / Audio Section at top of the panel -->
+    <div class="question-header-bar">
+      <button 
+        class="speaker-btn"
+        :class="{ 'is-playing': isPlayingAudio }"
+        aria-label="Replay Question Audio"
+        type="button"
+        @click="handlePlayAudio"
+      >
+        <Volume2 class="speaker-icon" :class="{ 'bounce': isPlayingAudio }" />
+      </button>
+
+      <div class="question-text-group">
+        <h2 class="deity-name">{{ deity.titleName }}</h2>
+        <p class="question-prompt">Who is my Vaahana?</p>
       </div>
     </div>
 
-    <!-- Main Stage Card -->
-    <div 
-      class="deity-stage" 
-      :class="{ 
-        'is-success': isSuccess,
-        'is-hinting': isHinting 
-      }"
-    >
-      <!-- Deity Image -->
+    <!-- Main Deity Illustration Area -->
+    <div class="image-stage-area">
       <div class="image-wrapper">
         <transition name="pop-swap" mode="out-in">
           <img 
@@ -44,23 +44,23 @@
         </transition>
       </div>
 
-      <!-- Success Content Banner -->
-      <div v-if="isSuccess" class="success-banner">
-        <div class="celebration-badge">
-          <span class="star-pop">⭐</span>
-          <span class="good-job-text">Good Job!</span>
-          <span class="star-pop">⭐</span>
-        </div>
+      <!-- Success Action Overlay inside the card -->
+      <transition name="fade-slide">
+        <div v-if="isSuccess" class="success-banner-overlay">
+          <div class="celebration-badge">
+            <span class="star-pop">⭐</span>
+            <span class="good-job-text">Good Job!</span>
+            <span class="star-pop">⭐</span>
+          </div>
 
-        <p class="voice-fact">{{ deity.voiceText }}</p>
+          <p class="voice-fact">{{ deity.voiceText }}</p>
 
-        <div class="success-actions">
-          <button class="next-round-btn" @click="handleNext">
+          <button class="next-round-btn" type="button" @click="handleNext">
             <Sparkles class="action-icon" />
             <span>Try Another</span>
           </button>
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -97,34 +97,54 @@ function handlePlayAudio() {
 </script>
 
 <style scoped>
-.deity-card-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 6px 0;
-}
-
-.deity-header {
-  text-align: center;
-  margin-bottom: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.question-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.inline-speaker-btn {
+.deity-card-panel {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 50% 35%, #FFFDE7 0%, #FFF3E0 100%);
+  border: clamp(3px, 0.7vh, 5px) solid #FFB300;
+  border-radius: clamp(18px, 3vh, 28px);
+  padding: clamp(8px, 1.6vh, 14px) clamp(10px, 1.8vw, 16px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(255, 143, 0, 0.22);
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.deity-card-panel.is-success {
+  border-color: #66BB6A;
+  background: radial-gradient(circle at 50% 35%, #E8F5E9 0%, #C8E6C9 100%);
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.25);
+}
+
+.deity-card-panel.is-hinting {
+  animation: hintPulse 1.2s infinite ease-in-out alternate;
+}
+
+@keyframes hintPulse {
+  from { border-color: #FFB300; box-shadow: 0 0 10px rgba(255, 179, 0, 0.3); }
+  to { border-color: #FF5722; box-shadow: 0 0 24px rgba(255, 87, 34, 0.6); }
+}
+
+/* Question Header Bar */
+.question-header-bar {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 14px);
+  background: rgba(255, 255, 255, 0.9);
+  border: clamp(2px, 0.5vh, 3px) solid #FFE082;
+  border-radius: clamp(14px, 2.5vh, 22px);
+  padding: clamp(4px, 1vh, 8px) clamp(8px, 1.5vw, 14px);
+  flex-shrink: 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+}
+
+.speaker-btn {
+  width: clamp(38px, 7vh, 52px);
+  height: clamp(38px, 7vh, 52px);
+  min-width: clamp(38px, 7vh, 52px);
   border-radius: 50%;
   background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
   border: 3px solid #FFFFFF;
@@ -137,19 +157,20 @@ function handlePlayAudio() {
   outline: none;
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  flex-shrink: 0;
 }
 
-.inline-speaker-btn:hover {
+.speaker-btn:hover {
   transform: scale(1.08);
 }
 
-.inline-speaker-btn:active {
+.speaker-btn:active {
   transform: scale(0.92);
 }
 
 .speaker-icon {
-  width: 22px;
-  height: 22px;
+  width: clamp(18px, 3.5vh, 26px);
+  height: clamp(18px, 3.5vh, 26px);
   stroke-width: 2.6px;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
@@ -163,88 +184,84 @@ function handlePlayAudio() {
   100% { transform: scale(1.22); }
 }
 
+.question-text-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
 .deity-name {
   font-family: 'Fredoka', sans-serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.1rem, 3.2vh, 1.7rem);
   font-weight: 700;
   color: #E65100;
   margin: 0;
   line-height: 1.1;
-  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.deity-question {
+.question-prompt {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.25rem;
+  font-size: clamp(0.85rem, 2.2vh, 1.15rem);
   font-weight: 600;
   color: #F57C00;
   margin: 0;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
-/* Stage Box */
-.deity-stage {
+/* Image Stage Area */
+.image-stage-area {
   position: relative;
+  flex: 1;
+  min-height: 0;
   width: 100%;
-  max-width: 420px;
-  background: radial-gradient(circle, #FFFDE7 0%, #FFF3E0 100%);
-  border: 5px solid #FFB300;
-  border-radius: 36px;
-  padding: 12px 16px 16px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 12px 28px rgba(255, 143, 0, 0.2);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: clamp(4px, 1vh, 8px);
 }
 
-.deity-stage.is-success {
-  border-color: #66BB6A;
-  background: radial-gradient(circle, #E8F5E9 0%, #C8E6C9 100%);
-}
-
-.deity-stage.is-hinting {
-  animation: hintPulse 1.2s infinite ease-in-out alternate;
-}
-
-@keyframes hintPulse {
-  from { border-color: #FFB300; box-shadow: 0 0 10px rgba(255, 179, 0, 0.3); }
-  to { border-color: #FF5722; box-shadow: 0 0 24px rgba(255, 87, 34, 0.6); transform: scale(1.02); }
-}
-
-/* Image Wrapper - Enlarged for Deity PNGs */
 .image-wrapper {
   position: relative;
   width: 100%;
-  height: 275px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .deity-illustration {
-  max-width: 95%;
-  max-height: 265px;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.16));
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
   transition: transform 0.25s ease;
+  user-select: none;
 }
 
 /* Matched Emoji Badge */
 .matched-vaahana-badge {
   position: absolute;
-  bottom: 0px;
-  right: 15px;
+  bottom: clamp(4px, 1vh, 10px);
+  right: clamp(4px, 1.5vw, 16px);
   background: #FFFFFF;
-  border: 4px solid #4CAF50;
+  border: clamp(3px, 0.6vh, 4px) solid #4CAF50;
   border-radius: 50%;
-  width: 68px;
-  height: 68px;
+  width: clamp(46px, 9vh, 64px);
+  height: clamp(46px, 9vh, 64px);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.35);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.35);
   animation: bounceBadge 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2;
 }
 
 @keyframes bounceBadge {
@@ -254,45 +271,46 @@ function handlePlayAudio() {
 }
 
 .badge-emoji {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 4.5vh, 2.8rem);
   line-height: 1;
 }
 
-
-/* Success Banner */
-.success-banner {
-  width: 100%;
+/* Success Banner Overlay */
+.success-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(4px);
+  border-radius: clamp(12px, 2vh, 18px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 8px;
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(15px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  justify-content: center;
+  padding: clamp(8px, 1.5vh, 16px);
+  text-align: center;
+  box-sizing: border-box;
+  z-index: 5;
 }
 
 .celebration-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: #4CAF50;
   color: #FFFFFF;
-  padding: 6px 18px;
+  padding: clamp(3px, 0.8vh, 6px) clamp(10px, 1.5vw, 16px);
   border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.25);
 }
 
 .good-job-text {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 2.8vh, 1.4rem);
   font-weight: 700;
 }
 
 .star-pop {
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 2.5vh, 1.25rem);
   animation: spinStar 2s infinite linear;
 }
 
@@ -303,73 +321,69 @@ function handlePlayAudio() {
 
 .voice-fact {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.05rem;
+  font-size: clamp(0.9rem, 2.2vh, 1.15rem);
   font-weight: 600;
   color: #1B5E20;
-  margin: 6px 0;
+  margin: clamp(6px, 1.2vh, 10px) 0;
   text-align: center;
+  line-height: 1.25;
+  max-width: 90%;
 }
 
-.success-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-.choose-deity-btn,
 .next-round-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: linear-gradient(180deg, #66BB6A 0%, #388E3C 100%);
   color: #FFFFFF;
   border: 3px solid #FFFFFF;
   border-radius: 24px;
-  padding: 8px 18px;
+  padding: clamp(6px, 1.2vh, 10px) clamp(14px, 2.2vw, 20px);
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2.4vh, 1.15rem);
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 14px rgba(56, 142, 60, 0.35);
   transition: transform 0.15s;
   outline: none;
 }
 
-.choose-deity-btn {
-  background: linear-gradient(180deg, #FF9800 0%, #F57C00 100%);
-}
-
-.next-round-btn {
-  background: linear-gradient(180deg, #66BB6A 0%, #388E3C 100%);
-}
-
-.choose-deity-btn:active,
 .next-round-btn:active {
   transform: scale(0.94);
 }
 
 .action-icon {
-  width: 20px;
-  height: 20px;
+  width: clamp(16px, 2.6vh, 20px);
+  height: clamp(16px, 2.6vh, 20px);
   stroke-width: 3px;
 }
 
-/* Image Swap Transition */
+/* Transitions */
 .pop-swap-enter-active,
 .pop-swap-leave-active {
-  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .pop-swap-enter-from,
 .pop-swap-leave-to {
-  transform: scale(0.7);
+  transform: scale(0.8);
   opacity: 0;
 }
 
 .pop-badge-enter-active {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .pop-badge-enter-from {
   transform: scale(0);
   opacity: 0;
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.25s ease;
+}
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
 </style>

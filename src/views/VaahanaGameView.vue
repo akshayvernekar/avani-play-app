@@ -1,41 +1,56 @@
 <template>
   <div class="game-view-container" :style="bgStyle">
-    <!-- Top Bar Navigation & Progress -->
+    <!-- Top Control Bar (Slim, fits in landscape) -->
     <header class="top-nav">
-      <NavigationButton type="back" label="Home" @click="goHome" />
-
-      <div class="nav-center">
-        <h1 class="nav-title">Gods & Vaahanas</h1>
-        <div class="deity-counter-badge">
-          ⭐ {{ foundCount }} Vaahanas Found
-        </div>
+      <div class="nav-left">
+        <h1 class="nav-title">Gods &amp; Vaahanas</h1>
+        <!-- Subtle feedback / hint inline pill -->
+        <transition name="fade">
+          <div v-if="feedbackText" class="feedback-inline" :class="{ 'is-hint': isHintText }">
+            <span class="feedback-icon">{{ isHintText ? '💡' : '🎉' }}</span>
+            <span class="feedback-message">{{ feedbackText }}</span>
+          </div>
+        </transition>
       </div>
 
-      <NavigationButton type="audio" label="Sound Toggle" :is-muted="isMuted" @click="toggleMute" />
+      <div class="nav-right">
+        <!-- Progress counter e.g. 1/6 -->
+        <div class="progress-pill" aria-label="Game Progress">
+          <span class="progress-num">{{ currentRoundNumber }}/{{ totalDeities }}</span>
+        </div>
+
+        <NavigationButton 
+          type="audio" 
+          label="Sound Toggle" 
+          :is-muted="isMuted" 
+          @click="toggleMute" 
+        />
+
+        <NavigationButton 
+          type="home" 
+          label="Home" 
+          @click="goHome" 
+        />
+      </div>
     </header>
 
-    <!-- Friendly Hint / Feedback Banner -->
-    <transition name="fade-slide">
-      <div v-if="feedbackText" class="feedback-banner" :class="{ 'is-hint': isHintText }">
-        <span class="feedback-icon">{{ isHintText ? '💡' : '😊' }}</span>
-        <span class="feedback-message">{{ feedbackText }}</span>
-      </div>
-    </transition>
+    <!-- Main Game Split Layout: Left (Question/Deity) ~50%, Right (2x2 Answers) ~50% -->
+    <main class="game-stage-landscape">
+      <!-- LEFT SIDE: Question + Deity card (fills height proportionally) -->
+      <section class="left-panel">
+        <DeityCard
+          ref="deityCardRef"
+          :deity="currentDeity"
+          :is-success="isCurrentSuccess"
+          :is-playing-audio="isPlayingAudio"
+          :is-hinting="failedAttempts >= 2 && !isCurrentSuccess"
+          @next="handleNextRound"
+          @play-audio="playQuestionAudio"
+        />
+      </section>
 
-    <!-- Center Deity Stage -->
-    <main class="game-stage">
-      <DeityCard
-        ref="deityCardRef"
-        :deity="currentDeity"
-        :is-success="isCurrentSuccess"
-        :is-playing-audio="isPlayingAudio"
-        :is-hinting="failedAttempts >= 2 && !isCurrentSuccess"
-        @next="handleNextRound"
-        @play-audio="playQuestionAudio"
-      />
-
-      <!-- Bottom Animal Options Grid -->
-      <div class="options-container" :class="{ 'is-hidden': isCurrentSuccess }">
+      <!-- RIGHT SIDE: 2 x 2 Answer Options Grid -->
+      <section class="right-panel">
         <div class="options-grid">
           <VaahanaOption
             v-for="opt in currentOptions"
@@ -46,8 +61,20 @@
             @select="handleOptionSelect"
           />
         </div>
-      </div>
+      </section>
     </main>
+
+    <!-- Portrait Orientation Blocker Screen -->
+    <div class="portrait-guard-overlay" aria-live="assertive">
+      <div class="rotate-phone-card">
+        <div class="phone-icon-anim">
+          <Smartphone class="device-icon" />
+          <div class="rotate-arrow">↻</div>
+        </div>
+        <h2 class="rotate-title">Turn your device sideways!</h2>
+        <p class="rotate-desc">Rotate to landscape for the best playful experience! 🌈</p>
+      </div>
+    </div>
 
     <!-- Final Game Completion Modal -->
     <VaahanaCelebrationModal
@@ -61,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, ComponentPublicInstance, watch } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, ComponentPublicInstance, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { 
   vaahanaData, 
@@ -75,6 +102,7 @@ import VaahanaOption from '../components/vaahana/VaahanaOption.vue';
 import VaahanaCelebrationModal from '../components/vaahana/VaahanaCelebrationModal.vue';
 import { audioManager } from '../audio/AudioManager';
 import confetti from 'canvas-confetti';
+import { Smartphone } from 'lucide-vue-next';
 
 const router = useRouter();
 const route = useRoute();
@@ -92,6 +120,9 @@ const isMuted = ref(audioManager.getMuted());
 const currentOptions = ref<VaahanaOptionItem[]>([]);
 const deityCardRef = ref<InstanceType<typeof DeityCard> | null>(null);
 const optionRefs = ref<Record<string, InstanceType<typeof VaahanaOption>>>({});
+
+const totalDeities = computed(() => vaahanaData.length);
+const currentRoundNumber = computed(() => (foundCount.value % vaahanaData.length) + 1);
 
 let feedbackTimer: number | null = null;
 
@@ -163,10 +194,26 @@ function saveScore() {
   localStorage.setItem('vaahana_found_count', foundCount.value.toString());
 }
 
+async function requestLandscapeLock() {
+  try {
+    const orientation = window.screen?.orientation as any;
+    if (orientation && typeof orientation.lock === 'function') {
+      await orientation.lock('landscape');
+    }
+  } catch {
+    // Gracefully ignore if not supported by browser
+  }
+}
+
 onMounted(() => {
   loadScore();
   const deityId = route.params.id as string;
   startNewRound(deityId);
+  requestLandscapeLock();
+});
+
+onBeforeUnmount(() => {
+  if (feedbackTimer) clearTimeout(feedbackTimer);
 });
 
 watch(() => route.params.id, (newId) => {
@@ -197,7 +244,7 @@ function checkMatch(option: VaahanaOptionItem) {
     foundCount.value++;
     saveScore();
 
-    feedbackText.value = '🎉 Good Job! 🎉';
+    feedbackText.value = 'Good Job! 🎉';
     isHintText.value = false;
 
     audioManager.playCelebration();
@@ -219,9 +266,9 @@ function checkMatch(option: VaahanaOptionItem) {
     }
 
     confetti({
-      particleCount: 60,
-      spread: 70,
-      origin: { y: 0.6 }
+      particleCount: 65,
+      spread: 75,
+      origin: { y: 0.55 }
     });
 
   } else {
@@ -281,7 +328,7 @@ function checkMatch(option: VaahanaOptionItem) {
       if (!isCurrentSuccess.value) {
         feedbackText.value = '';
       }
-    }, 3000);
+    }, 2800);
   }
 }
 
@@ -303,120 +350,247 @@ const bgStyle = {
 </script>
 
 <style scoped>
+/* Full viewport strictly landscape container, zero scrollbars */
 .game-view-container {
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: center top / cover no-repeat;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: center center / cover no-repeat;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 16px 16px 24px 16px;
+  padding: clamp(6px, 1.4vh, 12px) clamp(10px, 2vw, 20px);
+  padding-left: max(clamp(10px, 2vw, 20px), env(safe-area-inset-left));
+  padding-right: max(clamp(10px, 2vw, 20px), env(safe-area-inset-right));
+  padding-top: max(clamp(6px, 1.4vh, 12px), env(safe-area-inset-top));
+  padding-bottom: max(clamp(6px, 1.4vh, 12px), env(safe-area-inset-bottom));
   box-sizing: border-box;
-  max-width: 540px;
-  margin: 0 auto;
+  position: fixed;
+  inset: 0;
+  user-select: none;
 }
 
 /* Top Nav */
 .top-nav {
   width: 100%;
+  height: clamp(38px, 7.5vh, 52px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  flex-shrink: 0;
+  margin-bottom: clamp(4px, 1vh, 8px);
 }
 
-.nav-center {
+.nav-left {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: clamp(8px, 1.5vw, 16px);
 }
 
 .nav-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.6rem;
+  font-size: clamp(1.2rem, 3.2vh, 1.8rem);
   font-weight: 700;
   color: #C2185B;
   margin: 0;
-  text-shadow: 0 2px 6px rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 6px rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
 }
 
-.deity-counter-badge {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #E65100;
-  background: rgba(255, 255, 255, 0.85);
-  border: 2px solid #FFE082;
-  border-radius: 16px;
-  padding: 2px 10px;
-}
-
-/* Feedback Banner */
-.feedback-banner {
-  display: flex;
+.feedback-inline {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: #FFF3E0;
-  border: 3px solid #FF9800;
-  border-radius: 20px;
-  padding: 8px 18px;
-  margin-bottom: 6px;
-  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+  border: 2px solid #FF9800;
+  border-radius: 16px;
+  padding: 3px 10px;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.2);
 }
 
-.feedback-banner.is-hint {
+.feedback-inline.is-hint {
   background: #FFF8E1;
   border-color: #F57F17;
 }
 
 .feedback-icon {
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2vh, 1.15rem);
 }
 
 .feedback-message {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.1rem;
+  font-size: clamp(0.85rem, 2vh, 1rem);
   font-weight: 700;
   color: #E65100;
+  white-space: nowrap;
 }
 
-/* Stage */
-.game-stage {
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 12px);
+}
+
+.progress-pill {
+  background: #FFFFFF;
+  border: clamp(2px, 0.5vh, 3px) solid #FF9800;
+  border-radius: 20px;
+  padding: clamp(3px, 0.7vh, 6px) clamp(10px, 1.5vw, 16px);
+  box-shadow: 0 3px 8px rgba(255, 152, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-num {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(0.95rem, 2.4vh, 1.25rem);
+  font-weight: 700;
+  color: #E65100;
+  letter-spacing: 0.05em;
+}
+
+/* Landscape Split Stage: Left 50%, Right 50% */
+.game-stage-landscape {
+  flex: 1;
+  min-height: 0;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: clamp(10px, 1.8vw, 20px);
+  box-sizing: border-box;
+}
+
+.left-panel {
+  flex: 1 1 48%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-panel {
+  flex: 1 1 52%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2x2 Options Grid fitting exactly inside right panel */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(8px, 1.6vh, 14px);
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+/* Portrait Blocker Overlay (shown when orientation is portrait) */
+.portrait-guard-overlay {
+  display: none;
+}
+
+@media (orientation: portrait) {
+  .portrait-guard-overlay {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: radial-gradient(circle at center, #4FC3F7 0%, #0288D1 100%);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+}
+
+.rotate-phone-card {
+  background: #FFFFFF;
+  border: 5px solid #FFCA28;
+  border-radius: 32px;
+  padding: 32px 24px;
+  max-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
 }
 
-/* Options Grid */
-.options-container {
-  width: 100%;
-  margin-top: 10px;
-  transition: opacity 0.2s, transform 0.2s;
+.phone-icon-anim {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
 }
 
-.options-container.is-hidden {
+.device-icon {
+  width: 58px;
+  height: 58px;
+  color: #0288D1;
+  animation: phoneRotateAnim 2.2s infinite ease-in-out;
+}
+
+.rotate-arrow {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: 1.8rem;
+  color: #FF9800;
+  font-weight: 900;
+  animation: arrowSpin 2.2s infinite ease-in-out;
+}
+
+@keyframes phoneRotateAnim {
+  0% { transform: rotate(0deg); }
+  35% { transform: rotate(90deg); }
+  65% { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes arrowSpin {
+  0% { transform: rotate(0deg) scale(0.9); opacity: 0.6; }
+  35% { transform: rotate(90deg) scale(1.15); opacity: 1; }
+  65% { transform: rotate(90deg) scale(1.15); opacity: 1; }
+  100% { transform: rotate(0deg) scale(0.9); opacity: 0.6; }
+}
+
+.rotate-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #E65100;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.rotate-desc {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #546E7A;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
-}
-
-.options-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  width: 100%;
-}
-
-/* Transition */
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition: all 0.25s ease;
-}
-.fade-slide-enter-from,
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-4px);
 }
 </style>

@@ -125,10 +125,10 @@ function handleBackdropClick() {
 
 .celebration-card {
   background: linear-gradient(180deg, #66BB6A 0%, #2E7D32 100%);
-  border: 6px solid #FFFFFF;
-  border-radius: 36px;
-  padding: 24px 18px;
-  max-width: 440px;
+  border: clamp(3px, 0.8vh, 6px) solid #FFFFFF;
+  border-radius: clamp(20px, 4vh, 36px);
+  padding: clamp(12px, 2vh, 22px) clamp(14px, 2vw, 20px);
+  max-width: 480px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -137,8 +137,9 @@ function handleBackdropClick() {
   animation: bounceIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   color: #FFFFFF;
   cursor: default;
-  max-height: 90vh;
+  max-height: 94vh;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 @keyframes bounceIn {
@@ -150,15 +151,15 @@ function handleBackdropClick() {
 .stars-header {
   display: flex;
   gap: 12px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .star {
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 3.5vh, 2rem);
   animation: float 2s infinite ease-in-out alternate;
 }
 .star.left { animation-delay: 0s; }
-.star.center { font-size: 2.8rem; animation-delay: 0.3s; }
+.star.center { font-size: clamp(1.8rem, 4.5vh, 2.8rem); animation-delay: 0.3s; }
 .star.right { animation-delay: 0.6s; }
 
 @keyframes float {
@@ -168,7 +169,7 @@ function handleBackdropClick() {
 
 .victory-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 5vh, 3rem);
   font-weight: 700;
   margin: 0;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
@@ -177,9 +178,9 @@ function handleBackdropClick() {
 
 .victory-subtitle {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.35rem;
+  font-size: clamp(0.95rem, 2.2vh, 1.35rem);
   font-weight: 600;
-  margin: 4px 0 16px 0;
+  margin: 2px 0 clamp(6px, 1.2vh, 14px) 0;
   text-align: center;
   opacity: 0.95;
 }
@@ -187,13 +188,13 @@ function handleBackdropClick() {
 .deities-gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: clamp(6px, 1vh, 10px);
   background: #FFFFFF;
-  border-radius: 24px;
-  padding: 12px;
+  border-radius: clamp(16px, 2.5vh, 24px);
+  padding: clamp(6px, 1.2vh, 12px);
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 1.8vh, 18px);
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -203,15 +204,15 @@ function handleBackdropClick() {
   align-items: center;
   background: #FFFDE7;
   border: 2px solid #FFE082;
-  border-radius: 16px;
-  padding: 8px 4px 6px;
+  border-radius: clamp(10px, 1.5vh, 16px);
+  padding: clamp(4px, 0.8vh, 8px) 4px clamp(3px, 0.6vh, 6px);
   position: relative;
 }
 
 .gallery-img-box {
   position: relative;
   width: 100%;
-  height: 75px;
+  height: clamp(44px, 9vh, 70px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,7 +220,7 @@ function handleBackdropClick() {
 
 .gallery-img {
   max-width: 90%;
-  max-height: 70px;
+  max-height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
 }
@@ -228,16 +229,16 @@ function handleBackdropClick() {
   position: absolute;
   bottom: -4px;
   right: 2px;
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 2.2vh, 1.4rem);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .gallery-name {
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.85rem;
+  font-size: clamp(0.72rem, 1.6vh, 0.85rem);
   font-weight: 700;
   color: #E65100;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .actions-row {
@@ -252,11 +253,11 @@ function handleBackdropClick() {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 10px;
+  padding: clamp(8px, 1.6vh, 14px) 10px;
   border-radius: 24px;
   border: none;
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 2.2vh, 1.15rem);
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);

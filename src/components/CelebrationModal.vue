@@ -109,11 +109,13 @@ function handleBackdropClick() {
 
 .celebration-card {
   background: linear-gradient(180deg, #29B6F6 0%, #0288D1 100%);
-  border: 6px solid #FFFFFF;
-  border-radius: 36px;
-  padding: 28px 20px;
-  max-width: 360px;
+  border: clamp(3px, 0.8vh, 6px) solid #FFFFFF;
+  border-radius: clamp(20px, 4vh, 36px);
+  padding: clamp(12px, 2.5vh, 26px) clamp(14px, 2vw, 22px);
+  max-width: 440px;
   width: 100%;
+  max-height: 94vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,6 +123,7 @@ function handleBackdropClick() {
   animation: bounceIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   color: #FFFFFF;
   cursor: default;
+  box-sizing: border-box;
 }
 
 @keyframes bounceIn {
@@ -132,15 +135,15 @@ function handleBackdropClick() {
 .stars-header {
   display: flex;
   gap: 12px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .star {
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 3.5vh, 2rem);
   animation: float 2s infinite ease-in-out alternate;
 }
 .star.left { animation-delay: 0s; }
-.star.center { font-size: 2.6rem; animation-delay: 0.3s; }
+.star.center { font-size: clamp(1.8rem, 4.5vh, 2.6rem); animation-delay: 0.3s; }
 .star.right { animation-delay: 0.6s; }
 
 @keyframes float {
@@ -150,7 +153,7 @@ function handleBackdropClick() {
 
 .victory-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 3.2rem;
+  font-size: clamp(1.8rem, 5vh, 3.2rem);
   font-weight: 700;
   margin: 0;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -159,29 +162,29 @@ function handleBackdropClick() {
 
 .victory-subtitle {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.6rem;
+  font-size: clamp(1.05rem, 2.5vh, 1.5rem);
   font-weight: 600;
-  margin: 4px 0 16px 0;
+  margin: 4px 0 clamp(8px, 1.5vh, 14px) 0;
   opacity: 0.95;
 }
 
 .completed-image-box {
   background: #FFFFFF;
-  border-radius: 28px;
-  padding: 16px;
-  width: 88%;
+  border-radius: clamp(16px, 3vh, 24px);
+  padding: clamp(8px, 1.5vh, 14px);
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-  margin-bottom: 24px;
+  margin-bottom: clamp(10px, 2vh, 18px);
 }
 
 .completed-image {
-  max-width: 180px;
-  max-height: 160px;
+  max-width: clamp(100px, 22vh, 180px);
+  max-height: clamp(80px, 18vh, 150px);
   object-fit: contain;
-  margin-bottom: 12px;
+  margin-bottom: clamp(6px, 1vh, 10px);
   filter: drop-shadow(0 6px 12px rgba(0,0,0,0.1));
 }
 
@@ -227,11 +230,11 @@ function handleBackdropClick() {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 10px;
+  padding: clamp(8px, 1.6vh, 14px) 10px;
   border-radius: 24px;
   border: none;
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 2.2vh, 1.15rem);
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);

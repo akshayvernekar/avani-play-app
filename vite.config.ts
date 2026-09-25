@@ -17,7 +17,7 @@ export default defineConfig({
         theme_color: '#4FC3F7',
         background_color: '#E0F7FA',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'any',
         start_url: '/avani-play-app/',
         scope: '/avani-play-app/',
         icons: [

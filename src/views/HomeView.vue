@@ -88,21 +88,26 @@ const bgStyle = {
 .home-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: center top / cover no-repeat;
+  background: center center / cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 20px 24px 20px;
+  padding: clamp(10px, 2vh, 24px) clamp(12px, 3vw, 24px);
+  padding-left: max(clamp(12px, 3vw, 24px), env(safe-area-inset-left));
+  padding-right: max(clamp(12px, 3vw, 24px), env(safe-area-inset-right));
+  padding-top: max(clamp(10px, 2vh, 24px), env(safe-area-inset-top));
+  padding-bottom: max(clamp(10px, 2vh, 24px), env(safe-area-inset-bottom));
   box-sizing: border-box;
-  max-width: 540px;
+  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .home-header {
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-top: clamp(2px, 1vh, 10px);
+  margin-bottom: clamp(6px, 1.5vh, 18px);
   filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.8));
 }
 
@@ -115,18 +120,18 @@ const bgStyle = {
 
 .main-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 3.2rem;
+  font-size: clamp(2rem, 5.5vh, 3.2rem);
   font-weight: 700;
   color: #FF4081;
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-shadow: 0 4px 12px rgba(255, 64, 129, 0.2), 0 0 10px #FFFFFF;
 }
 
 .sun-icon {
-  font-size: 2.8rem;
+  font-size: clamp(1.8rem, 5vh, 2.8rem);
   animation: spinSlow 12s linear infinite;
   filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
 }
@@ -138,7 +143,7 @@ const bgStyle = {
 
 .sub-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 5vh, 3rem);
   font-weight: 700;
   color: #651FFF;
   margin: 0;
@@ -147,10 +152,10 @@ const bgStyle = {
 
 .tagline {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.35rem;
+  font-size: clamp(0.95rem, 2.2vh, 1.35rem);
   font-weight: 700;
   color: #1A237E;
-  margin: 10px 0 0 0;
+  margin: clamp(4px, 1vh, 10px) 0 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,30 +165,42 @@ const bgStyle = {
 
 .heart {
   color: #FF4081;
-  font-size: 1.1rem;
+  font-size: 0.9em;
 }
 
-/* Grid Layout */
+/* Grid Layout: adapts to 2 columns in portrait, 3 columns in landscape on wide screens */
 .tiles-grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin-bottom: 24px;
+  gap: clamp(10px, 2vh, 18px);
+  margin-bottom: clamp(10px, 2vh, 24px);
+  max-width: 600px;
+}
+
+@media (min-aspect-ratio: 4/3) and (min-width: 680px) {
+  .home-container {
+    max-width: 960px;
+  }
+  .tiles-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 820px;
+  }
 }
 
 /* Footer */
 .home-footer {
   width: 100%;
+  max-width: 820px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 10px;
+  padding-top: clamp(4px, 1vh, 10px);
 }
 
 .settings-btn {
-  width: 48px;
-  height: 48px;
+  width: clamp(38px, 6vh, 48px);
+  height: clamp(38px, 6vh, 48px);
   border-radius: 50%;
   background: #FFFFFF;
   border: 3.5px solid #29B6F6;
@@ -202,14 +219,14 @@ const bgStyle = {
 }
 
 .settings-icon {
-  width: 24px;
-  height: 24px;
+  width: clamp(18px, 3vh, 24px);
+  height: clamp(18px, 3vh, 24px);
   stroke-width: 2.5px;
 }
 
 .made-with {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.15rem;
+  font-size: clamp(0.9rem, 2vh, 1.15rem);
   font-weight: 700;
   color: #FFFFFF;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);

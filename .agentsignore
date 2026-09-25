@@ -1,0 +1,30 @@
+# Audio files (large binary assets)
+*.mp3
+*.wav
+*.ogg
+*.m4a
+*.aac
+public/assets/audio/
+public/assets/audio_gungun/
+public/audio/
+
+# Large visual assets (SVGs, PNGs, JPGs, WebP)
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.ico
+public/assets/
+public/images/
+public/puzzles/
+
+# Build artifacts & dependencies
+node_modules/
+dist/
+dist-ssr/
+.git/
+.vscode/
+.idea/
+*.log
