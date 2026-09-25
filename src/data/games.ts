@@ -17,6 +17,19 @@ const baseUrl = import.meta.env.BASE_URL;
 
 export const games: GameCategory[] = [
   {
+    id: "puja",
+    title: "Puja Time 🙏",
+    subtitle: "Decorate Ganesha!",
+    iconName: "Sparkles",
+    customIcon: `${baseUrl}assets/vaahana/ganesha.png`,
+    bgColor: "#FFF8E1",
+    borderColor: "#FFB300",
+    textColor: "#E65100",
+    enabled: true,
+    badge: "New!",
+    route: "/puja"
+  },
+  {
     id: "identify-god",
     title: "Identify the God",
     subtitle: "Where is Ganesha? Tap to find!",

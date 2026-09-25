@@ -391,6 +391,146 @@ class AudioManager {
       if (onEnd) onEnd();
     }
   }
+  /**
+   * Puja audio effects: soft chime for flower / offering placement
+   */
+  public playChime() {
+    if (this.isMuted) return;
+    this.initCtx();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const notes = [880, 1046, 1318];
+      notes.forEach((freq, idx) => {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const startTime = now + idx * 0.08;
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, startTime);
+
+        gain.gain.setValueAtTime(0.25, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(startTime);
+        osc.stop(startTime + 0.35);
+      });
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  /**
+   * Temple bell sound for garland snap
+   */
+  public playBell() {
+    if (this.isMuted) return;
+    this.initCtx();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const notes = [523, 659, 784];
+      notes.forEach((freq, idx) => {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const startTime = now + idx * 0.1;
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, startTime);
+
+        gain.gain.setValueAtTime(0.35, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.6);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(startTime);
+        osc.stop(startTime + 0.6);
+      });
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  /**
+   * Diya lighting whoosh sound
+   */
+  public playFlameWhoosh() {
+    if (this.isMuted) return;
+    this.initCtx();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(400, now);
+      osc.frequency.exponentialRampToValueAtTime(200, now + 0.3);
+
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.3);
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  /**
+   * Looping temple bells during Aarti. Returns a stop function.
+   */
+  public playAartiBells(): () => void {
+    if (this.isMuted) return () => {};
+    this.initCtx();
+    if (!this.ctx) return () => {};
+
+    let stopped = false;
+    const notes = [659.25, 783.99, 880.0, 987.77, 1046.5];
+    let noteIdx = 0;
+
+    const intervalId = window.setInterval(() => {
+      if (stopped || !this.ctx || this.isMuted) return;
+      try {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const now = this.ctx.currentTime;
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(notes[noteIdx % notes.length], now);
+        noteIdx++;
+
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.28);
+      } catch (e) {
+        console.warn(e);
+      }
+    }, 180);
+
+    return () => {
+      stopped = true;
+      clearInterval(intervalId);
+    };
+  }
 }
 
 export const audioManager = new AudioManager();
+
