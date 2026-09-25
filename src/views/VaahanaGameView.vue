@@ -352,44 +352,51 @@ const bgStyle = {
 <style scoped>
 /* Full viewport strictly landscape container, zero scrollbars */
 .game-view-container {
+  width: 100%;
   width: 100vw;
+  height: 100%;
   height: 100vh;
   height: 100dvh;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   background: center center / cover no-repeat;
   display: flex;
   flex-direction: column;
-  padding: clamp(6px, 1.4vh, 12px) clamp(10px, 2vw, 20px);
-  padding-left: max(clamp(10px, 2vw, 20px), env(safe-area-inset-left));
-  padding-right: max(clamp(10px, 2vw, 20px), env(safe-area-inset-right));
-  padding-top: max(clamp(6px, 1.4vh, 12px), env(safe-area-inset-top));
-  padding-bottom: max(clamp(6px, 1.4vh, 12px), env(safe-area-inset-bottom));
+  padding-left: max(8px, env(safe-area-inset-left));
+  padding-right: max(8px, env(safe-area-inset-right));
+  padding-top: max(4px, env(safe-area-inset-top));
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
   box-sizing: border-box;
   position: fixed;
   inset: 0;
   user-select: none;
 }
 
-/* Top Nav */
+/* Dedicated Reserved Top Nav Bar */
 .top-nav {
   width: 100%;
-  height: clamp(38px, 7.5vh, 52px);
+  height: clamp(40px, 8vh, 50px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
-  margin-bottom: clamp(4px, 1vh, 8px);
+  padding: 0 clamp(4px, 1vw, 10px);
+  box-sizing: border-box;
+  margin-bottom: clamp(2px, 0.8vh, 6px);
+  z-index: 10;
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: clamp(8px, 1.5vw, 16px);
+  gap: clamp(6px, 1.2vw, 14px);
+  min-width: 0;
 }
 
 .nav-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(1.2rem, 3.2vh, 1.8rem);
+  font-size: clamp(1.1rem, 3.2vh, 1.6rem);
   font-weight: 700;
   color: #C2185B;
   margin: 0;
@@ -400,12 +407,12 @@ const bgStyle = {
 .feedback-inline {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: #FFF3E0;
   border: 2px solid #FF9800;
   border-radius: 16px;
-  padding: 3px 10px;
-  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.2);
+  padding: 2px 8px;
+  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.2);
 }
 
 .feedback-inline.is-hint {
@@ -414,12 +421,12 @@ const bgStyle = {
 }
 
 .feedback-icon {
-  font-size: clamp(0.9rem, 2vh, 1.15rem);
+  font-size: clamp(0.85rem, 1.8vh, 1.05rem);
 }
 
 .feedback-message {
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(0.85rem, 2vh, 1rem);
+  font-size: clamp(0.78rem, 1.8vh, 0.92rem);
   font-weight: 700;
   color: #E65100;
   white-space: nowrap;
@@ -428,15 +435,16 @@ const bgStyle = {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: clamp(6px, 1vw, 12px);
+  gap: clamp(6px, 1vw, 10px);
+  flex-shrink: 0;
 }
 
 .progress-pill {
   background: #FFFFFF;
-  border: clamp(2px, 0.5vh, 3px) solid #FF9800;
+  border: clamp(2px, 0.4vh, 3px) solid #FF9800;
   border-radius: 20px;
-  padding: clamp(3px, 0.7vh, 6px) clamp(10px, 1.5vw, 16px);
-  box-shadow: 0 3px 8px rgba(255, 152, 0, 0.25);
+  padding: clamp(2px, 0.5vh, 4px) clamp(8px, 1.2vw, 12px);
+  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -444,26 +452,26 @@ const bgStyle = {
 
 .progress-num {
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(0.95rem, 2.4vh, 1.25rem);
+  font-size: clamp(0.9rem, 2.2vh, 1.15rem);
   font-weight: 700;
   color: #E65100;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
-/* Landscape Split Stage: Left 50%, Right 50% */
+/* Landscape Split Stage: Left 50%, Right 50% with clean grid */
 .game-stage-landscape {
   flex: 1;
   min-height: 0;
   width: 100%;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
-  gap: clamp(10px, 1.8vw, 20px);
+  gap: clamp(8px, 1.5vw, 16px);
+  padding: 0 clamp(4px, 1vw, 10px);
   box-sizing: border-box;
 }
 
 .left-panel {
-  flex: 1 1 48%;
   height: 100%;
   min-height: 0;
   min-width: 0;
@@ -472,7 +480,6 @@ const bgStyle = {
 }
 
 .right-panel {
-  flex: 1 1 52%;
   height: 100%;
   min-height: 0;
   min-width: 0;
@@ -483,9 +490,9 @@ const bgStyle = {
 /* 2x2 Options Grid fitting exactly inside right panel */
 .options-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: clamp(8px, 1.6vh, 14px);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: clamp(6px, 1.4vh, 12px);
   width: 100%;
   height: 100%;
   min-height: 0;

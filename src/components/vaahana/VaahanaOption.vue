@@ -138,22 +138,24 @@ defineExpose({ cardRef, triggerIncorrectAnimation });
   width: 100%;
   flex: 1;
   min-height: 0;
+  padding: clamp(2px, 0.5vh, 6px);
+  box-sizing: border-box;
 }
 
 .option-emoji {
-  font-size: clamp(2.4rem, 8.5vh, 4.2rem);
+  font-size: clamp(2.8rem, 11vh, 5.2rem);
   line-height: 1;
   display: block;
   text-align: center;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.14));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
   transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .vaahana-option-card:hover:not(:disabled) .option-emoji {
-  transform: scale(1.1) rotate(-3deg);
+  transform: scale(1.08) rotate(-3deg);
 }
 
-/* ── Real Artwork (future) ── */
+/* ── Artwork Display ── */
 .option-image-box {
   width: 100%;
   flex: 1;
@@ -161,26 +163,37 @@ defineExpose({ cardRef, triggerIncorrectAnimation });
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: clamp(2px, 0.5vh, 6px) clamp(4px, 1vw, 10px);
+  box-sizing: border-box;
 }
 
 .option-image {
-  max-width: 90%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  max-width: 95%;
+  max-height: 95%;
   object-fit: contain;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
   pointer-events: none;
+  transition: transform 0.18s ease;
+}
+
+.vaahana-option-card:hover:not(:disabled) .option-image {
+  transform: scale(1.06);
 }
 
 /* ── Name Label ── */
 .option-name {
   font-family: 'Fredoka', 'Outfit', sans-serif;
-  font-size: clamp(0.95rem, 2.6vh, 1.4rem);
+  font-size: clamp(0.9rem, 2.3vh, 1.25rem);
   font-weight: 700;
   color: var(--card-text, #01579B);
-  margin-top: clamp(2px, 0.6vh, 6px);
+  margin-top: clamp(1px, 0.4vh, 4px);
+  margin-bottom: clamp(1px, 0.4vh, 4px);
   text-align: center;
   letter-spacing: 0.01em;
   line-height: 1.1;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 </style>

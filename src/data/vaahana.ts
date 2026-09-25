@@ -92,32 +92,38 @@ export const vaahanas: VaahanaOptionItem[] = [
     {
         id: "mouse",
         name: "Mouse",
-        emoji: "🐭"
+        emoji: "🐭",
+        image: `${baseUrl}assets/vaahana/mouse.png`
     },
     {
         id: "nandi",
         name: "Bull",
-        emoji: "🐂"
+        emoji: "🐂",
+        image: `${baseUrl}assets/vaahana/bull.png`
     },
     {
         id: "lion",
         name: "Lion",
-        emoji: "🦁"
+        emoji: "🦁",
+        image: `${baseUrl}assets/vaahana/lion.png`
     },
     {
         id: "peacock",
         name: "Peacock",
-        emoji: "🦚"
+        emoji: "🦚",
+        image: `${baseUrl}assets/vaahana/peacock-removebg-preview.png`
     },
     {
         id: "garuda",
         name: "Eagle",
-        emoji: "🦅"
+        emoji: "🦅",
+        image: `${baseUrl}assets/vaahana/garuda.png`
     },
     {
         id: "swan",
         name: "Swan",
-        emoji: "🦢"
+        emoji: "🦢",
+        image: `${baseUrl}assets/vaahana/swan.png`
     }
 ];
 

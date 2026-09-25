@@ -20,9 +20,8 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
   font-family: 'Fredoka', 'Outfit', system-ui, -apple-system, sans-serif;
   background-color: #E0F7FA;
   -webkit-font-smoothing: antialiased;
@@ -30,9 +29,10 @@ html, body {
 
 #app-root {
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
-  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
