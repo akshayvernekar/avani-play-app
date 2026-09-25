@@ -42,7 +42,7 @@
     <!-- Main Game Split Layout: Left Scene (~66%), Right Tools Panel (~34%) -->
     <main class="game-stage-landscape">
       <!-- Left Scene Area -->
-      <section class="left-panel">
+      <section class="left-panel" :class="{ 'is-dragging-active': !!draggingItemId }">
         <PujaScene
           ref="sceneRef"
           :deity="deityConfig"
@@ -147,6 +147,7 @@ let spawnOffsetIndex = 0;
 // Aarti State
 const isAartiActive = ref(false);
 const activeAartiItem = ref<PujaItem | null>(null);
+let stopAartiMantra: (() => void) | null = null;
 let stopAartiBells: (() => void) | null = null;
 
 const bgStyle = computed(() => ({
@@ -409,14 +410,15 @@ function startAarti(item: PujaItem) {
   feedbackText.value = 'Turn the Aarti plate around Ganesha! ✨';
   feedbackIcon.value = '🌟';
 
-  cleanupAartiAudio();
-  stopAartiBells = audioManager.playAartiBells();
+  cleanupAartiAudio(false);
+  audioManager.playBell();
+  stopAartiMantra = audioManager.playAartiMantra();
 }
 
 function onAartiProgress(_progress: number) {}
 
 function onAartiComplete() {
-  cleanupAartiAudio();
+  cleanupAartiAudio(true);
   isAartiActive.value = false;
   activeAartiItem.value = null;
 
@@ -428,11 +430,16 @@ function onAartiComplete() {
   }, 900);
 }
 
-function cleanupAartiAudio() {
+function cleanupAartiAudio(fade: boolean = false) {
+  if (stopAartiMantra) {
+    stopAartiMantra();
+    stopAartiMantra = null;
+  }
   if (stopAartiBells) {
     stopAartiBells();
     stopAartiBells = null;
   }
+  audioManager.stopAartiMantra(fade);
 }
 
 function resetScene() {
@@ -573,6 +580,11 @@ onBeforeUnmount(() => {
   position: relative;
   height: 100%;
   min-height: 0;
+  transition: z-index 0s;
+}
+
+.left-panel.is-dragging-active {
+  z-index: 25;
 }
 
 .right-panel {
@@ -611,22 +623,32 @@ onBeforeUnmount(() => {
   line-height: 1;
 }
 
-/* Portrait Guard Overlay */
-.portrait-guard-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+/* Responsive Portrait Layout */
+@media (orientation: portrait) {
+  .game-stage-landscape {
+    grid-template-columns: 1fr;
+    grid-template-rows: 58fr 42fr;
+    gap: clamp(6px, 1vh, 10px);
+    padding: clamp(4px, 0.8vh, 8px) clamp(8px, 2vw, 14px) clamp(6px, 1vh, 10px);
+  }
+
+  .left-panel {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .right-panel {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .portrait-guard-overlay {
+    display: none !important;
+  }
 }
 
-@media (orientation: portrait) {
-  .portrait-guard-overlay {
-    display: flex;
-  }
+.portrait-guard-overlay {
+  display: none;
 }
 
 .rotate-phone-card {

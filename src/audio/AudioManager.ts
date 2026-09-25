@@ -54,6 +54,7 @@ class AudioManager {
     this.isMuted = !this.isMuted;
     if (this.isMuted) {
       this.stopCurrentAudio();
+      this.stopAartiMantra();
     }
     return this.isMuted;
   }
@@ -529,6 +530,66 @@ class AudioManager {
       stopped = true;
       clearInterval(intervalId);
     };
+  }
+
+  private aartiAudio: HTMLAudioElement | null = null;
+
+  /**
+   * Plays the Ganapati Mantra mp3 during Aarti.
+   * Loops while Aarti is in progress. Returns a stop function.
+   */
+  public playAartiMantra(): () => void {
+    this.stopAartiMantra();
+    if (this.isMuted) return () => {};
+
+    const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+    const mantraUrl = `${baseUrl}assets/puja/aarti/ganapati_mantra.mp3`;
+
+    try {
+      const audio = new Audio(mantraUrl);
+      audio.loop = true;
+      audio.volume = 0.9;
+      this.aartiAudio = audio;
+
+      audio.play().catch(err => {
+        console.warn('Audio play() interrupted or failed for Ganapati mantra:', err);
+      });
+
+      return () => {
+        this.stopAartiMantra();
+      };
+    } catch (e) {
+      console.warn('Error playing Aarti mantra:', e);
+      return () => {};
+    }
+  }
+
+  /**
+   * Stop Ganapati Mantra audio, optionally fading it out gently
+   */
+  public stopAartiMantra(fade: boolean = false) {
+    if (!this.aartiAudio) return;
+    const audio = this.aartiAudio;
+    this.aartiAudio = null;
+
+    if (fade && audio.volume > 0.05) {
+      const fadeInterval = window.setInterval(() => {
+        if (audio.volume > 0.1) {
+          audio.volume = Math.max(0, audio.volume - 0.15);
+        } else {
+          clearInterval(fadeInterval);
+          try {
+            audio.pause();
+            audio.currentTime = 0;
+          } catch (e) {}
+        }
+      }, 70);
+    } else {
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+      } catch (e) {}
+    }
   }
 }
 

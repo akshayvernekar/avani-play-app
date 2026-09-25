@@ -246,5 +246,31 @@ defineExpose({
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(8px, 1.4vh, 12px);
 }
+
+@media (orientation: portrait) {
+  .puja-tools-panel {
+    padding: clamp(4px, 0.8vh, 8px);
+    gap: clamp(6px, 1.2vw, 10px);
+  }
+
+  .category-tabs-column {
+    width: clamp(52px, 14vw, 68px);
+    gap: 4px;
+  }
+
+  .cat-vertical-tab {
+    padding: 4px 2px;
+    min-height: clamp(42px, 6vh, 52px);
+  }
+
+  .items-header {
+    padding: 2px 4px;
+  }
+
+  .items-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(4px, 1vh, 8px);
+  }
+}
 </style>
 

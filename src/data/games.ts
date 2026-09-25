@@ -21,7 +21,7 @@ export const games: GameCategory[] = [
     title: "Puja Time 🙏",
     subtitle: "Decorate Ganesha!",
     iconName: "Sparkles",
-    customIcon: `${baseUrl}assets/vaahana/ganesha.png`,
+    customIcon: `${baseUrl}assets/puja/aarti/aarti_large.png`,
     bgColor: "#FFF8E1",
     borderColor: "#FFB300",
     textColor: "#E65100",
