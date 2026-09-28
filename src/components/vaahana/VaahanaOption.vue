@@ -196,4 +196,18 @@ defineExpose({ cardRef, triggerIncorrectAnimation });
   white-space: nowrap;
   flex-shrink: 0;
 }
+
+@media (orientation: portrait) {
+  .vaahana-option-card {
+    padding: clamp(4px, 1vh, 8px) clamp(4px, 1vw, 8px);
+    border-radius: clamp(14px, 2.5vh, 22px);
+  }
+  .option-emoji {
+    font-size: clamp(2.2rem, 8vh, 3.8rem);
+  }
+  .option-name {
+    font-size: clamp(0.82rem, 1.8vh, 1.15rem);
+    margin-top: clamp(1px, 0.3vh, 3px);
+  }
+}
 </style>

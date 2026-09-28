@@ -386,4 +386,39 @@ function handlePlayAudio() {
   opacity: 0;
   transform: translateY(10px);
 }
+
+@media (orientation: portrait) {
+  .deity-card-panel {
+    padding: clamp(6px, 1.2vh, 12px) clamp(8px, 1.5vw, 14px);
+    border-radius: clamp(14px, 2.5vh, 22px);
+  }
+  .question-header-bar {
+    padding: clamp(3px, 0.8vh, 6px) clamp(6px, 1.2vw, 12px);
+    gap: clamp(6px, 1.2vw, 10px);
+    border-radius: clamp(12px, 2vh, 18px);
+  }
+  .speaker-btn {
+    width: clamp(34px, 6vh, 44px);
+    height: clamp(34px, 6vh, 44px);
+    min-width: clamp(34px, 6vh, 44px);
+  }
+  .speaker-icon {
+    width: clamp(16px, 3vh, 22px);
+    height: clamp(16px, 3vh, 22px);
+  }
+  .deity-name {
+    font-size: clamp(0.95rem, 2.4vh, 1.35rem);
+  }
+  .question-prompt {
+    font-size: clamp(0.78rem, 1.8vh, 0.95rem);
+  }
+  .voice-fact {
+    font-size: clamp(0.82rem, 1.8vh, 1rem);
+    margin: clamp(4px, 0.8vh, 8px) 0;
+  }
+  .next-round-btn {
+    font-size: clamp(0.85rem, 2vh, 1.05rem);
+    padding: clamp(4px, 0.9vh, 8px) clamp(12px, 2vw, 18px);
+  }
+}
 </style>

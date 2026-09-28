@@ -141,9 +141,6 @@ let nextZIndex = 10;
 let dragOffsetNormX = 0;
 let dragOffsetNormY = 0;
 
-// Spawning offset counter to prevent newly tapped items stacking on exact same pixel
-let spawnOffsetIndex = 0;
-
 // Aarti State
 const isAartiActive = ref(false);
 const activeAartiItem = ref<PujaItem | null>(null);
@@ -225,33 +222,77 @@ function spawnDecoration(item: PujaItem, playSound = true): PlacedItem {
     initialY = 0.58;
   } else if (item.type === 'flowers') {
     // Stagger slightly so multiple flowers don't stack directly on top
+    const existingFlowers = placedItems.value.filter(p => p.item.type === 'flowers');
     const offsets = [
       { x: 0.5, y: 0.85 },
       { x: 0.38, y: 0.86 },
       { x: 0.62, y: 0.86 },
       { x: 0.44, y: 0.88 },
-      { x: 0.56, y: 0.88 }
+      { x: 0.56, y: 0.88 },
+      { x: 0.32, y: 0.87 },
+      { x: 0.68, y: 0.87 }
     ];
-    const off = offsets[spawnOffsetIndex % offsets.length];
-    spawnOffsetIndex++;
+    const off = offsets[existingFlowers.length % offsets.length];
     initialX = off.x;
     initialY = off.y;
   } else if (item.type === 'offerings') {
+    const existingOfferings = placedItems.value.filter(p => p.item.type === 'offerings');
     const offsets = [
       { x: 0.5, y: 0.90 },
       { x: 0.36, y: 0.91 },
-      { x: 0.64, y: 0.91 }
+      { x: 0.64, y: 0.91 },
+      { x: 0.43, y: 0.93 },
+      { x: 0.57, y: 0.93 }
     ];
-    const off = offsets[spawnOffsetIndex % offsets.length];
-    spawnOffsetIndex++;
+    const off = offsets[existingOfferings.length % offsets.length];
     initialX = off.x;
     initialY = off.y;
   } else if (item.type === 'lights') {
-    initialX = 0.22;
-    initialY = 0.85;
+    const existingLights = placedItems.value.filter(p => p.item.type === 'lights');
+    const hasLeft = existingLights.some(p => p.x <= 0.5);
+    const hasRight = existingLights.some(p => p.x > 0.5);
+    if (hasLeft && !hasRight) {
+      initialX = 0.78;
+      initialY = 0.85;
+    } else if (hasRight && !hasLeft) {
+      initialX = 0.22;
+      initialY = 0.85;
+    } else {
+      const offsets = [
+        { x: 0.22, y: 0.85 },
+        { x: 0.78, y: 0.85 },
+        { x: 0.16, y: 0.88 },
+        { x: 0.84, y: 0.88 },
+        { x: 0.28, y: 0.83 },
+        { x: 0.72, y: 0.83 }
+      ];
+      const off = offsets[existingLights.length % offsets.length];
+      initialX = off.x;
+      initialY = off.y;
+    }
   } else if (item.type === 'incense') {
-    initialX = 0.78;
-    initialY = 0.85;
+    const existingIncense = placedItems.value.filter(p => p.item.type === 'incense');
+    const hasRight = existingIncense.some(p => p.x > 0.5);
+    const hasLeft = existingIncense.some(p => p.x <= 0.5);
+    if (hasRight && !hasLeft) {
+      initialX = 0.22;
+      initialY = 0.85;
+    } else if (hasLeft && !hasRight) {
+      initialX = 0.78;
+      initialY = 0.85;
+    } else {
+      const offsets = [
+        { x: 0.78, y: 0.85 },
+        { x: 0.22, y: 0.85 },
+        { x: 0.84, y: 0.88 },
+        { x: 0.16, y: 0.88 },
+        { x: 0.72, y: 0.83 },
+        { x: 0.28, y: 0.83 }
+      ];
+      const off = offsets[existingIncense.length % offsets.length];
+      initialX = off.x;
+      initialY = off.y;
+    }
   }
 
   nextZIndex++;
@@ -455,9 +496,7 @@ function handlePlayAgain() {
 }
 
 onMounted(() => {
-  try {
-    (screen.orientation as any)?.lock?.('landscape').catch(() => {});
-  } catch (e) {}
+  // Dual orientation support (portrait & landscape)
 });
 
 onBeforeUnmount(() => {

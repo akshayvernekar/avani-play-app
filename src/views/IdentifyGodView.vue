@@ -276,21 +276,9 @@ function saveScore() {
   localStorage.setItem('identify_god_count', foundCount.value.toString());
 }
 
-async function requestLandscapeLock() {
-  try {
-    const orientation = window.screen?.orientation as any;
-    if (orientation && typeof orientation.lock === 'function') {
-      await orientation.lock('landscape');
-    }
-  } catch {
-    // Gracefully ignore
-  }
-}
-
 onMounted(() => {
   loadScore();
   startNewRound();
-  requestLandscapeLock();
 });
 
 onBeforeUnmount(() => {
@@ -650,22 +638,93 @@ const bgStyle = {
   box-sizing: border-box;
 }
 
-/* Portrait Blocker Overlay (shown when orientation is portrait) */
+/* Portrait Responsive Layout (enabled dual orientation support) */
 .portrait-guard-overlay {
-  display: none;
+  display: none !important;
 }
 
 @media (orientation: portrait) {
   .portrait-guard-overlay {
-    display: flex;
-    position: fixed;
-    inset: 0;
-    z-index: 999999;
-    background: radial-gradient(circle at center, #4FC3F7 0%, #0288D1 100%);
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    box-sizing: border-box;
+    display: none !important;
+  }
+
+  .game-stage-landscape {
+    grid-template-columns: 1fr;
+    grid-template-rows: 38fr 62fr;
+    gap: clamp(6px, 1.2vh, 12px);
+    padding: clamp(4px, 0.8vh, 8px) clamp(8px, 2vw, 14px) clamp(6px, 1vh, 10px);
+  }
+
+  .left-panel {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .question-panel {
+    padding: clamp(8px, 1.2vh, 14px) clamp(10px, 2vw, 16px);
+  }
+
+  .speaker-section {
+    gap: 3px;
+  }
+
+  .speaker-button {
+    width: clamp(46px, 8.5vh, 62px);
+    height: clamp(46px, 8.5vh, 62px);
+  }
+
+  .speaker-icon {
+    width: clamp(20px, 4vh, 28px);
+    height: clamp(20px, 4vh, 28px);
+  }
+
+  .speaker-hint {
+    font-size: clamp(0.7rem, 1.4vh, 0.85rem);
+  }
+
+  .question-prompt {
+    font-size: clamp(0.78rem, 1.6vh, 0.95rem);
+    margin: 0;
+  }
+
+  .target-question-text {
+    font-size: clamp(0.95rem, 2.3vh, 1.35rem);
+    line-height: 1.15;
+  }
+
+  .bottom-action-area {
+    min-height: clamp(32px, 5.5vh, 44px);
+  }
+
+  .celebration-tag {
+    font-size: clamp(0.75rem, 1.5vh, 0.92rem);
+  }
+
+  .try-new-button {
+    font-size: clamp(0.85rem, 1.8vh, 1.05rem);
+    padding: clamp(4px, 0.9vh, 8px) clamp(12px, 2vw, 18px);
+  }
+
+  .hint-tag {
+    font-size: clamp(0.75rem, 1.5vh, 0.92rem);
+  }
+
+  .right-panel {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .options-grid {
+    gap: clamp(6px, 1.2vh, 12px);
+  }
+}
+
+@media (max-width: 480px) {
+  .feedback-inline {
+    display: none;
+  }
+  .nav-title {
+    font-size: clamp(14px, 4vw, 18px);
   }
 }
 

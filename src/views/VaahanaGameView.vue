@@ -194,22 +194,10 @@ function saveScore() {
   localStorage.setItem('vaahana_found_count', foundCount.value.toString());
 }
 
-async function requestLandscapeLock() {
-  try {
-    const orientation = window.screen?.orientation as any;
-    if (orientation && typeof orientation.lock === 'function') {
-      await orientation.lock('landscape');
-    }
-  } catch {
-    // Gracefully ignore if not supported by browser
-  }
-}
-
 onMounted(() => {
   loadScore();
   const deityId = route.params.id as string;
   startNewRound(deityId);
-  requestLandscapeLock();
 });
 
 onBeforeUnmount(() => {
@@ -499,22 +487,44 @@ const bgStyle = {
   box-sizing: border-box;
 }
 
-/* Portrait Blocker Overlay (shown when orientation is portrait) */
+/* Portrait Responsive Layout (enabled dual orientation support) */
 .portrait-guard-overlay {
-  display: none;
+  display: none !important;
 }
 
 @media (orientation: portrait) {
   .portrait-guard-overlay {
-    display: flex;
-    position: fixed;
-    inset: 0;
-    z-index: 999999;
-    background: radial-gradient(circle at center, #4FC3F7 0%, #0288D1 100%);
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    box-sizing: border-box;
+    display: none !important;
+  }
+
+  .game-stage-landscape {
+    grid-template-columns: 1fr;
+    grid-template-rows: 48fr 52fr;
+    gap: clamp(6px, 1.2vh, 12px);
+    padding: clamp(4px, 0.8vh, 8px) clamp(8px, 2vw, 14px) clamp(6px, 1vh, 10px);
+  }
+
+  .left-panel {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .right-panel {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .options-grid {
+    gap: clamp(6px, 1.2vh, 12px);
+  }
+}
+
+@media (max-width: 480px) {
+  .feedback-inline {
+    display: none;
+  }
+  .nav-title {
+    font-size: clamp(14px, 4vw, 18px);
   }
 }
 

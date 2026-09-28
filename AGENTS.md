@@ -17,41 +17,27 @@ This guide documents the architecture, layout rules, and key conventions of the 
 ## 2. Layout & Orientation Rules
 
 ### App-Wide Viewport Standard
-- **Game Screens are strictly LANDSCAPE ONLY**:
-  - `VaahanaGameView.vue` (`/vaahana/:id?`)
+- **Dual Orientation (Portrait & Landscape)**:
+  - `HomeView.vue` (`/`)
+  - `PujaGameView.vue` (`/puja`)
   - `IdentifyGodView.vue` (`/identify-god`)
-  - `PuzzleGameView.vue` (`/puzzle/:id`)
-  - **No scrolling**: Containers use `width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; position: fixed; inset: 0;`.
-  - **Safe areas**: Padding uses `env(safe-area-inset-*)` combined with `clamp()`.
+  - `VaahanaGameView.vue` (`/vaahana/:id?`)
+  - `VaahanaSelectionView.vue` (`/vaahana`)
+  - `PuzzleSelectionView.vue` (`/puzzles`)
+- **Landscape-Only Games**:
+  - `PuzzleGameView.vue` (`/puzzle/:id`) (Phaser 3 jigsaw board)
+- **No scrolling**: Containers use `width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; position: fixed; inset: 0;`.
+- **Safe areas**: Padding uses `env(safe-area-inset-*)` combined with `clamp()`.
 
-### Split-Screen Landscape Layout (Games)
-Games follow a consistent 2-column landscape structure:
-1. **Top Nav Bar (`<header class="top-nav">`)**:
-   - Slim height (`clamp(38px, 7.5vh, 52px)`).
-   - Left: Game title + animated inline feedback / hint pill (`feedback-inline`).
-   - Right: Compact round counter pill (`progress-pill`, e.g. `1/6`), circular Sound toggle, circular Home button.
-2. **Main Stage (`<main class="game-stage-landscape">`)**:
-   - **Left Panel (~46% - 50%)**:
-     - Question & prompt card in cream gradient (`radial-gradient(#FFFDE7, #FFF3E0)`), bordered with rounded corners (`clamp(18px, 3vh, 28px)`).
-     - Prominent speaker button (`clamp(44px, 10vh, 72px)`) with pulse animation and audio playback.
-     - Illustration or question text scaled proportionally with `object-fit: contain` (never cropped).
-     - On answer match, success actions (such as `Try Another` / `Try New God`) appear inside the left panel without pushing boundaries.
-   - **Right Panel (~50% - 54%)**:
-     - `2 × 2` grid (`display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; min-height: 0; gap: clamp(8px, 1.6vh, 14px);`).
-     - 4 large rounded option cards (`VaahanaOption.vue` or `DeityOptionCard.vue`).
-     - Tapping incorrect options triggers a gentle shake animation (`shakeReturn` / `shake-anim`) and encouraging feedback (`Try again!`).
-     - Tapping correct option triggers confetti, celebration audio, and highlights the card.
-
-### Portrait Blocker Overlay (`.portrait-guard-overlay`)
-- Whenever `@media (orientation: portrait)` is active on landscape-only game screens, a full-screen blocker is shown (`z-index: 999999`):
-  - Minimal playful message: *"Turn your device sideways!"*
-  - Animated phone rotating icon + arrow.
-  - On mount, game views also attempt `screen.orientation?.lock?.('landscape')`.
-
-### First Screen / Home (`HomeView.vue`)
-- **Dual Adaptive**: Fully adapts to **both** Portrait and Landscape orientations.
-  - Portrait: 2-column grid of game tiles.
-  - Landscape / Wide: Expands to 3-column layout on wider aspect ratios, scaling vertical margins to fit viewport height cleanly.
+### Adaptive Layout (Games)
+Games adapt smoothly between Landscape and Portrait:
+1. **Landscape Mode**:
+   - Left Panel (~46% - 50%): Question & prompt card in cream gradient, prominent speaker button, illustration scaled with `object-fit: contain`.
+   - Right Panel (~50% - 54%): 2 × 2 grid of large rounded option cards.
+2. **Portrait Mode**:
+   - Top Stage (~40% - 48%): Question prompt card / deity figure, cleanly scaled to avoid vertical scrolling.
+   - Bottom Stage (~52% - 60%): 2 × 2 grid of option cards with responsive emoji/label font scaling.
+   - Navigation: Slim header with inline feedback hidden on extra-narrow viewports (< 480px) to preserve button spacing.
 
 ---
 

@@ -175,4 +175,15 @@ defineExpose({
 .is-disabled {
   cursor: default;
 }
+
+@media (orientation: portrait) {
+  .deity-option-card {
+    padding: clamp(4px, 1vh, 8px) clamp(4px, 1vw, 8px);
+    border-radius: clamp(14px, 2.5vh, 22px);
+  }
+  .deity-label {
+    font-size: clamp(0.85rem, 1.8vh, 1.15rem);
+    margin-top: clamp(1px, 0.4vh, 4px);
+  }
+}
 </style>
