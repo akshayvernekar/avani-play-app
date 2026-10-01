@@ -21,7 +21,7 @@
     <!-- Game Tiles Grid -->
     <main class="tiles-grid">
       <GameTile 
-        v-for="game in games"
+        v-for="game in activeGames"
         :key="game.id"
         :game="game"
         @select="handleSelectGame"
@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { games, GameCategory } from '../data/games';
 import GameTile from '../components/GameTile.vue';
@@ -60,6 +60,9 @@ import { Settings } from 'lucide-vue-next';
 import { audioManager } from '../audio/AudioManager';
 
 const router = useRouter();
+
+// Only display active, playable games on the homepage
+const activeGames = computed(() => games.filter(g => g.enabled));
 
 const showComingSoon = ref(false);
 const comingSoonMessage = ref('');
@@ -180,11 +183,11 @@ const bgStyle = {
 
 @media (min-aspect-ratio: 4/3) and (min-width: 680px) {
   .home-container {
-    max-width: 960px;
+    max-width: 980px;
   }
   .tiles-grid {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 820px;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 920px;
   }
 }
 
