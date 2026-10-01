@@ -19,6 +19,7 @@ This guide documents the architecture, layout rules, and key conventions of the 
 ### App-Wide Viewport Standard
 - **Dual Orientation (Portrait & Landscape)**:
   - `HomeView.vue` (`/`)
+  - `SpecialItemGameView.vue` (`/special-item`)
   - `PujaGameView.vue` (`/puja`)
   - `IdentifyGodView.vue` (`/identify-god`)
   - `VaahanaGameView.vue` (`/vaahana/:id?`)
@@ -47,16 +48,19 @@ Games adapt smoothly between Landscape and Portrait:
 src/
 ├── App.vue                         # Root app component (fade route transitions)
 ├── router/
-│   └── index.ts                    # Routes: '/', '/identify-god', '/vaahana', '/vaahana/:id', '/puzzles', '/puzzle/:id'
+│   └── index.ts                    # Routes: '/', '/special-item', '/identify-god', '/vaahana', '/vaahana/:id', '/puzzles', '/puzzle/:id'
 ├── audio/
 │   └── AudioManager.ts             # Global audio player, TTS fallback, mute state
 ├── data/
+│   ├── deities.ts                  # Central deity data model (vahana, specialItems, questions, audio)
 │   ├── games.ts                    # Home screen category cards
+│   ├── specialItems.ts             # Find My Special Item game dataset & deck generator
 │   ├── vaahana.ts                  # Gods & Vaahanas dataset (deities, correct vaahana, hint, audio paths)
 │   ├── identifyGod.ts              # Identify the God dataset (questionText, options, successText)
 │   └── puzzles.ts                  # Jigsaw puzzle images, grid rows/cols, background themes
 ├── views/
 │   ├── HomeView.vue                # Main landing screen (adaptive portrait/landscape)
+│   ├── SpecialItemGameView.vue     # Find My Special Item game (dual orientation)
 │   ├── IdentifyGodView.vue         # Identify God game (landscape split layout)
 │   ├── VaahanaGameView.vue         # Gods & Vaahanas game (landscape split layout)
 │   ├── VaahanaSelectionView.vue    # Deity picker grid (responsive 2-3 cols)
@@ -65,6 +69,10 @@ src/
 └── components/
     ├── NavigationButton.vue        # Circular 56px button (home, back, audio)
     ├── GameTile.vue                # Home category tile
+    ├── specialItems/
+    │   ├── SpecialItemDeityCard.vue        # Question panel & deity display
+    │   ├── SpecialItemOptionCard.vue       # 2x2 item option cards
+    │   └── SpecialItemCelebrationModal.vue # Victory modal
     ├── vaahana/
     │   ├── DeityCard.vue           # Left question panel in Vaahana game
     │   ├── VaahanaOption.vue       # 2x2 animal option cards

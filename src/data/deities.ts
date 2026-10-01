@@ -5,6 +5,24 @@ export interface DeityWeapon {
   description?: string;
 }
 
+export type SpecialItemCategory =
+  | 'weapon'
+  | 'instrument'
+  | 'object'
+  | 'sacred_object'
+  | 'food'
+  | 'agricultural_tool';
+
+export interface DeitySpecialItem {
+  id: string;
+  name: string;
+  category: SpecialItemCategory;
+  image?: string;
+  fallbackImage?: string;
+  emoji?: string;
+  description?: string;
+}
+
 export interface DeityVahana {
   id: string;
   name: string;
@@ -20,6 +38,8 @@ export interface DeityAudio {
   vahanaQuestion?: string;
   vahanaSuccess?: string;
   vahanaHint?: string;
+  specialItemQuestion?: string;
+  specialItemSuccess?: string;
 }
 
 export interface CentralDeity {
@@ -34,6 +54,9 @@ export interface CentralDeity {
 
   // Weapons (extensible for future "Find the Weapon" mini-game)
   weapons?: DeityWeapon[];
+
+  // Special items (for "Find My Special Item" and future "Find the Weapon")
+  specialItems?: DeitySpecialItem[];
 
   // Spoken questions & confirmations for "Find the God"
   questionText: string;
@@ -64,6 +87,9 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "parashu", name: "Parashu (Axe)" }
     ],
+    specialItems: [
+      { id: "modak", name: "Modak", category: "food", image: `${baseUrl}assets/items/modak.png`, fallbackImage: `${baseUrl}assets/items/modak.svg`, emoji: "🥟" }
+    ],
     questionText: "Where is Ganesha?",
     successText: "Yes! That's Ganesha!",
     audio: {
@@ -71,7 +97,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_ganesha.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_ganesha.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_ganesha.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_ganesha.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_ganesha.mp3"
     }
   },
   {
@@ -91,6 +118,9 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "trishul", name: "Trishul (Trident)" }
     ],
+    specialItems: [
+      { id: "trishul", name: "Trishul", category: "weapon", image: `${baseUrl}assets/items/trishul.png`, fallbackImage: `${baseUrl}assets/items/trishul.svg`, emoji: "🔱" }
+    ],
     questionText: "Where is Shiva?",
     successText: "Yes! That's Shiva!",
     audio: {
@@ -98,7 +128,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_shiva.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_shiva.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_shiva.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_shiva.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_shiva.mp3"
     }
   },
   {
@@ -145,6 +176,9 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "vel", name: "Vel (Divine Spear)" }
     ],
+    specialItems: [
+      { id: "vel", name: "Vel", category: "weapon", image: `${baseUrl}assets/items/vel.png`, fallbackImage: `${baseUrl}assets/items/vel.svg`, emoji: "🗡️" }
+    ],
     questionText: "Where is Kartikeya?",
     successText: "Yes! That's Kartikeya!",
     audio: {
@@ -152,7 +186,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_kartikeya.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_kartikeya.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_kartikeya.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_kartikeya.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_kartikeya.mp3"
     }
   },
   {
@@ -172,6 +207,9 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "sudarshana_chakra", name: "Sudarshana Chakra" }
     ],
+    specialItems: [
+      { id: "chakra", name: "Sudarshana Chakra", category: "weapon", image: `${baseUrl}assets/items/chakra.png`, fallbackImage: `${baseUrl}assets/items/chakra.svg`, emoji: "☸️" }
+    ],
     questionText: "Where is Vishnu?",
     successText: "Yes! That's Lord Vishnu!",
     audio: {
@@ -179,7 +217,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_vishnu.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_vishnu.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_vishnu.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_vishnu.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_vishnu.mp3"
     }
   },
   {
@@ -199,6 +238,10 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "veena", name: "Veena" }
     ],
+    specialItems: [
+      { id: "veena", name: "Veena", category: "instrument", image: `${baseUrl}assets/items/veena.png`, fallbackImage: `${baseUrl}assets/items/veena.svg`, emoji: "🪕" },
+      { id: "books", name: "Books", category: "sacred_object", image: `${baseUrl}assets/items/books.png`, fallbackImage: `${baseUrl}assets/items/books.svg`, emoji: "📚" }
+    ],
     questionText: "Where is Saraswati?",
     successText: "Yes! That's Goddess Saraswati!",
     audio: {
@@ -206,7 +249,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_saraswati.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_saraswati.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_saraswati.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_saraswati.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_saraswati.mp3"
     }
   },
 
@@ -225,6 +269,9 @@ export const centralDeities: CentralDeity[] = [
       voiceText: "Lakshmi rides with the wise owl!",
       hintText: "Goddess Lakshmi's ride is the wise night owl!"
     },
+    specialItems: [
+      { id: "pot_gold_coins", name: "Pot of Gold Coins", category: "object", image: `${baseUrl}assets/items/pot_gold_coins.png`, fallbackImage: `${baseUrl}assets/items/pot_gold_coins.svg`, emoji: "🏺" }
+    ],
     questionText: "Where is Lakshmi?",
     successText: "Yes! That's Goddess Lakshmi!",
     audio: {
@@ -232,7 +279,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_lakshmi.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_lakshmi.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_lakshmi.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_lakshmi.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_lakshmi.mp3"
     }
   },
   {
@@ -358,6 +406,9 @@ export const centralDeities: CentralDeity[] = [
       { id: "gada", name: "Gada (Mace)" },
       { id: "pasha", name: "Pasha (Noose)" }
     ],
+    specialItems: [
+      { id: "staff", name: "Staff", category: "object", image: `${baseUrl}assets/items/staff.png`, fallbackImage: `${baseUrl}assets/items/staff.svg`, emoji: "🪄" }
+    ],
     questionText: "Where is Yama?",
     successText: "Yes! That's Lord Yama!",
     audio: {
@@ -365,7 +416,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_yama.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_yama.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_yama.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_yama.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_yama.mp3"
     }
   },
   {
@@ -436,6 +488,9 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "bow", name: "Bow and Arrow" }
     ],
+    specialItems: [
+      { id: "bow_arrow", name: "Bow and Arrow", category: "weapon", image: `${baseUrl}assets/items/bow_arrow.png`, fallbackImage: `${baseUrl}assets/items/bow_arrow.svg`, emoji: "🏹" }
+    ],
     questionText: "Where is Ayyappa?",
     successText: "Yes! That's Swami Ayyappa!",
     audio: {
@@ -443,7 +498,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_ayyappa.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_ayyappa.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_ayyappa.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_ayyappa.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_ayyappa.mp3"
     }
   },
   {
@@ -464,6 +520,9 @@ export const centralDeities: CentralDeity[] = [
       { id: "trishul", name: "Trishul (Trident)" },
       { id: "chakra", name: "Chakra" }
     ],
+    specialItems: [
+      { id: "kamandalu", name: "Kamandalu", category: "sacred_object", image: `${baseUrl}assets/items/kamandalu.png`, fallbackImage: `${baseUrl}assets/items/kamandalu.svg`, emoji: "🫖" }
+    ],
     questionText: "Where is Dattatreya?",
     successText: "Yes! That's Lord Dattatreya!",
     audio: {
@@ -471,7 +530,8 @@ export const centralDeities: CentralDeity[] = [
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       vahanaQuestion: "assets/audio_gungun/ride_q_dattatreya.mp3",
       vahanaSuccess: "assets/audio_gungun/ride_success_dattatreya.mp3",
-      vahanaHint: "assets/audio_gungun/ride_hint_dattatreya.mp3"
+      vahanaHint: "assets/audio_gungun/ride_hint_dattatreya.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_dattatreya.mp3"
     }
   },
 
@@ -485,11 +545,15 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "gada", name: "Gada (Mace)" }
     ],
+    specialItems: [
+      { id: "gada", name: "Gada", category: "weapon", image: `${baseUrl}assets/items/gada.png`, fallbackImage: `${baseUrl}assets/items/gada.svg`, emoji: "🪓" }
+    ],
     questionText: "Where is Hanuman?",
     successText: "Yes! That's Lord Hanuman! Jai Bajrangbali!",
     audio: {
       findGodQuestion: "assets/audio_gungun/find_god_hanuman.mp3",
-      findGodSuccess: "assets/audio_gungun/find_god_success.mp3"
+      findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_hanuman.mp3"
     }
   },
   {
@@ -502,11 +566,15 @@ export const centralDeities: CentralDeity[] = [
       { id: "flute", name: "Bansuri (Flute)" },
       { id: "sudarshana_chakra", name: "Sudarshana Chakra" }
     ],
+    specialItems: [
+      { id: "flute", name: "Flute", category: "instrument", image: `${baseUrl}assets/items/flute.png`, fallbackImage: `${baseUrl}assets/items/flute.svg`, emoji: "🪈" }
+    ],
     questionText: "Where is Krishna?",
     successText: "Yes! That's Lord Krishna with his sweet flute!",
     audio: {
       findGodQuestion: "assets/audio_gungun/find_god_krishna.mp3",
-      findGodSuccess: "assets/audio_gungun/find_god_success.mp3"
+      findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_krishna.mp3"
     }
   },
   {
@@ -518,11 +586,15 @@ export const centralDeities: CentralDeity[] = [
     weapons: [
       { id: "kodanda_bow", name: "Kodanda Bow and Arrow" }
     ],
+    specialItems: [
+      { id: "bow_arrow", name: "Bow and Arrow", category: "weapon", image: `${baseUrl}assets/items/bow_arrow.png`, fallbackImage: `${baseUrl}assets/items/bow_arrow.svg`, emoji: "🏹" }
+    ],
     questionText: "Where is Rama?",
     successText: "Yes! That's Lord Rama!",
     audio: {
       findGodQuestion: "assets/audio_gungun/find_god_rama.mp3",
-      findGodSuccess: "assets/audio_gungun/find_god_success.mp3"
+      findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_rama.mp3"
     }
   },
   {
@@ -553,6 +625,61 @@ export const centralDeities: CentralDeity[] = [
       findGodQuestion: "assets/audio_gungun/find_god_kali.mp3",
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3"
     }
+  },
+  // ── Dashavatara Additions for "Find My Special Item" ──
+  {
+    id: "vamana",
+    name: "Vamana",
+    titleName: "Lord Vamana",
+    image: `${baseUrl}assets/vaahana/vamana.png`,
+    successImage: `${baseUrl}assets/vaahana/vamana.png`,
+    specialItems: [
+      { id: "umbrella", name: "Umbrella", category: "object", image: `${baseUrl}assets/items/umbrella.png`, fallbackImage: `${baseUrl}assets/items/umbrella.svg`, emoji: "☂️" }
+    ],
+    questionText: "Where is Vamana?",
+    successText: "Yes! That's Lord Vamana!",
+    audio: {
+      findGodQuestion: "assets/audio_gungun/item_q_vamana.mp3",
+      findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_vamana.mp3"
+    }
+  },
+  {
+    id: "parashurama",
+    name: "Parashurama",
+    titleName: "Lord Parashurama",
+    image: `${baseUrl}assets/vaahana/parashurama.png`,
+    successImage: `${baseUrl}assets/vaahana/parashurama.png`,
+    weapons: [
+      { id: "axe", name: "Axe" }
+    ],
+    specialItems: [
+      { id: "axe", name: "Axe", category: "weapon", image: `${baseUrl}assets/items/axe.png`, fallbackImage: `${baseUrl}assets/items/axe.svg`, emoji: "🪓" }
+    ],
+    questionText: "Where is Parashurama?",
+    successText: "Yes! That's Lord Parashurama!",
+    audio: {
+      findGodQuestion: "assets/audio_gungun/item_q_parashurama.mp3",
+      findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_parashurama.mp3"
+    }
+  },
+  {
+    id: "balarama",
+    name: "Balarama",
+    titleName: "Lord Balarama",
+    image: `${baseUrl}assets/vaahana/balarama.png`,
+    successImage: `${baseUrl}assets/vaahana/balarama.png`,
+    specialItems: [
+      { id: "plough", name: "Plough", category: "agricultural_tool", image: `${baseUrl}assets/items/plough.png`, fallbackImage: `${baseUrl}assets/items/plough.svg`, emoji: "🌾" }
+    ],
+    questionText: "Where is Balarama?",
+    successText: "Yes! That's Lord Balarama!",
+    audio: {
+      findGodQuestion: "assets/audio_gungun/item_q_balarama.mp3",
+      findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
+      specialItemQuestion: "assets/audio_gungun/item_q_balarama.mp3"
+    }
   }
 ];
 
@@ -568,4 +695,19 @@ export function getFindTheRideDeities(): CentralDeity[] {
  */
 export function getFindTheGodDeities(): CentralDeity[] {
   return centralDeities;
+}
+
+const SPECIAL_ITEM_DEITY_IDS = new Set([
+  'ganesha', 'shiva', 'vishnu', 'kartikeya', 'saraswati',
+  'lakshmi', 'hanuman', 'krishna', 'rama', 'yama',
+  'ayyappa', 'dattatreya', 'vamana', 'parashurama', 'balarama'
+]);
+
+/**
+ * Filter the 15 deities configured for "Find My Special Item"
+ */
+export function getSpecialItemDeities(): CentralDeity[] {
+  return centralDeities.filter(d =>
+    SPECIAL_ITEM_DEITY_IDS.has(d.id) && Boolean(d.specialItems && d.specialItems.length > 0)
+  );
 }

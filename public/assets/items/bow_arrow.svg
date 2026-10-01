@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bowGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9C4"/>
+      <stop offset="40%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+    <filter id="bowShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#FF6F00" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="200" cy="200" r="160" fill="#E0F2F1" opacity="0.9"/>
+  <g filter="url(#bowShadow)" transform="translate(200, 200)">
+    <!-- Curved Bow Limb -->
+    <path d="M -70 -125 Q -10 0 -70 125" fill="none" stroke="url(#bowGold)" stroke-width="14" stroke-linecap="round"/>
+    <path d="M -70 -125 Q -10 0 -70 125" fill="none" stroke="#E65100" stroke-width="3" stroke-linecap="round"/>
+    <!-- Decorative ends of bow -->
+    <circle cx="-70" cy="-125" r="9" fill="#D84315"/>
+    <circle cx="-70" cy="125" r="9" fill="#D84315"/>
+    <!-- Bowstring -->
+    <line x1="-70" y1="-125" x2="-25" y2="0" stroke="#FFF" stroke-width="3"/>
+    <line x1="-25" y1="0" x2="-70" y2="125" stroke="#FFF" stroke-width="3"/>
+    <!-- Golden Arrow Nocked & Pointing Right -->
+    <g transform="translate(0, 0)">
+      <!-- Shaft -->
+      <line x1="-80" y1="0" x2="80" y2="0" stroke="#8D6E63" stroke-width="5" stroke-linecap="round"/>
+      <!-- Golden Arrowhead -->
+      <polygon points="80,-14 110,0 80,14 86,0" fill="url(#bowGold)" stroke="#E65100" stroke-width="3"/>
+      <!-- Fletching feathers at nock -->
+      <polygon points="-80,0 -95,-12 -70,-2" fill="#E53935"/>
+      <polygon points="-80,0 -95,12 -70,2" fill="#E53935"/>
+    </g>
+    <!-- Central grip wrap -->
+    <rect x="-34" y="-18" width="14" height="36" rx="5" fill="#D84315" stroke="#B71C1C" stroke-width="2"/>
+  </g>
+</svg>

@@ -183,11 +183,17 @@ const bgStyle = {
 
 @media (min-aspect-ratio: 4/3) and (min-width: 680px) {
   .home-container {
-    max-width: 980px;
+    max-width: 1040px;
   }
   .tiles-grid {
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 920px;
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    max-width: 1000px;
+  }
+}
+
+@media (min-aspect-ratio: 4/3) and (min-width: 980px) {
+  .tiles-grid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 

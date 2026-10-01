@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldTrishul" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF176"/>
+      <stop offset="50%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FF9800"/>
+    </linearGradient>
+    <filter id="trishulShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#E65100" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="200" cy="200" r="160" fill="#E8F5E9" opacity="0.9"/>
+  <g filter="url(#trishulShadow)" transform="translate(200, 200)">
+    <!-- Staff Handle -->
+    <rect x="-8" y="-70" width="16" height="230" rx="8" fill="#8D6E63" stroke="#4E342E" stroke-width="4"/>
+    <!-- Gold Ring Accents on Handle -->
+    <rect x="-10" y="0" width="20" height="12" rx="4" fill="url(#goldTrishul)" stroke="#E65100" stroke-width="2"/>
+    <rect x="-10" y="60" width="20" height="12" rx="4" fill="url(#goldTrishul)" stroke="#E65100" stroke-width="2"/>
+    <!-- Damru Attached -->
+    <g transform="translate(0, 30)">
+      <polygon points="-28,-20 28,-20 -5,0 -28,-20" fill="#FF7043" stroke="#D84315" stroke-width="3"/>
+      <polygon points="-28,20 28,20 -5,0 -28,20" fill="#FF7043" stroke="#D84315" stroke-width="3"/>
+      <ellipse cx="-28" cy="-20" rx="6" ry="12" fill="#FFE082" stroke="#D84315" stroke-width="2"/>
+      <ellipse cx="28" cy="-20" rx="6" ry="12" fill="#FFE082" stroke="#D84315" stroke-width="2"/>
+      <!-- Damru beads string -->
+      <path d="M 0 0 Q 15 15 22 26" stroke="#5D4037" stroke-width="2" fill="none"/>
+      <circle cx="22" cy="26" r="4" fill="#B71C1C"/>
+    </g>
+    <!-- Trishul Prongs (Center & Side Blades) -->
+    <g transform="translate(0, -70)">
+      <!-- Center Spear Blade -->
+      <path d="M 0 -105 Q 16 -50 14 0 L -14 0 Q -16 -50 0 -105 Z" fill="url(#goldTrishul)" stroke="#E65100" stroke-width="5"/>
+      <!-- Left Crescent Blade -->
+      <path d="M -12 0 C -45 -10 -75 -40 -70 -85 C -55 -45 -35 -20 0 -10 Z" fill="url(#goldTrishul)" stroke="#E65100" stroke-width="5"/>
+      <!-- Right Crescent Blade -->
+      <path d="M 12 0 C 45 -10 75 -40 70 -85 C 55 -45 35 -20 0 -10 Z" fill="url(#goldTrishul)" stroke="#E65100" stroke-width="5"/>
+      <!-- Center Connector Base -->
+      <ellipse cx="0" cy="0" rx="20" ry="10" fill="url(#goldTrishul)" stroke="#E65100" stroke-width="4"/>
+      <circle cx="0" cy="-40" r="5" fill="#D84315"/>
+    </g>
+  </g>
+</svg>

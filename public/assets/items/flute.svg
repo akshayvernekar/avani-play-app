@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fluteWood" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="50%" stop-color="#FFB74D"/>
+      <stop offset="100%" stop-color="#FB8C00"/>
+    </linearGradient>
+    <filter id="fluteShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#E65100" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="200" cy="200" r="160" fill="#E1F5FE" opacity="0.9"/>
+  <g filter="url(#fluteShadow)" transform="translate(200, 200) rotate(-30)">
+    <!-- Peacock Feather attached to left tip -->
+    <g transform="translate(-110, -5) rotate(35)">
+      <!-- Main green feather vane -->
+      <ellipse cx="0" cy="-35" rx="26" ry="40" fill="#43A047" stroke="#1B5E20" stroke-width="3"/>
+      <!-- Blue eye of feather -->
+      <ellipse cx="0" cy="-35" rx="17" ry="26" fill="#0288D1" stroke="#01579B" stroke-width="2.5"/>
+      <!-- Gold inner ring -->
+      <circle cx="0" cy="-35" r="11" fill="#FFD54F"/>
+      <!-- Deep purple/black pupil -->
+      <circle cx="0" cy="-35" r="6" fill="#4A148C"/>
+      <!-- Stem -->
+      <line x1="0" y1="5" x2="0" y2="-75" stroke="#2E7D32" stroke-width="3"/>
+    </g>
+    <!-- Flute Tube (Bamboo/Gold) -->
+    <rect x="-120" y="-12" width="240" height="24" rx="12" fill="url(#fluteWood)" stroke="#E65100" stroke-width="4"/>
+    <!-- Decorative Gold Bands -->
+    <rect x="-100" y="-13" width="10" height="26" rx="2" fill="#D84315"/>
+    <rect x="90" y="-13" width="10" height="26" rx="2" fill="#D84315"/>
+    <!-- Finger Holes -->
+    <ellipse cx="-45" cy="0" rx="4" ry="5" fill="#3E2723"/>
+    <ellipse cx="-25" cy="0" rx="4" ry="5" fill="#3E2723"/>
+    <ellipse cx="-5" cy="0" rx="4" ry="5" fill="#3E2723"/>
+    <ellipse cx="15" cy="0" rx="4" ry="5" fill="#3E2723"/>
+    <ellipse cx="35" cy="0" rx="4" ry="5" fill="#3E2723"/>
+    <ellipse cx="55" cy="0" rx="4" ry="5" fill="#3E2723"/>
+    <!-- Blow Hole -->
+    <ellipse cx="-80" cy="0" rx="5" ry="6" fill="#BF360C"/>
+    <!-- Hanging silk tassels on right end -->
+    <g transform="translate(115, 0)">
+      <circle cx="0" cy="0" r="5" fill="#D81B60"/>
+      <path d="M 0 5 Q 10 25 15 45" stroke="#E91E63" stroke-width="3" fill="none"/>
+      <path d="M 0 5 Q 0 25 0 50" stroke="#FF9800" stroke-width="3" fill="none"/>
+      <circle cx="15" cy="45" r="4" fill="#FFC107"/>
+      <circle cx="0" cy="50" r="4" fill="#FFC107"/>
+    </g>
+  </g>
+</svg>

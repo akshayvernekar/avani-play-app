@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="axeSteel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#CFD8DC"/>
+      <stop offset="100%" stop-color="#78909C"/>
+    </linearGradient>
+    <filter id="axeShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#37474F" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="200" cy="200" r="160" fill="#ECEFF1" opacity="0.9"/>
+  <g filter="url(#axeShadow)" transform="translate(200, 200) rotate(-25)">
+    <!-- Wooden Shaft -->
+    <rect x="-8" y="-110" width="16" height="240" rx="8" fill="#8D6E63" stroke="#4E342E" stroke-width="4"/>
+    <!-- Shaft grip & gold collar -->
+    <rect x="-10" y="-70" width="20" height="20" rx="4" fill="#FFD54F" stroke="#E65100" stroke-width="2"/>
+    <rect x="-10" y="30" width="20" height="15" rx="3" fill="#D84315"/>
+    <rect x="-10" y="60" width="20" height="15" rx="3" fill="#D84315"/>
+    <!-- Crescent Battle Axe Blade -->
+    <g transform="translate(0, -60)">
+      <!-- Broad curved battle blade -->
+      <path d="M 0 -22 C 35 -25 75 -55 85 -75 C 95 -15 95 35 85 75 C 75 55 35 25 0 22 Z" fill="url(#axeSteel)" stroke="#37474F" stroke-width="5"/>
+      <!-- Shiny cutting edge -->
+      <path d="M 85 -75 C 95 -15 95 35 85 75" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+      <!-- Axe socket clamp ring -->
+      <rect x="-14" y="-20" width="28" height="40" rx="6" fill="#FFD54F" stroke="#E65100" stroke-width="3"/>
+      <circle cx="0" cy="0" r="5" fill="#D84315"/>
+    </g>
+  </g>
+</svg>

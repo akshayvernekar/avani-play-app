@@ -56,6 +56,19 @@ export const games: GameCategory[] = [
     route: "/vaahana"
   },
   {
+    id: "special-item",
+    title: "Special Item",
+    subtitle: "What belongs to Krishna? Tap to find!",
+    iconName: "Sparkles",
+    customIcon: `${baseUrl}assets/items/flute.svg`,
+    bgColor: "#E8F5E9",
+    borderColor: "#43A047",
+    textColor: "#1B5E20",
+    enabled: true,
+    badge: "New Game!",
+    route: "/special-item"
+  },
+  {
     id: "puzzles",
     title: "Puzzles",
     iconName: "Puzzle",

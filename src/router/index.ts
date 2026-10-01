@@ -6,12 +6,18 @@ import VaahanaSelectionView from '../views/VaahanaSelectionView.vue';
 import VaahanaGameView from '../views/VaahanaGameView.vue';
 import IdentifyGodView from '../views/IdentifyGodView.vue';
 import PujaGameView from '../views/PujaGameView.vue';
+import SpecialItemGameView from '../views/SpecialItemGameView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeView
+  },
+  {
+    path: '/special-item',
+    name: 'SpecialItemGame',
+    component: SpecialItemGameView
   },
   {
     path: '/puja',

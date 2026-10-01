@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="woodVeena" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D7CCC8"/>
+      <stop offset="40%" stop-color="#A1887F"/>
+      <stop offset="100%" stop-color="#5D4037"/>
+    </linearGradient>
+    <radialGradient id="resonatorGlow" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFCC80"/>
+      <stop offset="70%" stop-color="#FB8C00"/>
+      <stop offset="100%" stop-color="#E65100"/>
+    </radialGradient>
+    <filter id="veenaShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#5D4037" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="200" cy="200" r="160" fill="#FFF3E0" opacity="0.9"/>
+  <g filter="url(#veenaShadow)" transform="translate(200, 200) rotate(-35)">
+    <!-- Long Dandi / Neck -->
+    <rect x="-12" y="-120" width="24" height="220" rx="8" fill="url(#woodVeena)" stroke="#3E2723" stroke-width="4"/>
+    <!-- Frets along the neck -->
+    <line x1="-12" y1="-80" x2="12" y2="-80" stroke="#FFE082" stroke-width="3"/>
+    <line x1="-12" y1="-50" x2="12" y2="-50" stroke="#FFE082" stroke-width="3"/>
+    <line x1="-12" y1="-20" x2="12" y2="-20" stroke="#FFE082" stroke-width="3"/>
+    <line x1="-12" y1="10" x2="12" y2="10" stroke="#FFE082" stroke-width="3"/>
+    <line x1="-12" y1="40" x2="12" y2="40" stroke="#FFE082" stroke-width="3"/>
+    <!-- Main Large Resonator Bowl (Kudam) at base -->
+    <g transform="translate(0, 95)">
+      <ellipse cx="0" cy="0" rx="60" ry="50" fill="url(#resonatorGlow)" stroke="#BF360C" stroke-width="5"/>
+      <!-- Decorative Rosette on resonator -->
+      <circle cx="0" cy="0" r="18" fill="#FFFDE7" stroke="#E65100" stroke-width="3"/>
+      <circle cx="0" cy="0" r="8" fill="#D84315"/>
+    </g>
+    <!-- Secondary Upper Gourd Resonator -->
+    <ellipse cx="25" cy="-80" rx="28" ry="24" fill="url(#resonatorGlow)" stroke="#BF360C" stroke-width="4"/>
+    <!-- Yali (Dragon / Swan) head carving at top -->
+    <path d="M 0 -120 C -20 -135 -35 -125 -30 -145 C -25 -160 5 -155 0 -120 Z" fill="#FB8C00" stroke="#BF360C" stroke-width="4"/>
+    <!-- Strings -->
+    <line x1="-4" y1="-120" x2="-4" y2="90" stroke="#FFE082" stroke-width="2"/>
+    <line x1="0" y1="-120" x2="0" y2="90" stroke="#FFFFFF" stroke-width="2"/>
+    <line x1="4" y1="-120" x2="4" y2="90" stroke="#FFE082" stroke-width="2"/>
+  </g>
+</svg>
