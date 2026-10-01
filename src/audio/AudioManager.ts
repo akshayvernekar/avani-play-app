@@ -4,6 +4,90 @@
  * Synthesizes audio using Web Audio API and Web Speech API so it works seamlessly offline and on mobile browsers.
  */
 
+const KNOWN_AUDIO_FILES = new Set([
+  'find_god_agni.mp3',
+  'find_god_ayyappa.mp3',
+  'find_god_brahma.mp3',
+  'find_god_dattatreya.mp3',
+  'find_god_durga.mp3',
+  'find_god_ganesha.mp3',
+  'find_god_hanuman.mp3',
+  'find_god_hint.mp3',
+  'find_god_indra.mp3',
+  'find_god_kali.mp3',
+  'find_god_kartikeya.mp3',
+  'find_god_krishna.mp3',
+  'find_god_lakshmi.mp3',
+  'find_god_parvati.mp3',
+  'find_god_rama.mp3',
+  'find_god_saraswati.mp3',
+  'find_god_shani.mp3',
+  'find_god_shiva.mp3',
+  'find_god_success.mp3',
+  'find_god_surya.mp3',
+  'find_god_varuna.mp3',
+  'find_god_vishnu.mp3',
+  'find_god_yama.mp3',
+  'puzzle_complete_apple.mp3',
+  'puzzle_complete_bus.mp3',
+  'puzzle_complete_butterfly.mp3',
+  'puzzle_complete_dog.mp3',
+  'puzzle_complete_elephant.mp3',
+  'puzzle_complete_fish.mp3',
+  'puzzle_complete_lion.mp3',
+  'puzzle_complete_tractor.mp3',
+  'ride_game_complete.mp3',
+  'ride_hint_agni.mp3',
+  'ride_hint_ayyappa.mp3',
+  'ride_hint_brahma.mp3',
+  'ride_hint_dattatreya.mp3',
+  'ride_hint_durga.mp3',
+  'ride_hint_ganesha.mp3',
+  'ride_hint_indra.mp3',
+  'ride_hint_kartikeya.mp3',
+  'ride_hint_lakshmi.mp3',
+  'ride_hint_saraswati.mp3',
+  'ride_hint_shani.mp3',
+  'ride_hint_shiva.mp3',
+  'ride_hint_surya.mp3',
+  'ride_hint_varuna.mp3',
+  'ride_hint_vishnu.mp3',
+  'ride_hint_yama.mp3',
+  'ride_q_agni.mp3',
+  'ride_q_ayyappa.mp3',
+  'ride_q_brahma.mp3',
+  'ride_q_dattatreya.mp3',
+  'ride_q_durga.mp3',
+  'ride_q_ganesha.mp3',
+  'ride_q_indra.mp3',
+  'ride_q_kartikeya.mp3',
+  'ride_q_lakshmi.mp3',
+  'ride_q_saraswati.mp3',
+  'ride_q_shani.mp3',
+  'ride_q_shiva.mp3',
+  'ride_q_surya.mp3',
+  'ride_q_varuna.mp3',
+  'ride_q_vishnu.mp3',
+  'ride_q_yama.mp3',
+  'ride_success_agni.mp3',
+  'ride_success_ayyappa.mp3',
+  'ride_success_brahma.mp3',
+  'ride_success_dattatreya.mp3',
+  'ride_success_durga.mp3',
+  'ride_success_ganesha.mp3',
+  'ride_success_indra.mp3',
+  'ride_success_kartikeya.mp3',
+  'ride_success_lakshmi.mp3',
+  'ride_success_saraswati.mp3',
+  'ride_success_shani.mp3',
+  'ride_success_shiva.mp3',
+  'ride_success_surya.mp3',
+  'ride_success_varuna.mp3',
+  'ride_success_vishnu.mp3',
+  'ride_success_yama.mp3',
+  'ride_try_again.mp3'
+]);
+
 class AudioManager {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
@@ -351,8 +435,18 @@ class AudioManager {
     return audio;
   }
 
+  private activeUtterance: SpeechSynthesisUtterance | null = null;
+
+  private isKnownAudio(filePath: string): boolean {
+    if (!filePath) return false;
+    const filename = filePath.split('/').pop() || '';
+    return KNOWN_AUDIO_FILES.has(filename);
+  }
+
   /**
    * Play pre-recorded audio file if available, falling back to TTS if missing/failed.
+   * If the file is known not to exist, speaks IMMEDIATELY and synchronously so that
+   * iOS Safari does not block the speech synthesis due to expired user gesture!
    */
   public playAudioWithFallback(
     filePath: string,
@@ -362,6 +456,12 @@ class AudioManager {
   ): HTMLAudioElement | null {
     if (this.isMuted) {
       if (onEnd) onEnd();
+      return null;
+    }
+
+    // If file does not exist, invoke TTS synchronously within the active user gesture
+    if (!this.isKnownAudio(filePath)) {
+      this.speak(fallbackText, onStart, onEnd);
       return null;
     }
 
@@ -388,15 +488,16 @@ class AudioManager {
 
     if ('speechSynthesis' in window) {
       try {
-        window.speechSynthesis.cancel();
         if (window.speechSynthesis.paused) {
           window.speechSynthesis.resume();
         }
 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-IN';
+        // Retain reference on class instance to prevent iOS Safari GC bug
+        this.activeUtterance = utterance;
+
         utterance.rate = 0.85;
-        utterance.pitch = 1.1;
+        utterance.pitch = 1.05;
         utterance.volume = 1.0;
 
         utterance.onstart = () => {
@@ -404,25 +505,49 @@ class AudioManager {
         };
 
         utterance.onend = () => {
+          if (this.activeUtterance === utterance) {
+            this.activeUtterance = null;
+          }
           if (onEnd) onEnd();
         };
 
-        utterance.onerror = () => {
+        utterance.onerror = (err) => {
+          console.warn('Speech synthesis error:', err);
+          if (this.activeUtterance === utterance) {
+            this.activeUtterance = null;
+          }
           if (onEnd) onEnd();
         };
 
         const voices = window.speechSynthesis.getVoices();
         if (voices && voices.length > 0) {
           const preferredVoice = voices.find(
-            v => v.lang.startsWith('en') && (v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Daniel') || v.name.includes('Google') || v.name.includes('Natural'))
-          ) || voices.find(v => v.lang.startsWith('en-IN'));
+            v => v.lang.startsWith('en') && (
+              v.name.includes('Samantha') || 
+              v.name.includes('Karen') || 
+              v.name.includes('Daniel') || 
+              v.name.includes('Siri') ||
+              v.name.includes('Google') || 
+              v.name.includes('Natural')
+            )
+          ) || voices.find(v => v.lang.startsWith('en-IN')) || voices.find(v => v.lang.startsWith('en'));
 
           if (preferredVoice) {
             utterance.voice = preferredVoice;
+            utterance.lang = preferredVoice.lang;
+          } else {
+            utterance.lang = 'en-US';
           }
+        } else {
+          utterance.lang = 'en-US';
         }
 
         window.speechSynthesis.speak(utterance);
+
+        // Resume if paused immediately on mobile iOS
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
       } catch (err) {
         console.warn('Speech synthesis error:', err);
         if (onEnd) onEnd();
