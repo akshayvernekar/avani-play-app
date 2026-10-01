@@ -37,6 +37,14 @@ export interface IdentifyGodQuestion {
     options: DeityInfo[];
 }
 
+export function createShuffledIdentifyGodDeck(existingIdToAvoid?: string): DeityInfo[] {
+    const deck = shuffleArray(identifyGodDeities);
+    if (existingIdToAvoid && deck.length > 1 && deck[0].id === existingIdToAvoid) {
+        [deck[0], deck[deck.length - 1]] = [deck[deck.length - 1], deck[0]];
+    }
+    return deck;
+}
+
 export function getRandomIdentifyGodQuestion(lastTargetId?: string): IdentifyGodQuestion {
     // Candidate targets (avoiding immediate repeat if possible)
     let candidateTargets = identifyGodDeities;

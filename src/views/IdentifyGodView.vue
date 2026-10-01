@@ -115,7 +115,8 @@ import { ref, computed, onMounted, onBeforeUnmount, ComponentPublicInstance } fr
 import { useRouter } from 'vue-router';
 import { 
   DeityInfo, 
-  getRandomIdentifyGodQuestion, 
+  createShuffledIdentifyGodDeck,
+  shuffleArray,
   identifyGodDeities 
 } from '../data/identifyGod';
 import NavigationButton from '../components/NavigationButton.vue';
@@ -126,6 +127,7 @@ import confetti from 'canvas-confetti';
 
 const router = useRouter();
 
+const remainingDeityDeck = ref<DeityInfo[]>([]);
 const targetDeity = ref<DeityInfo>(identifyGodDeities[0]);
 const currentOptions = ref<DeityInfo[]>([]);
 const isAnswered = ref(false);
@@ -149,12 +151,23 @@ function setOptionRef(el: Element | ComponentPublicInstance | null, id: string) 
   }
 }
 
+function getNextDeity(): DeityInfo {
+  if (remainingDeityDeck.value.length === 0) {
+    remainingDeityDeck.value = createShuffledIdentifyGodDeck(targetDeity.value?.id);
+  }
+  return remainingDeityDeck.value.shift()!;
+}
+
 function startNewRound() {
   if (feedbackTimer) clearTimeout(feedbackTimer);
 
-  const question = getRandomIdentifyGodQuestion(targetDeity.value?.id);
-  targetDeity.value = question.targetDeity;
-  currentOptions.value = question.options;
+  const nextDeity = getNextDeity();
+  targetDeity.value = nextDeity;
+
+  // Pick 3 random incorrect deities
+  const otherDeities = identifyGodDeities.filter(d => d.id !== nextDeity.id);
+  const shuffledOthers = shuffleArray(otherDeities).slice(0, 3);
+  currentOptions.value = shuffleArray([nextDeity, ...shuffledOthers]);
 
   isAnswered.value = false;
   incorrectAttempts.value = 0;

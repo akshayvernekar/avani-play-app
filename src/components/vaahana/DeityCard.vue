@@ -347,7 +347,7 @@ function handlePlayAudio() {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(180deg, #66BB6A 0%, #388E3C 100%);
+  background: linear-gradient(135deg, #FF4081 0%, #E91E63 100%);
   color: #FFFFFF;
   border: 3px solid #FFFFFF;
   border-radius: 24px;
@@ -356,7 +356,7 @@ function handlePlayAudio() {
   font-size: clamp(0.95rem, 2.4vh, 1.15rem);
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 5px 14px rgba(56, 142, 60, 0.35);
+  box-shadow: 0 5px 14px rgba(233, 30, 99, 0.35);
   transition: transform 0.15s;
   outline: none;
 }

@@ -92,7 +92,8 @@ import { ref, computed, onMounted, onBeforeUnmount, ComponentPublicInstance, wat
 import { useRouter, useRoute } from 'vue-router';
 import { 
   vaahanaData, 
-  getRandomVaahanaQuestion, 
+  createShuffledDeityDeck,
+  getRandomVaahanaOptions,
   DeityItem, 
   VaahanaOptionItem 
 } from '../data/vaahana';
@@ -107,6 +108,7 @@ import { Smartphone } from 'lucide-vue-next';
 const router = useRouter();
 const route = useRoute();
 
+const remainingDeityDeck = ref<DeityItem[]>([]);
 const currentDeity = ref<DeityItem>(vaahanaData[0]);
 const foundCount = ref(0);
 const failedAttempts = ref(0);
@@ -144,28 +146,26 @@ function playQuestionAudio() {
   );
 }
 
+function getNextDeity(specificDeityId?: string): DeityItem {
+  if (specificDeityId) {
+    remainingDeityDeck.value = remainingDeityDeck.value.filter(d => d.id !== specificDeityId);
+    const specific = vaahanaData.find(d => d.id === specificDeityId);
+    if (specific) return specific;
+  }
+
+  if (remainingDeityDeck.value.length === 0) {
+    remainingDeityDeck.value = createShuffledDeityDeck(currentDeity.value?.id);
+  }
+
+  return remainingDeityDeck.value.shift()!;
+}
+
 function startNewRound(specificDeityId?: string) {
   if (feedbackTimer) clearTimeout(feedbackTimer);
 
-  let question;
-  if (specificDeityId) {
-    const deity = vaahanaData.find(d => d.id === specificDeityId) || vaahanaData[0];
-    question = {
-      targetDeity: deity,
-      options: getRandomVaahanaQuestion(currentDeity.value?.id).options
-    };
-    // Ensure the correct option is included
-    const correctVaahana = deity.correctVaahana;
-    if (!question.options.some(opt => opt.id === correctVaahana)) {
-      question = getRandomVaahanaQuestion(currentDeity.value?.id);
-      question.targetDeity = deity;
-    }
-  } else {
-    question = getRandomVaahanaQuestion(currentDeity.value?.id);
-  }
-
-  currentDeity.value = question.targetDeity;
-  currentOptions.value = question.options;
+  const targetDeity = getNextDeity(specificDeityId);
+  currentDeity.value = targetDeity;
+  currentOptions.value = getRandomVaahanaOptions(targetDeity.correctVaahana);
 
   isCurrentSuccess.value = false;
   failedAttempts.value = 0;
@@ -296,13 +296,16 @@ function checkMatch(option: VaahanaOptionItem) {
 
 function handleNextRound() {
   audioManager.playTap();
-  startNewRound();
+  if (remainingDeityDeck.value.length === 0) {
+    showFinalCelebration.value = true;
+  } else {
+    startNewRound();
+  }
 }
 
 function restartGame() {
   showFinalCelebration.value = false;
-  foundCount.value = 0;
-  localStorage.removeItem('vaahana_found_count');
+  remainingDeityDeck.value = createShuffledDeityDeck();
   startNewRound();
 }
 

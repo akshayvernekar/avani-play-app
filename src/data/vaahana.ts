@@ -105,7 +105,7 @@ export const vaahanas: VaahanaOptionItem[] = [
     },
     {
         id: "ram",
-        name: "Ram",
+        name: "Sheep",
         emoji: "🐏",
         image: `${baseUrl}assets/vaahana/ram.png`
     },
@@ -134,6 +134,23 @@ export interface VaahanaQuestion {
     options: VaahanaOptionItem[];
 }
 
+export function shuffleArray<T>(array: T[]): T[] {
+    const result = [...array];
+    for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+}
+
+export function createShuffledDeityDeck(existingIdToAvoid?: string): DeityItem[] {
+    const deck = shuffleArray(vaahanaData);
+    if (existingIdToAvoid && deck.length > 1 && deck[0].id === existingIdToAvoid) {
+        [deck[0], deck[deck.length - 1]] = [deck[deck.length - 1], deck[0]];
+    }
+    return deck;
+}
+
 export function getRandomVaahanaQuestion(lastTargetId?: string): VaahanaQuestion {
     let candidateDeities = vaahanaData;
     if (lastTargetId && vaahanaData.length > 1) {
@@ -152,10 +169,10 @@ export function getRandomVaahanaOptions(correctId: string): VaahanaOptionItem[] 
     const otherOptions = vaahanas.filter(v => v.id !== correctId);
 
     // Pick 3 random incorrect items
-    const shuffledOthers = [...otherOptions].sort(() => 0.5 - Math.random());
+    const shuffledOthers = shuffleArray(otherOptions);
     const selectedOthers = shuffledOthers.slice(0, 3);
 
     // Combine & shuffle
     const all4 = [correctOption!, ...selectedOthers];
-    return all4.sort(() => 0.5 - Math.random());
+    return shuffleArray(all4);
 }

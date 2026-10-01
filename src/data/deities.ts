@@ -376,11 +376,11 @@ export const centralDeities: CentralDeity[] = [
     successImage: `${baseUrl}assets/vaahana/agni.png`,
     vahana: {
       id: "ram",
-      name: "Ram",
+      name: "Sheep",
       emoji: "🐏",
       image: `${baseUrl}assets/vaahana/ram.png`,
-      voiceText: "Agni rides with the brave ram!",
-      hintText: "Lord Agni rides with the fiery, horned ram!"
+      voiceText: "Agni rides with the brave sheep!",
+      hintText: "Lord Agni rides with the fiery, horned sheep!"
     },
     questionText: "Where is Agni?",
     successText: "Yes! That's Lord Agni!",
