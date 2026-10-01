@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFB74D"/>
+    </linearGradient>
+    <filter id="pShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#BF360C" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <circle cx="250" cy="240" r="180" fill="#FBE9E7" opacity="0.85"/>
+  <g filter="url(#pShadow)" transform="translate(250, 260)">
+    <!-- Mighty Battle Axe (Parashu) Resting on Shoulder -->
+    <g transform="translate(100, -50) rotate(25)">
+      <rect x="-8" y="-120" width="16" height="220" rx="8" fill="#8D6E63" stroke="#4E342E" stroke-width="4"/>
+      <path d="M 0 -80 C 45 -85 75 -110 85 -130 C 95 -70 95 -20 85 20 C 75 -10 45 -35 0 -40 Z" fill="#CFD8DC" stroke="#37474F" stroke-width="4"/>
+      <path d="M 85 -130 C 95 -70 95 -20 85 20" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+    </g>
+    <!-- Sage Body & Saffron Dhoti -->
+    <ellipse cx="0" cy="85" rx="75" ry="70" fill="url(#pSkin)" stroke="#BF360C" stroke-width="4"/>
+    <path d="M -70 60 Q 0 150 70 60 Q 0 115 -70 60 Z" fill="#FF7043" stroke="#D84315" stroke-width="4"/>
+    <!-- Rudraksha necklace -->
+    <ellipse cx="0" cy="35" rx="42" ry="25" fill="none" stroke="#5D4037" stroke-width="5" stroke-dasharray="8 6"/>
+    <!-- Head -->
+    <circle cx="0" cy="-35" r="75" fill="url(#pSkin)" stroke="#BF360C" stroke-width="5"/>
+    <!-- Ascetic Sage Topknot (Jatā) -->
+    <path d="M -60 -70 C -70 -120 70 -120 60 -70 Z" fill="#3E2723"/>
+    <ellipse cx="0" cy="-115" rx="28" ry="24" fill="#3E2723" stroke="#5D4037" stroke-width="3"/>
+    <circle cx="0" cy="-115" r="8" fill="#FFB300"/>
+    <!-- Eyes -->
+    <ellipse cx="-30" cy="-45" rx="13" ry="15" fill="#212121"/>
+    <circle cx="-34" cy="-50" r="4" fill="#FFF"/>
+    <ellipse cx="30" cy="-45" rx="13" ry="15" fill="#212121"/>
+    <circle cx="26" cy="-50" r="4" fill="#FFF"/>
+    <!-- Tilak (Tripundra with red bindi) -->
+    <line x1="-16" y1="-85" x2="16" y2="-85" stroke="#ECEFF1" stroke-width="3"/>
+    <line x1="-14" y1="-79" x2="14" y2="-79" stroke="#ECEFF1" stroke-width="3"/>
+    <circle cx="0" cy="-82" r="4" fill="#D50000"/>
+    <!-- Smile & Cheeks -->
+    <circle cx="-45" cy="-20" r="12" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="45" cy="-20" r="12" fill="#FF8A80" opacity="0.6"/>
+    <path d="M -18 -10 Q 0 14 18 -10" fill="none" stroke="#BF360C" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

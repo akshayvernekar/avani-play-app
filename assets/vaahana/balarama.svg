@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F5F5F5"/>
+    </linearGradient>
+    <filter id="bShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#1565C0" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <circle cx="250" cy="240" r="180" fill="#E3F2FD" opacity="0.85"/>
+  <g filter="url(#bShadow)" transform="translate(250, 260)">
+    <!-- Golden Plough (Hala) on Shoulder -->
+    <g transform="translate(100, -45) rotate(20)">
+      <rect x="-8" y="-120" width="16" height="230" rx="8" fill="#8D6E63" stroke="#4E342E" stroke-width="4"/>
+      <polygon points="-30,-115 30,-115 0,-155" fill="#FFD54F" stroke="#E65100" stroke-width="4"/>
+      <line x1="0" y1="-115" x2="0" y2="-150" stroke="#FFF" stroke-width="3"/>
+    </g>
+    <!-- Strong Body & Dark Blue Garments (Nilambara) -->
+    <ellipse cx="0" cy="85" rx="80" ry="75" fill="url(#bSkin)" stroke="#37474F" stroke-width="4"/>
+    <path d="M -75 60 Q 0 155 75 60 Q 0 120 -75 60 Z" fill="#1976D2" stroke="#0D47A1" stroke-width="4"/>
+    <!-- Head -->
+    <circle cx="0" cy="-35" r="78" fill="url(#bSkin)" stroke="#37474F" stroke-width="5"/>
+    <!-- Royal Curly Dark Hair & Kundala Earrings -->
+    <path d="M -65 -70 C -75 -125 75 -125 65 -70 Z" fill="#212121"/>
+    <!-- Single Gold Kundala Earring -->
+    <circle cx="-75" cy="-25" r="10" fill="#FFD54F" stroke="#E65100" stroke-width="3"/>
+    <!-- Eyes -->
+    <ellipse cx="-32" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="-36" cy="-50" r="5" fill="#FFF"/>
+    <ellipse cx="32" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="28" cy="-50" r="5" fill="#FFF"/>
+    <!-- Vaishnava Tilak -->
+    <path d="M -10 -80 Q -10 -98 0 -98 Q 10 -98 10 -80" fill="none" stroke="#D84315" stroke-width="4"/>
+    <circle cx="0" cy="-84" r="3" fill="#FFD54F"/>
+    <!-- Cheerful Big Smile & Rosy Cheeks -->
+    <circle cx="-48" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="48" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+    <path d="M -20 -10 Q 0 15 20 -10" fill="none" stroke="#B71C1C" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

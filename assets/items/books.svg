@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <filter id="bookShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#E65100" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="200" cy="200" r="160" fill="#FFF9C4" opacity="0.9"/>
+  <g filter="url(#bookShadow)" transform="translate(200, 205)">
+    <!-- Bottom Book (Red) -->
+    <g transform="translate(0, 45)">
+      <rect x="-80" y="-18" width="160" height="36" rx="8" fill="#E53935" stroke="#B71C1C" stroke-width="4"/>
+      <rect x="-72" y="-12" width="144" height="24" rx="4" fill="#FFFDE7"/>
+      <line x1="-60" y1="0" x2="60" y2="0" stroke="#FFD54F" stroke-width="2"/>
+    </g>
+    <!-- Middle Book (Gold / Orange) -->
+    <g transform="translate(0, 10)">
+      <rect x="-70" y="-18" width="140" height="36" rx="8" fill="#FB8C00" stroke="#E65100" stroke-width="4"/>
+      <rect x="-62" y="-12" width="124" height="24" rx="4" fill="#FFFDE7"/>
+      <line x1="-50" y1="0" x2="50" y2="0" stroke="#FFB300" stroke-width="2"/>
+    </g>
+    <!-- Top Open Sacred Scripture (Pothi / Palm Leaf Grantha) -->
+    <g transform="translate(0, -35)">
+      <!-- Left Page -->
+      <path d="M 0 10 Q -45 -10 -75 0 L -75 -40 Q -45 -50 0 -30 Z" fill="#FFFDE7" stroke="#8D6E63" stroke-width="3"/>
+      <!-- Right Page -->
+      <path d="M 0 10 Q 45 -10 75 0 L 75 -40 Q 45 -50 0 -30 Z" fill="#FFFDE7" stroke="#8D6E63" stroke-width="3"/>
+      <!-- Sacred Om mark on pages -->
+      <text x="-40" y="-20" font-size="14" fill="#E65100" font-weight="bold">ॐ</text>
+      <text x="40" y="-20" font-size="14" fill="#E65100" font-weight="bold">ॐ</text>
+      <!-- Center Ribbon Bookmark -->
+      <path d="M 0 -30 L 0 35 L 8 28 L 16 35 L 8 -30 Z" fill="#D81B60"/>
+    </g>
+  </g>
+</svg>
