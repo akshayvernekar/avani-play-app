@@ -10,7 +10,12 @@
     @click="handleClick"
   >
     <div class="card-image-wrap">
-      <img :src="deity.image" :alt="deity.name" class="deity-image" />
+      <img 
+        :src="currentImage" 
+        :alt="deity.name" 
+        class="deity-image" 
+        @error="handleImageError"
+      />
     </div>
     <span class="deity-label">{{ deity.name }}</span>
 
@@ -21,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { DeityInfo } from '../../data/identifyGod';
 
 const props = defineProps<{
@@ -36,6 +41,17 @@ const emit = defineEmits<{
 }>();
 
 const isShaking = ref(false);
+const currentImage = ref(props.deity.image);
+
+watch(() => props.deity.image, (newImg) => {
+  currentImage.value = newImg;
+});
+
+function handleImageError() {
+  if (currentImage.value.endsWith('.png')) {
+    currentImage.value = currentImage.value.replace('.png', '.svg');
+  }
+}
 
 function triggerIncorrectAnimation() {
   isShaking.value = true;

@@ -1,3 +1,5 @@
+import { centralDeities, getFindTheGodDeities, DeityAudio } from './deities';
+
 export interface DeityInfo {
     id: string;
     name: string;
@@ -5,60 +7,21 @@ export interface DeityInfo {
     image: string;
     questionText: string;
     successText: string;
+    audio?: DeityAudio;
 }
 
 const baseUrl = import.meta.env.BASE_URL;
 
-export const identifyGodDeities: DeityInfo[] = [
-    {
-        id: "ganesha",
-        name: "Ganesha",
-        title: "Lord Ganesha",
-        image: `${baseUrl}assets/vaahana/ganesha.png`,
-        questionText: "Where is Ganesha?",
-        successText: "Yes! That's Ganesha!"
-    },
-    {
-        id: "shiva",
-        name: "Shiva",
-        title: "Lord Shiva",
-        image: `${baseUrl}assets/vaahana/shiva.png`,
-        questionText: "Where is Shiva?",
-        successText: "Yes! That's Shiva!"
-    },
-    {
-        id: "durga",
-        name: "Durga",
-        title: "Goddess Durga",
-        image: `${baseUrl}assets/vaahana/durga.png`,
-        questionText: "Where is Durga?",
-        successText: "Yes! That's Goddess Durga!"
-    },
-    {
-        id: "kartikeya",
-        name: "Kartikeya",
-        title: "Kartikeya (Murugan)",
-        image: `${baseUrl}assets/vaahana/kartikeya.png`,
-        questionText: "Where is Kartikeya?",
-        successText: "Yes! That's Kartikeya!"
-    },
-    {
-        id: "vishnu",
-        name: "Vishnu",
-        title: "Lord Vishnu",
-        image: `${baseUrl}assets/vaahana/vishnu.png`,
-        questionText: "Where is Vishnu?",
-        successText: "Yes! That's Lord Vishnu!"
-    },
-    {
-        id: "saraswati",
-        name: "Saraswati",
-        title: "Goddess Saraswati",
-        image: `${baseUrl}assets/vaahana/saraswati.png`,
-        questionText: "Where is Saraswati?",
-        successText: "Yes! That's Goddess Saraswati!"
-    }
-];
+// Derive Find the God deities from the central scalable registry (all 21 deities)
+export const identifyGodDeities: DeityInfo[] = getFindTheGodDeities().map(deity => ({
+    id: deity.id,
+    name: deity.name,
+    title: deity.titleName,
+    image: deity.image,
+    questionText: deity.questionText,
+    successText: deity.successText,
+    audio: deity.audio
+}));
 
 export function shuffleArray<T>(array: T[]): T[] {
     const result = [...array];

@@ -31,7 +31,7 @@ export const games: GameCategory[] = [
   },
   {
     id: "identify-god",
-    title: "Identify the God",
+    title: "Find the God",
     subtitle: "Where is Ganesha? Tap to find!",
     iconName: "Sparkles",
     customIcon: `${baseUrl}assets/vaahana/vishnu.png`,
@@ -39,13 +39,13 @@ export const games: GameCategory[] = [
     borderColor: "#FF4081",
     textColor: "#C2185B",
     enabled: true,
-    badge: "New Game!",
+    badge: "Fun Game!",
     route: "/identify-god"
   },
   {
     id: "vaahana",
-    title: "Gods & Vaahanas",
-    subtitle: "Match the Gods with their Vehicles!",
+    title: "Find the Ride",
+    subtitle: "What does Durga ride? Tap to find!",
     iconName: "Sparkles",
     customIcon: `${baseUrl}assets/vaahana/ganesha.png`,
     bgColor: "#FFF3E0",

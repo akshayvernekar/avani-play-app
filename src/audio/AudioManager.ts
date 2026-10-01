@@ -287,7 +287,12 @@ class AudioManager {
    * Plays a pre-recorded audio file (e.g. from ElevenLabs audio_gungun).
    * Automatically resolves base URL if relative path provided.
    */
-  public playAudioFile(filePath: string, onStart?: () => void, onEnd?: () => void): HTMLAudioElement | null {
+  public playAudioFile(
+    filePath: string, 
+    onStart?: () => void, 
+    onEnd?: () => void,
+    onError?: () => void
+  ): HTMLAudioElement | null {
     if (this.isMuted) {
       if (onEnd) onEnd();
       return null;
@@ -305,8 +310,10 @@ class AudioManager {
 
     const audio = new Audio(fullUrl);
     this.currentAudio = audio;
+    let hasStarted = false;
 
     audio.onplay = () => {
+      hasStarted = true;
       if (onStart) onStart();
     };
 
@@ -322,7 +329,11 @@ class AudioManager {
       if (this.currentAudio === audio) {
         this.currentAudio = null;
       }
-      if (onEnd) onEnd();
+      if (onError) {
+        onError();
+      } else if (onEnd) {
+        onEnd();
+      }
     };
 
     audio.play().catch(err => {
@@ -330,10 +341,38 @@ class AudioManager {
       if (this.currentAudio === audio) {
         this.currentAudio = null;
       }
-      if (onEnd) onEnd();
+      if (!hasStarted && onError) {
+        onError();
+      } else if (onEnd) {
+        onEnd();
+      }
     });
 
     return audio;
+  }
+
+  /**
+   * Play pre-recorded audio file if available, falling back to TTS if missing/failed.
+   */
+  public playAudioWithFallback(
+    filePath: string,
+    fallbackText: string,
+    onStart?: () => void,
+    onEnd?: () => void
+  ): HTMLAudioElement | null {
+    if (this.isMuted) {
+      if (onEnd) onEnd();
+      return null;
+    }
+
+    return this.playAudioFile(
+      filePath,
+      onStart,
+      onEnd,
+      () => {
+        this.speak(fallbackText, onStart, onEnd);
+      }
+    );
   }
 
   /**

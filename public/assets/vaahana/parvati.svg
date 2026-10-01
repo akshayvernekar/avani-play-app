@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+    <linearGradient id="pCrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFA000"/>
+    </linearGradient>
+    <linearGradient id="pSari" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4CAF50"/>
+      <stop offset="100%" stop-color="#2E7D32"/>
+    </linearGradient>
+    <filter id="pShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#2E7D32" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="230" r="180" fill="#E8F5E9" opacity="0.85"/>
+
+  <g filter="url(#pShadow)" transform="translate(250, 250)">
+    <!-- Emerald Green Sari Body -->
+    <ellipse cx="0" cy="90" rx="80" ry="75" fill="url(#pSkin)" stroke="#E65100" stroke-width="5"/>
+    <path d="M -75 60 Q 0 160 75 60 Q 0 120 -75 60 Z" fill="url(#pSari)" stroke="#1B5E20" stroke-width="4"/>
+
+    <!-- Lotus in Hand -->
+    <g transform="translate(100, 30)">
+      <path d="M -16 0 C -26 -24 0 -38 0 -38 C 0 -38 26 -24 16 0 Z" fill="#F48FB1" stroke="#C2185B" stroke-width="2"/>
+      <circle cx="0" cy="-14" r="7" fill="#FF4081"/>
+    </g>
+
+    <!-- Head -->
+    <circle cx="0" cy="-30" r="80" fill="url(#pSkin)" stroke="#E65100" stroke-width="6"/>
+
+    <!-- Big Loving Chibi Eyes -->
+    <ellipse cx="-35" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="-40" cy="-50" r="5" fill="#FFF"/>
+    <ellipse cx="35" cy="-45" rx="14" ry="16" fill="#212121"/>
+    <circle cx="30" cy="-50" r="5" fill="#FFF"/>
+
+    <!-- Red Bindi -->
+    <circle cx="0" cy="-80" r="9" fill="#D50000"/>
+    <circle cx="0" cy="-80" r="3.5" fill="#FFD54F"/>
+
+    <!-- Silky Black Hair -->
+    <path d="M -80 -30 C -95 30 -85 90 -65 110" fill="none" stroke="#212121" stroke-width="16" stroke-linecap="round"/>
+    <path d="M 80 -30 C 95 30 85 90 65 110" fill="none" stroke="#212121" stroke-width="16" stroke-linecap="round"/>
+
+    <!-- Golden Crown (Mukut) -->
+    <path d="M -75 -95 L 75 -95 L 55 -185 L 0 -215 L -55 -185 Z" fill="url(#pCrown)" stroke="#E65100" stroke-width="5"/>
+    <circle cx="0" cy="-155" r="18" fill="#4CAF50"/>
+    <circle cx="0" cy="-155" r="8" fill="#FFF"/>
+
+    <!-- Nose Ring (Nath) -->
+    <circle cx="-16" cy="-22" r="7" fill="none" stroke="#FFD54F" stroke-width="3"/>
+
+    <!-- Cheeks & Sweet Motherly Smile -->
+    <circle cx="-50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+    <path d="M -22 -10 Q 0 15 22 -10" fill="none" stroke="#B71C1C" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

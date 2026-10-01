@@ -3,7 +3,7 @@
     <!-- Top Control Bar (Slim, fits in landscape) -->
     <header class="top-nav">
       <div class="nav-left">
-        <h1 class="nav-title">🛕 Identify the God</h1>
+        <h1 class="nav-title">🛕 Find the God</h1>
         <!-- Subtle feedback / hint inline pill -->
         <transition name="fade">
           <div v-if="feedbackText" class="feedback-inline" :class="{ 'is-hint': isHintText, 'is-success': isAnswered }">
@@ -168,20 +168,13 @@ function startNewRound() {
 }
 
 function playQuestionAudio() {
-  const audioFile = `assets/audio_gungun/find_god_${targetDeity.value.id}.mp3`;
-  const played = audioManager.playAudioFile(
+  const audioFile = targetDeity.value.audio?.findGodQuestion || `assets/audio_gungun/find_god_${targetDeity.value.id}.mp3`;
+  audioManager.playAudioWithFallback(
     audioFile,
+    targetDeity.value.questionText,
     () => { isPlayingAudio.value = true; },
     () => { isPlayingAudio.value = false; }
   );
-
-  if (!played) {
-    audioManager.speak(
-      targetDeity.value.questionText,
-      () => { isPlayingAudio.value = true; },
-      () => { isPlayingAudio.value = false; }
-    );
-  }
 }
 
 function handleSelectOption(selectedDeity: DeityInfo) {
@@ -197,20 +190,13 @@ function handleSelectOption(selectedDeity: DeityInfo) {
     isHintText.value = false;
 
     audioManager.playCelebration();
-    const successAudio = `assets/audio_gungun/find_god_success.mp3`;
-    const played = audioManager.playAudioFile(
+    const successAudio = targetDeity.value.audio?.findGodSuccess || `assets/audio_gungun/find_god_success.mp3`;
+    audioManager.playAudioWithFallback(
       successAudio,
+      targetDeity.value.successText,
       () => { isPlayingAudio.value = true; },
       () => { isPlayingAudio.value = false; }
     );
-
-    if (!played) {
-      audioManager.speak(
-        targetDeity.value.successText,
-        () => { isPlayingAudio.value = true; },
-        () => { isPlayingAudio.value = false; }
-      );
-    }
 
     confetti({
       particleCount: 70,
@@ -232,15 +218,12 @@ function handleSelectOption(selectedDeity: DeityInfo) {
     isHintText.value = incorrectAttempts.value >= 2;
 
     const tryAgainAudio = `assets/audio_gungun/ride_try_again.mp3`;
-    const played = audioManager.playAudioFile(
+    audioManager.playAudioWithFallback(
       tryAgainAudio,
+      'Try again!',
       () => { isPlayingAudio.value = true; },
       () => { isPlayingAudio.value = false; }
     );
-
-    if (!played) {
-      audioManager.speak('Try again!', () => { isPlayingAudio.value = true; }, () => { isPlayingAudio.value = false; });
-    }
 
     if (feedbackTimer) clearTimeout(feedbackTimer);
     feedbackTimer = window.setTimeout(() => {

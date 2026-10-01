@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="klSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3949AB"/>
+      <stop offset="100%" stop-color="#1A237E"/>
+    </linearGradient>
+    <linearGradient id="klCrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+    <filter id="klShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#1A237E" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="230" r="180" fill="#E8EAF6" opacity="0.85"/>
+
+  <g filter="url(#klShadow)" transform="translate(250, 250)">
+    <!-- Protective Chibi Goddess Body -->
+    <ellipse cx="0" cy="90" rx="80" ry="75" fill="url(#klSkin)" stroke="#1A237E" stroke-width="5"/>
+
+    <!-- Golden Sword (Khadga) in Hand -->
+    <g transform="translate(110, 20)">
+      <line x1="0" y1="50" x2="0" y2="-45" stroke="#FFD54F" stroke-width="7" stroke-linecap="round"/>
+      <polygon points="-8,-45 0,-65 8,-45" fill="#FFE082"/>
+      <line x1="-15" y1="15" x2="15" y2="15" stroke="#FF8F00" stroke-width="4"/>
+    </g>
+
+    <!-- Head -->
+    <circle cx="0" cy="-30" r="80" fill="url(#klSkin)" stroke="#1A237E" stroke-width="6"/>
+
+    <!-- Wild Long Hair -->
+    <path d="M -85 -20 C -110 40 -95 100 -75 125" fill="none" stroke="#0D1B2A" stroke-width="18" stroke-linecap="round"/>
+    <path d="M 85 -20 C 110 40 95 100 75 125" fill="none" stroke="#0D1B2A" stroke-width="18" stroke-linecap="round"/>
+
+    <!-- Big Loving Chibi Eyes -->
+    <ellipse cx="-35" cy="-45" rx="14" ry="16" fill="#FFF"/>
+    <circle cx="-35" cy="-45" r="10" fill="#212121"/>
+    <circle cx="-38" cy="-48" r="4" fill="#FFF"/>
+    <ellipse cx="35" cy="-45" rx="14" ry="16" fill="#FFF"/>
+    <circle cx="35" cy="-45" r="10" fill="#212121"/>
+    <circle cx="32" cy="-48" r="4" fill="#FFF"/>
+
+    <!-- Red Bindi & Crescent Moon on Forehead -->
+    <circle cx="0" cy="-80" r="10" fill="#D50000"/>
+    <path d="M 12 -98 A 12 12 0 0 1 -4 -85 A 12 12 0 0 0 16 -92 Z" fill="#FFF59D"/>
+
+    <!-- Golden Mukut -->
+    <path d="M -75 -95 L 75 -95 L 55 -190 L 0 -220 L -55 -190 Z" fill="url(#klCrown)" stroke="#FF8F00" stroke-width="5"/>
+    <circle cx="0" cy="-155" r="18" fill="#D50000"/>
+    <circle cx="0" cy="-155" r="8" fill="#FFF"/>
+
+    <!-- Cute Red Tongue Out Smile (Toddler-friendly iconic Kali look) -->
+    <path d="M -12 -5 Q 0 8 12 -5" fill="none" stroke="#FFF" stroke-width="3"/>
+    <path d="M -10 2 C -10 22 10 22 10 2 Z" fill="#E53935" stroke="#B71C1C" stroke-width="2"/>
+
+    <!-- Cheeks -->
+    <circle cx="-50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="50" cy="-20" r="14" fill="#FF8A80" opacity="0.6"/>
+  </g>
+</svg>

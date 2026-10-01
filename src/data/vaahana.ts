@@ -1,3 +1,5 @@
+import { centralDeities, getFindTheRideDeities, DeityAudio } from './deities';
+
 export interface DeityItem {
     id: string;
     deityName: string;
@@ -8,6 +10,7 @@ export interface DeityItem {
     vaahanaName: string;
     voiceText: string;
     hintText: string;
+    audio?: DeityAudio;
 }
 
 export interface VaahanaOptionItem {
@@ -19,74 +22,19 @@ export interface VaahanaOptionItem {
 
 const baseUrl = import.meta.env.BASE_URL;
 
-export const vaahanaData: DeityItem[] = [
-    {
-        id: "ganesha",
-        deityName: "Ganesha",
-        titleName: "Lord Ganesha",
-        deityImage: `${baseUrl}assets/vaahana/ganesha.png`,
-        successImage: `${baseUrl}assets/vaahana/ganesha.png`,
-        correctVaahana: "mouse",
-        vaahanaName: "Mouse",
-        voiceText: "Ganesha's Vaahana is the mouse!",
-        hintText: "Ganesha loves riding with his friendly mouse!"
-    },
-    {
-        id: "shiva",
-        deityName: "Shiva",
-        titleName: "Lord Shiva",
-        deityImage: `${baseUrl}assets/vaahana/shiva.png`,
-        successImage: `${baseUrl}assets/vaahana/shiva.png`,
-        correctVaahana: "nandi",
-        vaahanaName: "Bull",
-        voiceText: "Shiva's Vaahana is Nandi the bull!",
-        hintText: "Shiva rides with Nandi, the gentle white bull!"
-    },
-    {
-        id: "durga",
-        deityName: "Durga",
-        titleName: "Goddess Durga",
-        deityImage: `${baseUrl}assets/vaahana/durga.png`,
-        successImage: `${baseUrl}assets/vaahana/durga.png`,
-        correctVaahana: "lion",
-        vaahanaName: "Lion",
-        voiceText: "Durga's Vaahana is the brave lion!",
-        hintText: "Goddess Durga rides with the mighty lion!"
-    },
-    {
-        id: "kartikeya",
-        deityName: "Kartikeya",
-        titleName: "Kartikeya (Murugan)",
-        deityImage: `${baseUrl}assets/vaahana/kartikeya.png`,
-        successImage: `${baseUrl}assets/vaahana/kartikeya.png`,
-        correctVaahana: "peacock",
-        vaahanaName: "Peacock",
-        voiceText: "Kartikeya's Vaahana is the colorful peacock!",
-        hintText: "Kartikeya rides with the beautiful peacock!"
-    },
-    {
-        id: "vishnu",
-        deityName: "Vishnu",
-        titleName: "Lord Vishnu",
-        deityImage: `${baseUrl}assets/vaahana/vishnu.png`,
-        successImage: `${baseUrl}assets/vaahana/vishnu.png`,
-        correctVaahana: "garuda",
-        vaahanaName: "Eagle",
-        voiceText: "Vishnu's Vaahana is Garuda the eagle!",
-        hintText: "Lord Vishnu soars with Garuda, the golden eagle!"
-    },
-    {
-        id: "saraswati",
-        deityName: "Saraswati",
-        titleName: "Goddess Saraswati",
-        deityImage: `${baseUrl}assets/vaahana/saraswati.png`,
-        successImage: `${baseUrl}assets/vaahana/saraswati.png`,
-        correctVaahana: "swan",
-        vaahanaName: "Swan",
-        voiceText: "Saraswati's Vaahana is the graceful swan!",
-        hintText: "Goddess Saraswati glides with the serene swan!"
-    }
-];
+// Derive Find the Ride deities from central scalable deity registry
+export const vaahanaData: DeityItem[] = getFindTheRideDeities().map(deity => ({
+    id: deity.id,
+    deityName: deity.name,
+    titleName: deity.titleName,
+    deityImage: deity.image,
+    successImage: deity.successImage || deity.image,
+    correctVaahana: deity.vahana!.id,
+    vaahanaName: deity.vahana!.name,
+    voiceText: deity.vahana!.voiceText,
+    hintText: deity.vahana!.hintText,
+    audio: deity.audio
+}));
 
 export const vaahanas: VaahanaOptionItem[] = [
     {
@@ -124,6 +72,60 @@ export const vaahanas: VaahanaOptionItem[] = [
         name: "Swan",
         emoji: "🦢",
         image: `${baseUrl}assets/vaahana/swan.png`
+    },
+    {
+        id: "owl",
+        name: "Owl",
+        emoji: "🦉",
+        image: `${baseUrl}assets/vaahana/owl.png`
+    },
+    {
+        id: "elephant",
+        name: "White Elephant",
+        emoji: "🐘",
+        image: `${baseUrl}assets/vaahana/white_elephant.png`
+    },
+    {
+        id: "horses",
+        name: "Seven Horses",
+        emoji: "🐎",
+        image: `${baseUrl}assets/vaahana/seven_horses.png`
+    },
+    {
+        id: "crow",
+        name: "Crow",
+        emoji: "🐦‍⬛",
+        image: `${baseUrl}assets/vaahana/crow.png`
+    },
+    {
+        id: "buffalo",
+        name: "Buffalo",
+        emoji: "🐃",
+        image: `${baseUrl}assets/vaahana/buffalo.png`
+    },
+    {
+        id: "ram",
+        name: "Ram",
+        emoji: "🐏",
+        image: `${baseUrl}assets/vaahana/ram.png`
+    },
+    {
+        id: "crocodile",
+        name: "Crocodile",
+        emoji: "🐊",
+        image: `${baseUrl}assets/vaahana/crocodile.png`
+    },
+    {
+        id: "tiger",
+        name: "Tiger",
+        emoji: "🐅",
+        image: `${baseUrl}assets/vaahana/tiger.png`
+    },
+    {
+        id: "dogs",
+        name: "Four Dogs",
+        emoji: "🐕",
+        image: `${baseUrl}assets/vaahana/four_dogs.png`
     }
 ];
 

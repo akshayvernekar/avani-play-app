@@ -8,9 +8,9 @@
       </div>
 
       <h1 class="victory-title">Amazing!</h1>
-      <h2 class="victory-subtitle">You found all the Vaahanas!</h2>
+      <h2 class="victory-subtitle">You found all the rides!</h2>
 
-      <!-- Grid of all 6 completed Deities -->
+      <!-- Grid of all completed Deities -->
       <div class="deities-gallery-grid">
         <div v-for="item in deityList" :key="item.id" class="gallery-item">
           <div class="gallery-img-box">
@@ -66,7 +66,7 @@ watch(() => props.show, (newVal) => {
     const gameCompleteAudio = 'assets/audio_gungun/ride_game_complete.mp3';
     const played = audioManager.playAudioFile(gameCompleteAudio);
     if (!played) {
-      audioManager.speak("Amazing! You found all the Vaahanas!");
+      audioManager.speak("Amazing! You found all the rides!");
     }
     confetti({
       particleCount: 100,

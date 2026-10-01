@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+    <linearGradient id="bCrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+    <linearGradient id="bRobes" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFA726"/>
+      <stop offset="100%" stop-color="#E65100"/>
+    </linearGradient>
+    <filter id="bShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#E65100" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="230" r="180" fill="#FFF9C4" opacity="0.8"/>
+
+  <g filter="url(#bShadow)" transform="translate(250, 250)">
+    <!-- Body & Robes -->
+    <ellipse cx="0" cy="95" rx="85" ry="75" fill="url(#bSkin)" stroke="#E65100" stroke-width="5"/>
+    <path d="M -80 65 Q 0 160 80 65 Q 0 125 -80 65 Z" fill="url(#bRobes)" stroke="#BF360C" stroke-width="4"/>
+
+    <!-- Left Hand with Sacred Scroll (Vedas) -->
+    <g transform="translate(-105, 55)">
+      <rect x="-16" y="-30" width="32" height="48" rx="6" fill="#FFF8E1" stroke="#FF8F00" stroke-width="3"/>
+      <line x1="-10" y1="-18" x2="10" y2="-18" stroke="#E65100" stroke-width="2"/>
+      <line x1="-10" y1="-8" x2="10" y2="-8" stroke="#E65100" stroke-width="2"/>
+      <line x1="-10" y1="2" x2="10" y2="2" stroke="#E65100" stroke-width="2"/>
+    </g>
+
+    <!-- Right Hand with Prayer Beads (Japamala) -->
+    <g transform="translate(105, 55)">
+      <circle cx="0" cy="0" r="18" fill="none" stroke="#8D6E63" stroke-width="6" stroke-dasharray="7,3"/>
+    </g>
+
+    <!-- Left Side Face (Background) -->
+    <g transform="translate(-60, -30) scale(0.85)">
+      <circle cx="0" cy="0" r="65" fill="#FFE0B2" stroke="#E65100" stroke-width="4"/>
+      <path d="M -40 20 Q 0 70 40 20 Z" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="3"/>
+      <path d="M -30 -60 L 30 -60 L 20 -120 L 0 -140 L -20 -120 Z" fill="url(#bCrown)" stroke="#FF8F00" stroke-width="3"/>
+      <ellipse cx="-15" cy="-10" rx="8" ry="10" fill="#212121"/>
+    </g>
+
+    <!-- Right Side Face (Background) -->
+    <g transform="translate(60, -30) scale(0.85)">
+      <circle cx="0" cy="0" r="65" fill="#FFE0B2" stroke="#E65100" stroke-width="4"/>
+      <path d="M -40 20 Q 0 70 40 20 Z" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="3"/>
+      <path d="M -30 -60 L 30 -60 L 20 -120 L 0 -140 L -20 -120 Z" fill="url(#bCrown)" stroke="#FF8F00" stroke-width="3"/>
+      <ellipse cx="15" cy="-10" rx="8" ry="10" fill="#212121"/>
+    </g>
+
+    <!-- Center Face (Forefront) -->
+    <circle cx="0" cy="-30" r="75" fill="url(#bSkin)" stroke="#E65100" stroke-width="6"/>
+
+    <!-- White Sage Beard -->
+    <path d="M -45 10 Q 0 80 45 10 Q 30 50 -45 10 Z" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="3"/>
+
+    <!-- Eyes -->
+    <ellipse cx="-32" cy="-45" rx="13" ry="15" fill="#212121"/>
+    <circle cx="-36" cy="-49" r="4.5" fill="#FFF"/>
+    <ellipse cx="32" cy="-45" rx="13" ry="15" fill="#212121"/>
+    <circle cx="28" cy="-49" r="4.5" fill="#FFF"/>
+
+    <!-- Tilak -->
+    <path d="M -12 -80 L 12 -80 L 0 -100 Z" fill="#E53935"/>
+    <circle cx="0" cy="-86" r="4" fill="#FFEB3B"/>
+
+    <!-- Center Crown -->
+    <path d="M -65 -90 L 65 -90 L 45 -180 L 0 -210 L -45 -180 Z" fill="url(#bCrown)" stroke="#E65100" stroke-width="5"/>
+    <circle cx="0" cy="-150" r="16" fill="#FF5722"/>
+    <circle cx="0" cy="-150" r="7" fill="#FFF"/>
+
+    <!-- Cheeks & Smile -->
+    <circle cx="-46" cy="-20" r="12" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="46" cy="-20" r="12" fill="#FF8A80" opacity="0.6"/>
+    <path d="M -16 -8 Q 0 10 16 -8" fill="none" stroke="#BF360C" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+</svg>

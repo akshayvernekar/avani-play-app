@@ -5,7 +5,7 @@
       <NavigationButton type="back" label="Back to Home" @click="goHome" />
       
       <div class="nav-title-group">
-        <h1 class="nav-title">Gods & Vaahanas</h1>
+        <h1 class="nav-title">Find the Ride</h1>
         <span class="nav-subtitle">Choose a Deity</span>
       </div>
 

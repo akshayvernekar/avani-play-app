@@ -3,7 +3,7 @@
     <!-- Top Control Bar (Slim, fits in landscape) -->
     <header class="top-nav">
       <div class="nav-left">
-        <h1 class="nav-title">Gods &amp; Vaahanas</h1>
+        <h1 class="nav-title">Find the Ride</h1>
         <!-- Subtle feedback / hint inline pill -->
         <transition name="fade">
           <div v-if="feedbackText" class="feedback-inline" :class="{ 'is-hint': isHintText }">
@@ -133,20 +133,15 @@ function setOptionRef(el: Element | ComponentPublicInstance | null, id: string) 
 }
 
 function playQuestionAudio() {
-  const audioFile = `assets/audio_gungun/ride_q_${currentDeity.value.id}.mp3`;
-  const played = audioManager.playAudioFile(
+  const audioFile = currentDeity.value.audio?.vahanaQuestion || `assets/audio_gungun/ride_q_${currentDeity.value.id}.mp3`;
+  const questionText = `What does ${currentDeity.value.deityName} ride?`;
+
+  audioManager.playAudioWithFallback(
     audioFile,
+    questionText,
     () => { isPlayingAudio.value = true; },
     () => { isPlayingAudio.value = false; }
   );
-
-  if (!played) {
-    audioManager.speak(
-      `Who is ${currentDeity.value.deityName}'s Vaahana?`,
-      () => { isPlayingAudio.value = true; },
-      () => { isPlayingAudio.value = false; }
-    );
-  }
 }
 
 function startNewRound(specificDeityId?: string) {
@@ -237,21 +232,14 @@ function checkMatch(option: VaahanaOptionItem) {
 
     audioManager.playCelebration();
 
-    // Play pre-recorded success audio (e.g. ride_success_ganesha.mp3)
-    const successAudio = `assets/audio_gungun/ride_success_${currentDeity.value.id}.mp3`;
-    const played = audioManager.playAudioFile(
+    // Play pre-recorded success audio (e.g. ride_success_ganesha.mp3), falling back to TTS
+    const successAudio = currentDeity.value.audio?.vahanaSuccess || `assets/audio_gungun/ride_success_${currentDeity.value.id}.mp3`;
+    audioManager.playAudioWithFallback(
       successAudio,
+      currentDeity.value.voiceText,
       () => { isPlayingAudio.value = true; },
       () => { isPlayingAudio.value = false; }
     );
-
-    if (!played) {
-      audioManager.speak(
-        currentDeity.value.voiceText,
-        () => { isPlayingAudio.value = true; },
-        () => { isPlayingAudio.value = false; }
-      );
-    }
 
     confetti({
       particleCount: 65,
@@ -276,39 +264,25 @@ function checkMatch(option: VaahanaOptionItem) {
       isHintText.value = true;
 
       // Play pre-recorded hint audio (e.g. ride_hint_ganesha.mp3)
-      const hintAudio = `assets/audio_gungun/ride_hint_${currentDeity.value.id}.mp3`;
-      const played = audioManager.playAudioFile(
+      const hintAudio = currentDeity.value.audio?.vahanaHint || `assets/audio_gungun/ride_hint_${currentDeity.value.id}.mp3`;
+      audioManager.playAudioWithFallback(
         hintAudio,
+        `Hmm... ${currentDeity.value.hintText}`,
         () => { isPlayingAudio.value = true; },
         () => { isPlayingAudio.value = false; }
       );
-
-      if (!played) {
-        audioManager.speak(
-          `Hmm... ${currentDeity.value.hintText}`,
-          () => { isPlayingAudio.value = true; },
-          () => { isPlayingAudio.value = false; }
-        );
-      }
     } else {
       feedbackText.value = 'Try again! 😊';
       isHintText.value = false;
 
       // Play pre-recorded try again audio (ride_try_again.mp3)
       const tryAgainAudio = `assets/audio_gungun/ride_try_again.mp3`;
-      const played = audioManager.playAudioFile(
+      audioManager.playAudioWithFallback(
         tryAgainAudio,
+        'Try again!',
         () => { isPlayingAudio.value = true; },
         () => { isPlayingAudio.value = false; }
       );
-
-      if (!played) {
-        audioManager.speak(
-          'Try again!',
-          () => { isPlayingAudio.value = true; },
-          () => { isPlayingAudio.value = false; }
-        );
-      }
     }
 
     if (feedbackTimer) clearTimeout(feedbackTimer);

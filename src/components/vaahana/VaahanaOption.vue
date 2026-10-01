@@ -11,14 +11,14 @@
     type="button"
     @click="handleClick"
   >
-    <!-- Large Emoji (shown when no real image yet) -->
-    <div v-if="!option.image" class="emoji-wrapper">
+    <!-- Large Emoji (shown when no real image yet or if image fails to load) -->
+    <div v-if="!option.image || imgFailed" class="emoji-wrapper">
       <span class="option-emoji">{{ option.emoji }}</span>
     </div>
 
     <!-- Real artwork (auto-activates when image field added to data) -->
     <div v-else class="option-image-box">
-      <img :src="option.image" :alt="option.name" class="option-image" draggable="false" />
+      <img :src="option.image" :alt="option.name" class="option-image" draggable="false" @error="imgFailed = true" />
     </div>
 
     <span class="option-name">{{ option.name }}</span>
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { VaahanaOptionItem } from '../../data/vaahana';
 
 const props = defineProps<{
@@ -38,14 +38,28 @@ const emit = defineEmits<{
   (e: 'select', option: VaahanaOptionItem): void;
 }>();
 
+const imgFailed = ref(false);
+watch(() => props.option.image, () => {
+  imgFailed.value = false;
+});
+
 // Unique warm pastel color palette per vaahana id
 const emojiColorMap: Record<string, { bg: string; border: string; text: string }> = {
-  mouse:   { bg: '#F3E5F5', border: '#CE93D8', text: '#6A1B9A' },
-  nandi:   { bg: '#E3F2FD', border: '#90CAF9', text: '#0D47A1' },
-  lion:    { bg: '#FFF8E1', border: '#FFD54F', text: '#E65100' },
-  peacock: { bg: '#E8F5E9', border: '#A5D6A7', text: '#1B5E20' },
-  garuda:  { bg: '#FFF3E0', border: '#FFCC80', text: '#BF360C' },
-  swan:    { bg: '#E0F7FA', border: '#80DEEA', text: '#006064' },
+  mouse:    { bg: '#F3E5F5', border: '#CE93D8', text: '#6A1B9A' },
+  nandi:    { bg: '#E3F2FD', border: '#90CAF9', text: '#0D47A1' },
+  lion:     { bg: '#FFF8E1', border: '#FFD54F', text: '#E65100' },
+  peacock:  { bg: '#E8F5E9', border: '#A5D6A7', text: '#1B5E20' },
+  garuda:   { bg: '#FFF3E0', border: '#FFCC80', text: '#BF360C' },
+  swan:     { bg: '#E0F7FA', border: '#80DEEA', text: '#006064' },
+  owl:      { bg: '#EDE7F6', border: '#B39DDB', text: '#4527A0' },
+  elephant: { bg: '#E1F5FE', border: '#81D4FA', text: '#0277BD' },
+  horses:   { bg: '#FFFDE7', border: '#FFF176', text: '#F57F17' },
+  crow:     { bg: '#ECEFF1', border: '#B0BEC5', text: '#37474F' },
+  buffalo:  { bg: '#EFEBE9', border: '#BCAAA4', text: '#4E342E' },
+  ram:       { bg: '#FBE9E7', border: '#FFAB91', text: '#D84315' },
+  crocodile: { bg: '#E0F2F1', border: '#80CBC4', text: '#00695C' },
+  tiger:     { bg: '#FFF3E0', border: '#FFB74D', text: '#E65100' },
+  dogs:     { bg: '#F9FBE7', border: '#DCE775', text: '#827717' },
 };
 
 const cardColorStyle = computed(() => {

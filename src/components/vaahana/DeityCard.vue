@@ -20,7 +20,7 @@
 
       <div class="question-text-group">
         <h2 class="deity-name">{{ deity.titleName }}</h2>
-        <p class="question-prompt">Who is my Vaahana?</p>
+        <p class="question-prompt">What do I ride?</p>
       </div>
     </div>
 
@@ -30,9 +30,10 @@
         <transition name="pop-swap" mode="out-in">
           <img 
             :key="isSuccess ? 'success' : 'deity'"
-            :src="isSuccess ? deity.successImage : deity.deityImage" 
+            :src="currentImage" 
             :alt="deity.deityName" 
             class="deity-illustration" 
+            @error="handleImageError"
           />
         </transition>
 
@@ -66,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { DeityItem, vaahanas } from '../../data/vaahana';
 import { Sparkles, Volume2 } from 'lucide-vue-next';
 
@@ -81,6 +82,18 @@ const emit = defineEmits<{
   (e: 'next'): void;
   (e: 'play-audio'): void;
 }>();
+
+const currentImage = ref(props.isSuccess ? props.deity.successImage : props.deity.deityImage);
+
+watch(() => [props.isSuccess, props.deity], () => {
+  currentImage.value = props.isSuccess ? props.deity.successImage : props.deity.deityImage;
+});
+
+function handleImageError() {
+  if (currentImage.value.endsWith('.png')) {
+    currentImage.value = currentImage.value.replace('.png', '.svg');
+  }
+}
 
 const matchedEmoji = computed(() => {
   const v = vaahanas.find(item => item.id === props.deity.correctVaahana);
