@@ -1,5 +1,9 @@
 <template>
-  <div class="home-screen-wrap" :style="bgStyle">
+  <div class="home-screen-wrap">
+    <!-- Dedicated Background Layer (Stage 1: Softened, ~30% reduced visual intensity) -->
+    <div class="home-bg-layer" :style="bgStyle" aria-hidden="true"></div>
+    <div class="home-bg-overlay" aria-hidden="true"></div>
+
     <div class="home-container">
       
       <!-- Top-Right Settings Button -->
@@ -138,24 +142,49 @@ const bgStyle = computed(() => {
   position: fixed;
   inset: 0;
   overflow: hidden;
+  user-select: none;
+}
+
+/* ========================================================
+   STAGE 1: SOFTER BACKGROUND LAYER
+   - ~25-35% reduced visual intensity
+   - Slightly less saturated, slightly lower contrast
+   - Gentle atmospheric softness
+   - Foreground (girl, logo, cards) remains 100% vibrant
+   ======================================================== */
+.home-bg-layer {
+  position: absolute;
+  inset: -8px; /* Bleed past edges to keep blur crisp */
   background-image: var(--bg-landscape);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   transition: background-image 0.25s ease;
-  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  filter: saturate(0.70) contrast(0.78) brightness(0.97) blur(0.8px);
+  transform: translateZ(0);
 }
 
 @media (orientation: portrait) {
-  .home-screen-wrap {
+  .home-bg-layer {
     background-image: var(--bg-portrait);
   }
 }
 
+.home-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 252, 245, 0.08); /* Gentle warm ethereal veil */
+  pointer-events: none;
+  z-index: 2;
+}
+
 .home-container {
+  position: relative;
+  z-index: 3;
   width: 100%;
   height: 100%;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
