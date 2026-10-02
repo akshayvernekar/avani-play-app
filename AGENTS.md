@@ -92,3 +92,16 @@ src/
 5. **Color & Typography System**:
    - Palette: Sunny yellows (`#FFFDE7`, `#FFE082`, `#FFB300`), warm orange (`#FF9800`, `#E65100`), pinks (`#FF4081`, `#C2185B`), sky blues (`#0288D1`, `#4FC3F7`), greens (`#4CAF50`, `#2E7D32`).
    - Font: `'Fredoka', sans-serif` for headers/titles, `'Outfit'` for secondary labels.
+
+---
+
+## 5. Audio Generation Conventions (TTS & Sound Effects)
+- **Engine**: Python library `edge-tts` (Microsoft Edge Neural TTS).
+- **Voice**: `en-IN-NeerjaExpressiveNeural` (Indian English Female).
+- **Kid Voice Settings**:
+  - Pitch: `+52Hz` (tuned for friendly, cheerful child narrator).
+  - Rate: `+6%` (lively child pacing).
+- **Asset Directory**: `public/assets/audio_gungun/`.
+- **Registration**: Whenever new audio files are generated, register their filename in `KNOWN_AUDIO_FILES` inside `src/audio/AudioManager.ts` and link them in `src/data/deities.ts`.
+- Full script templates and CLI instructions are documented in [README.md](README.md).
+
