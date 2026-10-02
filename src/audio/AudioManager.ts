@@ -7,6 +7,7 @@
 const KNOWN_AUDIO_FILES = new Set([
   'find_god_agni.mp3',
   'find_god_ayyappa.mp3',
+  'find_god_balarama.mp3',
   'find_god_brahma.mp3',
   'find_god_dattatreya.mp3',
   'find_god_durga.mp3',
@@ -18,6 +19,7 @@ const KNOWN_AUDIO_FILES = new Set([
   'find_god_kartikeya.mp3',
   'find_god_krishna.mp3',
   'find_god_lakshmi.mp3',
+  'find_god_parashurama.mp3',
   'find_god_parvati.mp3',
   'find_god_rama.mp3',
   'find_god_saraswati.mp3',
@@ -25,6 +27,7 @@ const KNOWN_AUDIO_FILES = new Set([
   'find_god_shiva.mp3',
   'find_god_success.mp3',
   'find_god_surya.mp3',
+  'find_god_vamana.mp3',
   'find_god_varuna.mp3',
   'find_god_vishnu.mp3',
   'find_god_yama.mp3',
