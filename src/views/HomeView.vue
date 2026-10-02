@@ -264,8 +264,8 @@ const bgStyle = computed(() => {
 @media (orientation: portrait) {
   .home-container {
     max-width: 520px;
-    padding-left: max(clamp(10px, 3vw, 20px), env(safe-area-inset-left));
-    padding-right: max(clamp(12px, 3.5vw, 24px), env(safe-area-inset-right));
+    padding-left: max(clamp(8px, 2.5vw, 16px), env(safe-area-inset-left));
+    padding-right: max(clamp(8px, 2.5vw, 16px), env(safe-area-inset-right));
   }
 
   .home-header {
@@ -274,8 +274,8 @@ const bgStyle = computed(() => {
   }
 
   .devaloka-logo-img {
-    width: clamp(225px, 64vw, 360px); /* 55-70% of viewport width */
-    max-height: clamp(75px, 14vh, 115px);
+    width: clamp(220px, 64vw, 350px); /* 55-70% of viewport width */
+    max-height: clamp(70px, 13vh, 110px);
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.22));
@@ -285,7 +285,7 @@ const bgStyle = computed(() => {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
     flex: 1;
     min-height: 0;
@@ -293,13 +293,19 @@ const bgStyle = computed(() => {
     box-sizing: border-box;
   }
 
-  /* GIRL: Anchored to BOTTOM-LEFT, 30-40% width, zoomed & prominent */
+  /* ========================================================
+     GIRL (PORTRAIT): FULL BODY SHOWN
+     - Head to toe: Full head, face, braids, both arms, both hands
+       (extended hand NOT cropped!), full dress, both feet.
+     - Anchored to bottom-left with ground shadow.
+     - Non-interactive (pointer-events: none).
+     ======================================================== */
   .guide-region {
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: clamp(112px, 34vw, 175px);
-    height: clamp(240px, 50vh, 400px);
+    left: max(clamp(0px, 0.8vw, 6px), env(safe-area-inset-left));
+    width: clamp(140px, 40vw, 225px);
+    height: clamp(210px, 48vh, 340px);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -307,7 +313,7 @@ const bgStyle = computed(() => {
     pointer-events: none; /* Purely visual guide, no clicks/taps */
     user-select: none;
     z-index: 4;
-    overflow: hidden; /* Naturally crops lower portion of dress/feet */
+    overflow: visible; /* Never crop hands or feet */
   }
 
   .guide-img-container {
@@ -322,51 +328,56 @@ const bgStyle = computed(() => {
   }
 
   .guide-character-img {
-    width: 140%; /* Zoomed into upper body & face as requested */
-    max-width: none;
-    height: auto;
+    width: 100%;
+    height: 100%;
     max-height: 100%;
-    object-fit: cover;
-    object-position: top 10% left;
-    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+    object-fit: contain; /* Full character preserved cleanly without cropping */
+    object-position: bottom left;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.24));
     pointer-events: none;
     user-select: none;
-    margin-left: -15%;
-    margin-bottom: -10%;
+    margin: 0;
   }
 
   .guide-ground-shadow {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 85%;
-    height: 10px;
-    background: radial-gradient(ellipse at center, rgba(30, 20, 10, 0.35) 0%, rgba(30, 20, 10, 0) 70%);
+    bottom: 2px;
+    left: 8%;
+    width: 76%;
+    height: clamp(8px, 1.5vh, 12px);
+    background: radial-gradient(ellipse at center, rgba(30, 20, 10, 0.36) 0%, rgba(30, 20, 10, 0) 70%);
     border-radius: 50%;
     pointer-events: none;
   }
 
-  /* GAMES REGION: Occupies right side (games NEVER cover the girl) */
+  /* GAMES REGION: Stacked vertically on center/right (never covers the girl) */
   .games-region {
-    width: calc(100% - clamp(112px, 34vw, 175px) - clamp(8px, 2vw, 16px));
-    max-width: calc(100% - clamp(112px, 34vw, 175px) - clamp(8px, 2vw, 16px));
+    width: auto;
     margin-left: auto;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     z-index: 5;
     box-sizing: border-box;
+    padding-right: clamp(2px, 1vw, 8px);
   }
 
-  /* Narrow portrait: single-column stack */
+  /* Narrow portrait: single-column vertical stack of squarish cards */
   .games-grid {
     display: flex;
     flex-direction: column;
-    gap: clamp(4px, 1vh, 8px);
-    width: 100%;
+    gap: clamp(5px, 1.1vh, 9px);
+    align-items: flex-end;
+    justify-content: center;
     box-sizing: border-box;
+  }
+
+  .game-tile {
+    height: clamp(92px, 14.8vh, 126px);
+    width: auto; /* Derived from aspect-ratio: 1.05 / 1 in GameTile.vue */
+    max-width: clamp(105px, 30vw, 145px);
   }
 }
 
@@ -377,22 +388,22 @@ const bgStyle = computed(() => {
   }
 
   .devaloka-logo-img {
-    width: clamp(300px, 56vw, 440px);
+    width: clamp(290px, 54vw, 420px);
   }
 
   .guide-region {
     position: relative;
-    flex: 0 0 clamp(180px, 32vw, 260px);
-    width: clamp(180px, 32vw, 260px);
+    flex: 0 0 clamp(190px, 32vw, 270px);
+    width: clamp(190px, 32vw, 270px);
     height: 100%;
     overflow: visible;
   }
 
   .guide-character-img {
     width: 100%;
-    margin-left: 0;
-    margin-bottom: 0;
+    height: 100%;
     object-fit: contain;
+    object-position: bottom center;
   }
 
   .games-region {
@@ -400,6 +411,7 @@ const bgStyle = computed(() => {
     max-width: 480px;
     margin-left: 0;
     flex: 1;
+    align-items: center;
   }
 
   .games-grid {
@@ -407,6 +419,13 @@ const bgStyle = computed(() => {
     grid-template-columns: repeat(2, 1fr);
     gap: clamp(8px, 1.5vh, 14px);
     max-width: 460px;
+    justify-items: center;
+  }
+
+  .game-tile {
+    height: clamp(110px, 18vh, 150px);
+    width: auto;
+    max-width: 170px;
   }
 }
 
@@ -414,7 +433,7 @@ const bgStyle = computed(() => {
    LANDSCAPE MODE (Desktop, Tablet, Mobile Landscape)
    - Logo: 25-35% of viewport width
    - Girl on left (preserved)
-   - 4 games on right in 2x2 grid
+   - 4 games on right in 2x2 grid of squarish cards
    ======================================================== */
 @media (orientation: landscape) {
   .home-container {
@@ -491,10 +510,10 @@ const bgStyle = computed(() => {
     pointer-events: none;
   }
 
-  /* RIGHT REGION: 4 games in 2x2 grid */
+  /* RIGHT REGION: 4 games in 2x2 grid of squarish cards */
   .games-region {
     flex: 1;
-    max-width: clamp(480px, 68vw, 760px);
+    max-width: clamp(420px, 56vw, 640px);
     height: 100%;
     display: flex;
     align-items: center;
@@ -505,9 +524,17 @@ const bgStyle = computed(() => {
   .games-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: clamp(8px, 1.5vh, 14px);
+    gap: clamp(8px, 1.8vh, 16px);
     width: 100%;
+    max-width: 530px;
     align-content: center;
+    justify-items: center;
+  }
+
+  .game-tile {
+    height: clamp(118px, 24vh, 168px);
+    width: auto; /* Derived from aspect-ratio: 1.05 / 1 in GameTile.vue */
+    max-width: clamp(130px, 27vw, 185px);
   }
 }
 

@@ -1,38 +1,38 @@
 <template>
   <div 
     class="game-tile"
-    :class="{ 'is-disabled': !game.enabled }"
+    :class="{ 
+      'is-disabled': !game.enabled,
+      [`game-tile-${game.id}`]: true 
+    }"
     :style="{
-      background: game.bgColor,
-      borderColor: game.borderColor
+      background: game.bgColor || '#FFFDF9',
+      borderColor: game.borderColor || '#FFCC80'
     }"
     @click="handleClick"
   >
-    <!-- Card Top Illustration Banner -->
-    <div class="tile-art-container">
-      <img 
-        v-if="game.customIcon" 
-        :src="game.customIcon" 
-        class="tile-art-img" 
-        :alt="game.title" 
-      />
-      <component v-else :is="iconComponent" class="tile-icon" />
+    <!-- Upper 75-80%: Large Deity Icon Stage with Subtle Halo -->
+    <div class="tile-icon-stage">
+      <div class="tile-halo">
+        <img 
+          v-if="game.customIcon" 
+          :src="game.customIcon" 
+          class="tile-deity-img" 
+          :class="{ 'is-standing': game.id === 'special-item' }"
+          :alt="game.title" 
+          loading="eager"
+        />
+        <component v-else :is="iconComponent" class="tile-fallback-icon" />
+      </div>
     </div>
     
-    <!-- Card Text (Title & Subtitle) -->
+    <!-- Lower 20-25%: Game Title Only (Subtitles completely removed) -->
     <div class="tile-text-container">
       <span 
         class="tile-title" 
         :style="{ color: game.titleColor || game.textColor }"
       >
         {{ game.title }}
-      </span>
-      <span 
-        v-if="game.subtitle" 
-        class="tile-subtitle" 
-        :style="{ color: game.subtitleColor || game.textColor }"
-      >
-        {{ game.subtitle }}
       </span>
     </div>
 
@@ -81,11 +81,11 @@ function handleClick() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 0;
-  border-radius: clamp(16px, 2.4vh, 24px);
-  border: clamp(2.5px, 0.4vh, 3.5px) solid;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.06);
+  justify-content: space-between;
+  padding: clamp(6px, 1vh, 10px) clamp(6px, 1vw, 10px) clamp(5px, 0.8vh, 8px);
+  border-radius: clamp(18px, 2.8vh, 26px);
+  border: clamp(2.5px, 0.4vh, 3.5px) solid #FFA726;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -93,48 +93,75 @@ function handleClick() {
   box-sizing: border-box;
   overflow: hidden;
   width: 100%;
+  aspect-ratio: 1.05 / 1; /* Squarish aspect ratio: 1:1 to 1:1.1 */
 }
 
 .game-tile:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
 }
 
 .game-tile:active {
-  transform: scale(0.96) translateY(2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transform: scale(0.96) translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.tile-art-container {
+/* Upper 75-80%: Large Deity Icon Stage with Subtle Halo */
+.tile-icon-stage {
   width: 100%;
-  height: clamp(52px, 8.8vh, 85px);
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   position: relative;
-  background: rgba(255, 255, 255, 0.25);
+  box-sizing: border-box;
+  padding: 0;
 }
 
-.tile-art-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  transition: transform 0.3s ease;
+/* Subtle lighter circular halo area behind deity image */
+.tile-halo {
+  width: 95%;
+  height: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.40) 52%, rgba(255, 255, 255, 0) 76%);
 }
 
-.game-tile:hover .tile-art-img {
-  transform: scale(1.04);
+.tile-deity-img {
+  width: 95%;
+  height: 95%;
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain; /* Never crop face, crown, or identifying features */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14));
+  transition: transform 0.22s ease;
+  pointer-events: none;
 }
 
-.tile-icon {
-  width: clamp(32px, 5vh, 44px);
-  height: clamp(32px, 5vh, 44px);
-  stroke-width: 2.4px;
-  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.1));
+/* Scale standing Krishna slightly so head & face match sitting deities */
+.tile-deity-img.is-standing {
+  transform: scale(1.14);
 }
 
+.game-tile:hover .tile-deity-img {
+  transform: scale(1.08);
+}
+
+.game-tile:hover .tile-deity-img.is-standing {
+  transform: scale(1.22);
+}
+
+.tile-fallback-icon {
+  width: clamp(28px, 4.5vh, 42px);
+  height: clamp(28px, 4.5vh, 42px);
+  stroke-width: 2.2px;
+}
+
+/* Lower 20-25%: Game Title Only */
 .tile-text-container {
   display: flex;
   flex-direction: column;
@@ -142,93 +169,52 @@ function handleClick() {
   justify-content: center;
   text-align: center;
   width: 100%;
-  padding: clamp(3px, 0.6vh, 6px) clamp(4px, 1vw, 10px) clamp(4px, 0.8vh, 8px);
+  padding-top: clamp(2px, 0.4vh, 4px);
   box-sizing: border-box;
+  flex-shrink: 0;
+  min-height: clamp(20px, 3.2vh, 32px);
 }
 
 .tile-title {
   font-family: 'Fredoka', 'Outfit', sans-serif;
-  font-size: clamp(0.72rem, 1.65vh, 0.98rem);
+  font-size: clamp(0.72rem, 1.55vh, 0.98rem);
   font-weight: 700;
   text-align: center;
-  line-height: 1.15;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.1;
+  white-space: normal; /* Prevents unwanted truncation with ellipsis */
+  word-break: normal;
+  overflow: visible;
   width: 100%;
-}
-
-.tile-subtitle {
-  font-family: 'Fredoka', sans-serif;
-  font-size: clamp(0.50rem, 1.05vh, 0.66rem);
-  font-weight: 600;
-  text-align: center;
-  margin-top: 1px;
-  line-height: 1.15;
-  opacity: 0.95;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
+  letter-spacing: 0.01em;
 }
 
 .tile-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: -5px;
+  right: -5px;
   background: #FF5252;
   color: #FFFFFF;
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(0.62rem, 1.1vh, 0.7rem);
+  font-size: clamp(0.6rem, 1vh, 0.68rem);
   font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(255, 82, 82, 0.35);
+  padding: 2px 6px;
+  border-radius: 16px;
+  box-shadow: 0 3px 6px rgba(255, 82, 82, 0.35);
   white-space: nowrap;
 }
 
 .is-disabled {
-  opacity: 0.9;
+  opacity: 0.88;
 }
 
-/* Landscape Mode Card Sizing */
+/* Landscape mode enhancements */
 @media (orientation: landscape) {
   .game-tile {
-    border-radius: clamp(16px, 2.5vh, 24px);
-  }
-
-  .tile-art-container {
-    height: clamp(58px, 15vh, 95px);
-  }
-
-  .tile-text-container {
-    padding: clamp(4px, 0.8vh, 8px) clamp(6px, 1.2vw, 10px) clamp(5px, 1vh, 9px);
+    padding: clamp(8px, 1.6vh, 12px) clamp(8px, 1.2vw, 12px) clamp(6px, 1.2vh, 10px);
   }
 
   .tile-title {
-    font-size: clamp(0.85rem, 2.1vh, 1.12rem);
-  }
-
-  .tile-subtitle {
-    font-size: clamp(0.62rem, 1.3vh, 0.74rem);
-  }
-}
-
-@media (max-height: 480px) and (orientation: landscape) {
-  .tile-art-container {
-    height: clamp(44px, 13vh, 65px);
-  }
-
-  .tile-text-container {
-    padding: 2px 4px 4px;
-  }
-
-  .tile-title {
-    font-size: 0.76rem;
-  }
-
-  .tile-subtitle {
-    font-size: 0.54rem;
+    font-size: clamp(0.82rem, 2vh, 1.04rem);
   }
 }
 </style>
