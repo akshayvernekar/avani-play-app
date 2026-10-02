@@ -317,9 +317,13 @@ onBeforeUnmount(() => {
   audioManager.stopCurrentAudio();
 });
 
-const bgStyle = {
-  backgroundImage: `url('${import.meta.env.BASE_URL}assets/backgrounds/home_bg.svg')`
-};
+const bgStyle = computed(() => {
+  const base = import.meta.env.BASE_URL;
+  return {
+    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.png')`,
+    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.png')`
+  };
+});
 </script>
 
 <style scoped>
@@ -330,7 +334,10 @@ const bgStyle = {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background: center center / cover no-repeat;
+  background-image: var(--bg-landscape);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   padding: clamp(6px, 1.2vh, 12px) clamp(8px, 1.8vw, 18px);
@@ -339,6 +346,7 @@ const bgStyle = {
   padding-top: max(clamp(6px, 1.2vh, 12px), env(safe-area-inset-top));
   padding-bottom: max(clamp(6px, 1.2vh, 12px), env(safe-area-inset-bottom));
   box-sizing: border-box;
+  transition: background-image 0.25s ease;
 }
 
 /* Top Control Bar */
@@ -472,6 +480,10 @@ const bgStyle = {
 
 /* Portrait Responsive Layout (dual orientation standard) */
 @media (orientation: portrait) {
+  .game-view-container {
+    background-image: var(--bg-portrait);
+  }
+
   .game-stage-landscape {
     grid-template-columns: 1fr;
     grid-template-rows: 45fr 55fr;

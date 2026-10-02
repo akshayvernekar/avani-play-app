@@ -1,52 +1,54 @@
 <template>
-  <div class="home-container" :style="bgStyle">
-    <!-- Header Section -->
-    <header class="home-header">
-      <div class="title-wrap">
-        <h1 class="main-title">
-          <span>Avani's</span>
-          <span class="sun-icon">☀️</span>
-        </h1>
-        <h1 class="sub-title">Little World</h1>
-      </div>
-      <p class="tagline">
-        <span>Play</span>
-        <span class="heart">❤️</span>
-        <span>Learn</span>
-        <span class="heart">❤️</span>
-        <span>Grow</span>
-      </p>
-    </header>
+  <div class="home-screen-wrap" :style="bgStyle">
+    <div class="home-container">
+      <!-- Header Section -->
+      <header class="home-header">
+        <div class="title-wrap">
+          <h1 class="main-title">
+            <span>Avani's</span>
+            <span class="sun-icon">☀️</span>
+          </h1>
+          <h1 class="sub-title">Little World</h1>
+        </div>
+        <p class="tagline">
+          <span>Play</span>
+          <span class="heart">❤️</span>
+          <span>Learn</span>
+          <span class="heart">❤️</span>
+          <span>Grow</span>
+        </p>
+      </header>
 
-    <!-- Game Tiles Grid -->
-    <main class="tiles-grid">
-      <GameTile 
-        v-for="game in activeGames"
-        :key="game.id"
-        :game="game"
-        @select="handleSelectGame"
+      <!-- Game Tiles Grid -->
+      <main class="tiles-grid">
+        <GameTile 
+          v-for="game in activeGames"
+          :key="game.id"
+          :game="game"
+          @select="handleSelectGame"
+        />
+      </main>
+
+      <!-- Footer -->
+      <footer class="home-footer">
+        <button class="settings-btn" aria-label="Settings" @click="handleSettings">
+          <Settings class="settings-icon" />
+        </button>
+        
+        <div class="made-with">
+          <span>Made with</span>
+          <span class="heart">❤️</span>
+          <span>for Avani</span>
+        </div>
+      </footer>
+
+      <!-- Coming Soon Modal -->
+      <ComingSoonModal 
+        :show="showComingSoon"
+        :message="comingSoonMessage"
+        @close="showComingSoon = false"
       />
-    </main>
-
-    <!-- Footer -->
-    <footer class="home-footer">
-      <button class="settings-btn" aria-label="Settings" @click="handleSettings">
-        <Settings class="settings-icon" />
-      </button>
-      
-      <div class="made-with">
-        <span>Made with</span>
-        <span class="heart">❤️</span>
-        <span>for Avani</span>
-      </div>
-    </footer>
-
-    <!-- Coming Soon Modal -->
-    <ComingSoonModal 
-      :show="showComingSoon"
-      :message="comingSoonMessage"
-      @close="showComingSoon = false"
-    />
+    </div>
   </div>
 </template>
 
@@ -82,16 +84,40 @@ function handleSettings() {
   alert(isMuted ? "Audio Sound Muted 🔇" : "Audio Sound Enabled 🔊");
 }
 
-const bgStyle = {
-  backgroundImage: `url('${import.meta.env.BASE_URL}assets/backgrounds/home_bg.svg')`
-};
+const bgStyle = computed(() => {
+  const base = import.meta.env.BASE_URL;
+  return {
+    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.png')`,
+    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.png')`
+  };
+});
 </script>
 
 <style scoped>
+.home-screen-wrap {
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-image: var(--bg-landscape);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  transition: background-image 0.25s ease;
+}
+
+@media (orientation: portrait) {
+  .home-screen-wrap {
+    background-image: var(--bg-portrait);
+  }
+}
+
 .home-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: center center / cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;

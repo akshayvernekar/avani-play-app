@@ -281,13 +281,17 @@ onBeforeUnmount(() => {
   if (feedbackTimer) clearTimeout(feedbackTimer);
 });
 
-const bgStyle = {
-  backgroundImage: `url('${import.meta.env.BASE_URL}assets/backgrounds/home_bg.svg')`
-};
+const bgStyle = computed(() => {
+  const base = import.meta.env.BASE_URL;
+  return {
+    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.png')`,
+    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.png')`
+  };
+});
 </script>
 
 <style scoped>
-/* Full viewport strictly landscape container, zero scrollbars */
+/* Full viewport strictly landscape/portrait container, zero scrollbars */
 .game-view-container {
   width: 100%;
   width: 100vw;
@@ -297,7 +301,10 @@ const bgStyle = {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: center center / cover no-repeat;
+  background-image: var(--bg-landscape);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   padding-left: max(8px, env(safe-area-inset-left));
@@ -308,6 +315,7 @@ const bgStyle = {
   position: fixed;
   inset: 0;
   user-select: none;
+  transition: background-image 0.25s ease;
 }
 
 /* Dedicated Reserved Top Nav Bar */
@@ -640,6 +648,10 @@ const bgStyle = {
 }
 
 @media (orientation: portrait) {
+  .game-view-container {
+    background-image: var(--bg-portrait);
+  }
+
   .portrait-guard-overlay {
     display: none !important;
   }

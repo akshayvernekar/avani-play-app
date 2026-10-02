@@ -1,30 +1,33 @@
 <template>
-  <div class="selection-container" :style="bgStyle">
-    <!-- Top Navigation Bar -->
-    <header class="top-nav">
-      <NavigationButton type="back" label="Back to Home" @click="goHome" />
-      
-      <div class="nav-title-group">
-        <h1 class="nav-title">Puzzles</h1>
-        <span class="nav-subtitle">Choose a puzzle</span>
-      </div>
+  <div class="selection-screen-wrap" :style="bgStyle">
+    <div class="selection-container">
+      <!-- Top Navigation Bar -->
+      <header class="top-nav">
+        <NavigationButton type="back" label="Back to Home" @click="goHome" />
+        
+        <div class="nav-title-group">
+          <h1 class="nav-title">Puzzles</h1>
+          <span class="nav-subtitle">Choose a puzzle</span>
+        </div>
 
-      <NavigationButton type="home" label="Home" @click="goHome" />
-    </header>
+        <NavigationButton type="home" label="Home" @click="goHome" />
+      </header>
 
-    <!-- Puzzle Grid -->
-    <main class="puzzle-grid">
-      <PuzzleCard
-        v-for="puzzle in puzzles"
-        :key="puzzle.id"
-        :puzzle="puzzle"
-        @select="handleSelectPuzzle"
-      />
-    </main>
+      <!-- Puzzle Grid -->
+      <main class="puzzle-grid">
+        <PuzzleCard
+          v-for="puzzle in puzzles"
+          :key="puzzle.id"
+          :puzzle="puzzle"
+          @select="handleSelectPuzzle"
+        />
+      </main>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { puzzles, PuzzleItem } from '../data/puzzles';
 import NavigationButton from '../components/NavigationButton.vue';
@@ -40,18 +43,46 @@ function handleSelectPuzzle(puzzle: PuzzleItem) {
   router.push(`/puzzle/${puzzle.id}`);
 }
 
-const bgStyle = {
-  backgroundImage: `url('${import.meta.env.BASE_URL}assets/backgrounds/home_bg.svg')`
-};
+const bgStyle = computed(() => {
+  const base = import.meta.env.BASE_URL;
+  return {
+    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.png')`,
+    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.png')`
+  };
+});
 </script>
 
 <style scoped>
+.selection-screen-wrap {
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-image: var(--bg-landscape);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  transition: background-image 0.25s ease;
+}
+
+@media (orientation: portrait) {
+  .selection-screen-wrap {
+    background-image: var(--bg-portrait);
+  }
+}
+
 .selection-container {
   min-height: 100vh;
   min-height: 100dvh;
-  background: center center / cover no-repeat;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
   padding: clamp(10px, 2vh, 20px);
   padding-left: max(clamp(10px, 2vh, 20px), env(safe-area-inset-left));
   padding-right: max(clamp(10px, 2vh, 20px), env(safe-area-inset-right));
