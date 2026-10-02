@@ -57,7 +57,7 @@ export const games: GameCategory[] = [
   },
   {
     id: "special-item",
-    title: "Find My Special Thing",
+    title: "Special Thing",
     iconName: "Sparkles",
     customIcon: `${baseUrl}assets/vaahana/krishna.webp`,
     bgColor: "linear-gradient(145deg, #F3E8FF 0%, #E9D5FF 100%)",

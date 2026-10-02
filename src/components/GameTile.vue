@@ -82,10 +82,15 @@ function handleClick() {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: clamp(6px, 1vh, 10px) clamp(6px, 1vw, 10px) clamp(5px, 0.8vh, 8px);
+  padding: clamp(6px, 1.1vh, 10px) clamp(6px, 1.1vw, 10px) clamp(5px, 0.9vh, 8px);
   border-radius: clamp(18px, 2.8vh, 26px);
-  border: clamp(2.5px, 0.4vh, 3.5px) solid #FFA726;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  /* Slightly stronger colored border for tactile depth */
+  border: clamp(3px, 0.45vh, 4px) solid #FFA726;
+  /* Very subtle shadow + gentle top highlight for polished physical button feel */
+  box-shadow: 
+    0 5px 16px rgba(0, 0, 0, 0.08), 
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.65);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -98,12 +103,17 @@ function handleClick() {
 
 .game-tile:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.11), 
+    0 3px 6px rgba(0, 0, 0, 0.05),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.8);
 }
 
 .game-tile:active {
   transform: scale(0.96) translateY(1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* Upper 75-80%: Large Deity Icon Stage with Subtle Halo */
@@ -119,7 +129,7 @@ function handleClick() {
   padding: 0;
 }
 
-/* Subtle lighter circular halo area behind deity image */
+/* Subtle lighter circular halo highlight area behind deity image */
 .tile-halo {
   width: 95%;
   height: 95%;
@@ -128,7 +138,7 @@ function handleClick() {
   justify-content: center;
   border-radius: 50%;
   box-sizing: border-box;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.40) 52%, rgba(255, 255, 255, 0) 76%);
+  background: radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.46) 50%, rgba(255, 255, 255, 0) 74%);
 }
 
 .tile-deity-img {
@@ -137,14 +147,14 @@ function handleClick() {
   max-width: 95%;
   max-height: 95%;
   object-fit: contain; /* Never crop face, crown, or identifying features */
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14));
+  filter: drop-shadow(0 4px 7px rgba(0, 0, 0, 0.12));
   transition: transform 0.22s ease;
   pointer-events: none;
 }
 
-/* Scale standing Krishna slightly so head & face match sitting deities */
+/* Stage 5: Scaled Krishna image by ~18% so visual presence matches Ganesha & Shiva without cropping */
 .tile-deity-img.is-standing {
-  transform: scale(1.14);
+  transform: scale(1.32);
 }
 
 .game-tile:hover .tile-deity-img {
@@ -152,7 +162,7 @@ function handleClick() {
 }
 
 .game-tile:hover .tile-deity-img.is-standing {
-  transform: scale(1.22);
+  transform: scale(1.40);
 }
 
 .tile-fallback-icon {
@@ -177,13 +187,13 @@ function handleClick() {
 
 .tile-title {
   font-family: 'Fredoka', 'Outfit', sans-serif;
-  font-size: clamp(0.72rem, 1.55vh, 0.98rem);
+  font-size: clamp(0.78rem, 1.65vh, 1.02rem);
   font-weight: 700;
   text-align: center;
-  line-height: 1.1;
-  white-space: normal; /* Prevents unwanted truncation with ellipsis */
-  word-break: normal;
-  overflow: visible;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width: 100%;
   letter-spacing: 0.01em;
 }
@@ -214,7 +224,7 @@ function handleClick() {
   }
 
   .tile-title {
-    font-size: clamp(0.82rem, 2vh, 1.04rem);
+    font-size: clamp(0.86rem, 2vh, 1.08rem);
   }
 }
 </style>

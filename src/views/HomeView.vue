@@ -350,34 +350,36 @@ const bgStyle = computed(() => {
     pointer-events: none;
   }
 
-  /* GAMES REGION: Stacked vertically on center/right (never covers the girl) */
+  /* GAMES REGION: Stacked vertically on center/right with breathing room from right edge */
   .games-region {
     width: auto;
     margin-left: auto;
+    margin-right: clamp(10px, 3.2vw, 24px); /* Moves cards slightly left toward center */
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     z-index: 5;
     box-sizing: border-box;
-    padding-right: clamp(2px, 1vw, 8px);
+    padding-right: clamp(4px, 1.2vw, 10px);
   }
 
   /* Narrow portrait: single-column vertical stack of squarish cards */
   .games-grid {
     display: flex;
     flex-direction: column;
-    gap: clamp(5px, 1.1vh, 9px);
-    align-items: flex-end;
+    gap: clamp(6px, 1.2vh, 10px);
+    align-items: center;
     justify-content: center;
     box-sizing: border-box;
   }
 
   .game-tile {
-    height: clamp(92px, 14.8vh, 126px);
+    /* Slightly increased by 5-10% for improved prominence and comfortable tapping */
+    height: clamp(98px, 15.8vh, 134px);
     width: auto; /* Derived from aspect-ratio: 1.05 / 1 in GameTile.vue */
-    max-width: clamp(105px, 30vw, 145px);
+    max-width: clamp(110px, 32vw, 152px);
   }
 }
 
@@ -524,17 +526,18 @@ const bgStyle = computed(() => {
   .games-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: clamp(8px, 1.8vh, 16px);
+    gap: clamp(9px, 2vh, 18px);
     width: 100%;
-    max-width: 530px;
+    max-width: 550px;
     align-content: center;
     justify-items: center;
   }
 
   .game-tile {
-    height: clamp(118px, 24vh, 168px);
+    /* Slightly increased by 5-10% */
+    height: clamp(124px, 25.5vh, 178px);
     width: auto; /* Derived from aspect-ratio: 1.05 / 1 in GameTile.vue */
-    max-width: clamp(130px, 27vw, 185px);
+    max-width: clamp(136px, 28vw, 195px);
   }
 }
 
