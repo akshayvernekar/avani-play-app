@@ -134,6 +134,18 @@ function showFeedback(text: string, isHint: boolean = false, durationMs: number 
   }, durationMs);
 }
 
+function preloadSpecialItemAudios() {
+  const urls: string[] = [
+    'assets/audio_gungun/find_god_success.mp3',
+    'assets/audio_gungun/ride_try_again.mp3',
+    'assets/audio_gungun/item_game_complete.mp3'
+  ];
+  for (const deity of specialItemDeities) {
+    urls.push(deity.audio?.specialItemQuestion || `assets/audio_gungun/item_q_${deity.id}.mp3`);
+  }
+  audioManager.preloadAudio(urls);
+}
+
 function playQuestionAudio() {
   const audioFile = currentRound.value.questionAudio;
   const questionText = currentRound.value.questionText;
@@ -162,6 +174,10 @@ function startNextDeityFromDeck() {
   if (remainingDeityDeck.value.length === 0) {
     // Deck completed! Trigger celebration modal
     showFinalCelebration.value = true;
+    audioManager.playAudioWithFallback(
+      'assets/audio_gungun/item_game_complete.mp3',
+      'Congratulations! You found all the special items!'
+    );
     return;
   }
 
@@ -174,7 +190,7 @@ function startNextDeityFromDeck() {
   if (initialAudioTimer) clearTimeout(initialAudioTimer);
   initialAudioTimer = window.setTimeout(() => {
     playQuestionAudio();
-  }, 400);
+  }, 350);
 }
 
 function handleOptionSelect(opt: DeitySpecialItem) {
@@ -187,6 +203,15 @@ function handleOptionSelect(opt: DeitySpecialItem) {
     isCurrentSuccess.value = true;
     foundCount.value++;
 
+    if (autoNextTimer) {
+      clearTimeout(autoNextTimer);
+      autoNextTimer = null;
+    }
+    if (initialAudioTimer) {
+      clearTimeout(initialAudioTimer);
+      initialAudioTimer = null;
+    }
+
     audioManager.playCelebration();
     confetti({
       particleCount: 50,
@@ -194,27 +219,51 @@ function handleOptionSelect(opt: DeitySpecialItem) {
       origin: { y: 0.65 }
     });
 
-    const affirmation = `Yes! That's ${currentRound.value.targetDeity.name}'s ${opt.name}!`;
-    showFeedback(affirmation, false, 2800);
+    const affirmation = 'Good Job! 🎉';
+    showFeedback(affirmation, false, 3000);
 
-    // Play pre-recorded Neural MP3 affirmation with TTS fallback
-    const successAudio = currentRound.value.targetDeity.audio?.specialItemSuccess || `assets/audio_gungun/item_success_${currentRound.value.targetDeity.id}.mp3`;
+    const successAudio = 'assets/audio_gungun/find_god_success.mp3';
+
+    isPlayingAudio.value = true;
+
+    // Advance to next round only AFTER success audio completes playback
+    const onAudioComplete = () => {
+      isPlayingAudio.value = false;
+      if (autoNextTimer) clearTimeout(autoNextTimer);
+      // Give child 1.6s to view the matched card and celebration before advancing
+      autoNextTimer = window.setTimeout(() => {
+        if (isCurrentSuccess.value) {
+          handleNextRound();
+        }
+      }, 1600);
+    };
+
     audioManager.playAudioWithFallback(
       successAudio,
-      affirmation
+      affirmation,
+      () => {
+        isPlayingAudio.value = true;
+      },
+      () => {
+        onAudioComplete();
+      }
     );
 
-    // Auto advance after 2.8 seconds if child doesn't tap "Try Another"
-    if (autoNextTimer) clearTimeout(autoNextTimer);
+    // Safety fallback timer: advance after 5.5s if audio is muted or fails to complete
     autoNextTimer = window.setTimeout(() => {
       if (isCurrentSuccess.value) {
         handleNextRound();
       }
-    }, 2800);
+    }, 5500);
   } else {
     // ── Incorrect Answer ──
     failedAttempts.value++;
-    audioManager.playAudioWithFallback('assets/audio_gungun/ride_try_again.mp3', 'Try again!');
+    audioManager.playAudioWithFallback(
+      'assets/audio_gungun/ride_try_again.mp3', 
+      'Try again!',
+      () => { isPlayingAudio.value = true; },
+      () => { isPlayingAudio.value = false; }
+    );
 
     // Trigger card shake animation
     const ref = optionRefs.value[opt.id];
@@ -231,7 +280,10 @@ function handleOptionSelect(opt: DeitySpecialItem) {
 }
 
 function handleNextRound() {
-  if (autoNextTimer) clearTimeout(autoNextTimer);
+  if (autoNextTimer) {
+    clearTimeout(autoNextTimer);
+    autoNextTimer = null;
+  }
   audioManager.playTap();
   startNextDeityFromDeck();
 }
@@ -254,6 +306,7 @@ function goHome() {
 }
 
 onMounted(() => {
+  preloadSpecialItemAudios();
   initDeckAndStart();
 });
 

@@ -251,9 +251,9 @@ function handleBackdropClick() {
 }
 
 .play-again-btn {
-  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  background: linear-gradient(135deg, #FF4081 0%, #E91E63 100%);
   color: #FFFFFF;
-  border: 3px solid #A5D6A7;
+  border: 3px solid #FFFFFF;
 }
 
 .home-btn {

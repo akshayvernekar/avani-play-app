@@ -44,21 +44,6 @@ const KNOWN_AUDIO_FILES = new Set([
   'item_q_vishnu.mp3',
   'item_q_yama.mp3',
   'item_game_complete.mp3',
-  'item_success_ayyappa.mp3',
-  'item_success_balarama.mp3',
-  'item_success_dattatreya.mp3',
-  'item_success_ganesha.mp3',
-  'item_success_hanuman.mp3',
-  'item_success_kartikeya.mp3',
-  'item_success_krishna.mp3',
-  'item_success_lakshmi.mp3',
-  'item_success_parashurama.mp3',
-  'item_success_rama.mp3',
-  'item_success_saraswati.mp3',
-  'item_success_shiva.mp3',
-  'item_success_vamana.mp3',
-  'item_success_vishnu.mp3',
-  'item_success_yama.mp3',
   'puzzle_complete_apple.mp3',
   'puzzle_complete_bus.mp3',
   'puzzle_complete_butterfly.mp3',
@@ -157,12 +142,54 @@ class AudioManager {
         }
       }
 
+      // Prime HTMLAudioElement media engine for iOS Safari
+      try {
+        const silentAudio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
+        silentAudio.play().then(() => {
+          silentAudio.pause();
+        }).catch(() => {});
+      } catch (e) {
+        // ignore
+      }
+
       window.removeEventListener('pointerdown', unlock);
       window.removeEventListener('touchstart', unlock);
     };
 
     window.addEventListener('pointerdown', unlock);
     window.addEventListener('touchstart', unlock);
+  }
+
+  private audioCache: Map<string, HTMLAudioElement> = new Map();
+
+  public resolveUrl(filePath: string): string {
+    if (filePath.startsWith('http://') || filePath.startsWith('https://')) {
+      return filePath;
+    }
+    const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+    const cleanPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
+    return `${baseUrl}${cleanPath}`;
+  }
+
+  /**
+   * Preload audio files ahead of time so they trigger immediately without network latency on iOS
+   */
+  public preloadAudio(urls: string[]) {
+    for (const url of urls) {
+      if (!url) continue;
+      try {
+        const fullUrl = this.resolveUrl(url);
+        if (!this.audioCache.has(fullUrl)) {
+          const audio = new Audio();
+          audio.preload = 'auto';
+          audio.src = fullUrl;
+          audio.load();
+          this.audioCache.set(fullUrl, audio);
+        }
+      } catch (e) {
+        // ignore preload errors
+      }
+    }
   }
 
   public toggleMute(): boolean {
@@ -387,6 +414,9 @@ class AudioManager {
       } catch (e) {
         // ignore
       }
+      this.currentAudio.onplay = null;
+      this.currentAudio.onended = null;
+      this.currentAudio.onerror = null;
       this.currentAudio = null;
     }
     if ('speechSynthesis' in window) {
@@ -415,15 +445,17 @@ class AudioManager {
 
     this.stopCurrentAudio();
 
-    // Resolve URL with BASE_URL if relative path without leading slash or protocol
-    let fullUrl = filePath;
-    if (!filePath.startsWith('http://') && !filePath.startsWith('https://')) {
-      const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
-      const cleanPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
-      fullUrl = `${baseUrl}${cleanPath}`;
+    const fullUrl = this.resolveUrl(filePath);
+
+    let audio = this.audioCache.get(fullUrl);
+    if (!audio) {
+      audio = new Audio(fullUrl);
+      audio.preload = 'auto';
+      this.audioCache.set(fullUrl, audio);
+    } else {
+      audio.currentTime = 0;
     }
 
-    const audio = new Audio(fullUrl);
     this.currentAudio = audio;
     let hasStarted = false;
 
@@ -451,17 +483,20 @@ class AudioManager {
       }
     };
 
-    audio.play().catch(err => {
-      console.warn(`Audio play() interrupted or failed: ${fullUrl}`, err);
-      if (this.currentAudio === audio) {
-        this.currentAudio = null;
-      }
-      if (!hasStarted && onError) {
-        onError();
-      } else if (onEnd) {
-        onEnd();
-      }
-    });
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(err => {
+        console.warn(`Audio play() interrupted or failed: ${fullUrl}`, err);
+        if (this.currentAudio === audio) {
+          this.currentAudio = null;
+        }
+        if (!hasStarted && onError) {
+          onError();
+        } else if (onEnd) {
+          onEnd();
+        }
+      });
+    }
 
     return audio;
   }

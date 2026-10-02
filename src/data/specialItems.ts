@@ -13,6 +13,7 @@ export interface SpecialItemRound {
   options: DeitySpecialItem[];
   questionText: string;
   questionAudio: string;
+  successAudio: string;
 }
 
 export function shuffleArray<T>(array: T[]): T[] {
@@ -53,6 +54,8 @@ export function createShuffledSpecialItemsDeck(existingIdToAvoid?: string): Cent
   return deck;
 }
 
+export const SHARED_SPECIAL_ITEM_SUCCESS_AUDIO = 'assets/audio_gungun/find_god_success.mp3';
+
 /**
  * Generates a round for the given deity:
  * - 1 correct item (primary item, e.g. Veena for Saraswati)
@@ -84,12 +87,14 @@ export function createRoundForDeity(deity: CentralDeity): SpecialItemRound {
 
   const questionText = `What belongs to ${deity.name}?`;
   const questionAudio = deity.audio?.specialItemQuestion || `assets/audio_gungun/item_q_${deity.id}.mp3`;
+  const successAudio = SHARED_SPECIAL_ITEM_SUCCESS_AUDIO;
 
   return {
     targetDeity: deity,
     correctItem,
     options,
     questionText,
-    questionAudio
+    questionAudio,
+    successAudio
   };
 }

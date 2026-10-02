@@ -352,23 +352,23 @@ function handleNext() {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  background: linear-gradient(135deg, #FF4081 0%, #E91E63 100%);
   color: #FFFFFF;
-  border: 3px solid #A5D6A7;
+  border: 3px solid #FFFFFF;
   border-radius: 999px;
   padding: clamp(8px, 1.5vh, 14px) clamp(18px, 3vw, 28px);
   font-family: 'Fredoka', sans-serif;
   font-size: clamp(1rem, 2.4vh, 1.35rem);
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35);
+  box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35);
   transition: transform 0.15s, box-shadow 0.15s;
   outline: none;
 }
 
 .next-round-btn:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.45);
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.45);
 }
 
 .next-round-btn:active {
