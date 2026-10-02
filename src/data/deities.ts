@@ -639,7 +639,7 @@ export const centralDeities: CentralDeity[] = [
     questionText: "Where is Vamana?",
     successText: "Yes! That's Lord Vamana!",
     audio: {
-      findGodQuestion: "assets/audio_gungun/item_q_vamana.mp3",
+      findGodQuestion: "assets/audio_gungun/find_god_vamana.mp3",
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       specialItemQuestion: "assets/audio_gungun/item_q_vamana.mp3"
     }
@@ -659,7 +659,7 @@ export const centralDeities: CentralDeity[] = [
     questionText: "Where is Parashurama?",
     successText: "Yes! That's Lord Parashurama!",
     audio: {
-      findGodQuestion: "assets/audio_gungun/item_q_parashurama.mp3",
+      findGodQuestion: "assets/audio_gungun/find_god_parashurama.mp3",
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       specialItemQuestion: "assets/audio_gungun/item_q_parashurama.mp3"
     }
@@ -676,7 +676,7 @@ export const centralDeities: CentralDeity[] = [
     questionText: "Where is Balarama?",
     successText: "Yes! That's Lord Balarama!",
     audio: {
-      findGodQuestion: "assets/audio_gungun/item_q_balarama.mp3",
+      findGodQuestion: "assets/audio_gungun/find_god_balarama.mp3",
       findGodSuccess: "assets/audio_gungun/find_god_success.mp3",
       specialItemQuestion: "assets/audio_gungun/item_q_balarama.mp3"
     }

@@ -188,6 +188,15 @@ defineExpose({
   40%, 60% { transform: translate3d(6px, 0, 0); }
 }
 
+/* Disabled state - becomes transparent like Find the Ride when answered */
+.deity-option-card.is-disabled:not(.is-correct) {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.3);
+  pointer-events: none;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
 .is-disabled {
   cursor: default;
 }
