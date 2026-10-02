@@ -312,8 +312,8 @@ function restartGame() {
 const bgStyle = computed(() => {
   const base = import.meta.env.BASE_URL;
   return {
-    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.png')`,
-    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.png')`
+    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.webp')`,
+    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.webp')`
   };
 });
 </script>

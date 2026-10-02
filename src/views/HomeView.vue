@@ -1,53 +1,75 @@
 <template>
   <div class="home-screen-wrap" :style="bgStyle">
     <div class="home-container">
-      <!-- Header Section -->
+      
+      <!-- Top-Right Settings Button -->
+      <button 
+        class="top-settings-btn" 
+        aria-label="Toggle Audio Sound" 
+        title="Toggle Sound"
+        @click="handleSettings"
+      >
+        <Settings class="settings-icon" />
+      </button>
+
+      <!-- Top Header: Large Deva Loka Logo Image -->
       <header class="home-header">
-        <div class="title-wrap">
-          <h1 class="main-title">
-            <span>Avani's</span>
-            <span class="sun-icon">☀️</span>
-          </h1>
-          <h1 class="sub-title">Little World</h1>
+        <div class="logo-wrap">
+          <img 
+            :src="logoUrl" 
+            alt="Deva Loka - Play • Discover • Celebrate" 
+            class="devaloka-logo-img"
+          />
         </div>
-        <p class="tagline">
-          <span>Play</span>
-          <span class="heart">❤️</span>
-          <span>Learn</span>
-          <span class="heart">❤️</span>
-          <span>Grow</span>
-        </p>
       </header>
 
-      <!-- Game Tiles Grid -->
-      <main class="tiles-grid">
-        <GameTile 
-          v-for="game in activeGames"
-          :key="game.id"
-          :game="game"
-          @select="handleSelectGame"
-        />
+      <!-- Main Content: Girl in Bottom-Left, Games in Center/Right -->
+      <main class="home-content">
+        
+        <!-- Guide Region: Indian Girl Mascot anchored in Bottom-Left (Purely Visual, Non-interactive) -->
+        <section class="guide-region" aria-hidden="true">
+          <div class="guide-img-container">
+            <img 
+              :src="girlAssetUrl" 
+              alt=""
+              class="guide-character-img"
+              loading="eager"
+            />
+            <div class="guide-ground-shadow"></div>
+          </div>
+        </section>
+
+        <!-- Games Region: 4 Games (Puja, God, Ride, Special Thing) -->
+        <section class="games-region" aria-label="Deva Loka Games">
+          <div class="games-grid">
+            <GameTile 
+              v-for="game in activeGames"
+              :key="game.id"
+              :game="game"
+              :class="`game-card-${game.id}`"
+              @select="handleSelectGame"
+            />
+          </div>
+        </section>
+
       </main>
 
-      <!-- Footer -->
+      <!-- Middle Bottom: Made with Love for Avani (Centered Pill) -->
       <footer class="home-footer">
-        <button class="settings-btn" aria-label="Settings" @click="handleSettings">
-          <Settings class="settings-icon" />
-        </button>
-        
-        <div class="made-with">
+        <div class="made-with-pill">
           <span>Made with</span>
-          <span class="heart">❤️</span>
+          <span class="heart" aria-hidden="true">❤️</span>
           <span>for Avani</span>
         </div>
       </footer>
 
-      <!-- Coming Soon Modal -->
+      <!-- Coming Soon Modal for unreleased games -->
       <ComingSoonModal 
         :show="showComingSoon"
         :message="comingSoonMessage"
         @close="showComingSoon = false"
       />
+
     </div>
   </div>
 </template>
@@ -63,8 +85,11 @@ import { audioManager } from '../audio/AudioManager';
 
 const router = useRouter();
 
-// Only display active, playable games on the homepage
-const activeGames = computed(() => games.filter(g => g.enabled));
+// Filter for exactly the 4 main games (Puzzles is omitted from the home grid)
+const activeGames = computed(() => {
+  const allowedIds = ['puja', 'identify-god', 'vaahana', 'special-item'];
+  return games.filter(g => allowedIds.includes(g.id));
+});
 
 const showComingSoon = ref(false);
 const comingSoonMessage = ref('');
@@ -84,29 +109,41 @@ function handleSettings() {
   alert(isMuted ? "Audio Sound Muted 🔇" : "Audio Sound Enabled 🔊");
 }
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+
+const logoUrl = computed(() => {
+  return `${base}assets/backgrounds/devaloka_logo.webp`;
+});
+
+const girlAssetUrl = computed(() => {
+  return `${base}assets/backgrounds/indian_girl_character.webp`;
+});
+
 const bgStyle = computed(() => {
-  const base = import.meta.env.BASE_URL;
   return {
-    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.png')`,
-    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.png')`
+    '--bg-landscape': `url('${base}assets/backgrounds/devaloka_landscape.webp')`,
+    '--bg-portrait': `url('${base}assets/backgrounds/devaloka_portait.webp')`
   };
 });
 </script>
 
 <style scoped>
+/* ========================================================
+   BASE CONTAINER & BACKGROUND STYLING
+   ======================================================== */
 .home-screen-wrap {
   width: 100vw;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
   background-image: var(--bg-landscape);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
   transition: background-image 0.25s ease;
+  user-select: none;
 }
 
 @media (orientation: portrait) {
@@ -116,157 +153,397 @@ const bgStyle = computed(() => {
 }
 
 .home-container {
-  min-height: 100vh;
-  min-height: 100dvh;
+  width: 100%;
+  height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-  padding: clamp(10px, 2vh, 24px) clamp(12px, 3vw, 24px);
-  padding-left: max(clamp(12px, 3vw, 24px), env(safe-area-inset-left));
-  padding-right: max(clamp(12px, 3vw, 24px), env(safe-area-inset-right));
-  padding-top: max(clamp(10px, 2vh, 24px), env(safe-area-inset-top));
-  padding-bottom: max(clamp(10px, 2vh, 24px), env(safe-area-inset-bottom));
+  align-items: center;
   box-sizing: border-box;
-  width: 100%;
-  max-width: 900px;
+  padding-left: max(clamp(8px, 2vw, 20px), env(safe-area-inset-left));
+  padding-right: max(clamp(8px, 2vw, 20px), env(safe-area-inset-right));
+  padding-top: max(clamp(6px, 1.2vh, 14px), env(safe-area-inset-top));
+  padding-bottom: max(clamp(4px, 1vh, 12px), env(safe-area-inset-bottom));
   margin: 0 auto;
 }
 
-.home-header {
-  text-align: center;
-  margin-top: clamp(2px, 1vh, 10px);
-  margin-bottom: clamp(6px, 1.5vh, 18px);
-  filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.8));
-}
-
-.title-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 0.95;
-}
-
-.main-title {
-  font-family: 'Fredoka', sans-serif;
-  font-size: clamp(2rem, 5.5vh, 3.2rem);
-  font-weight: 700;
-  color: #FF4081;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-shadow: 0 4px 12px rgba(255, 64, 129, 0.2), 0 0 10px #FFFFFF;
-}
-
-.sun-icon {
-  font-size: clamp(1.8rem, 5vh, 2.8rem);
-  animation: spinSlow 12s linear infinite;
-  filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
-}
-
-@keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.sub-title {
-  font-family: 'Fredoka', sans-serif;
-  font-size: clamp(1.8rem, 5vh, 3rem);
-  font-weight: 700;
-  color: #651FFF;
-  margin: 0;
-  text-shadow: 0 4px 12px rgba(101, 31, 255, 0.2), 0 0 10px #FFFFFF;
-}
-
-.tagline {
-  font-family: 'Fredoka', sans-serif;
-  font-size: clamp(0.95rem, 2.2vh, 1.35rem);
-  font-weight: 700;
-  color: #1A237E;
-  margin: clamp(4px, 1vh, 10px) 0 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
-}
-
-.heart {
-  color: #FF4081;
-  font-size: 0.9em;
-}
-
-/* Grid Layout: adapts to 2 columns in portrait, 3 columns in landscape on wide screens */
-.tiles-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(10px, 2vh, 18px);
-  margin-bottom: clamp(10px, 2vh, 24px);
-  max-width: 600px;
-}
-
-@media (min-aspect-ratio: 4/3) and (min-width: 680px) {
-  .home-container {
-    max-width: 1040px;
-  }
-  .tiles-grid {
-    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-    max-width: 1000px;
-  }
-}
-
-@media (min-aspect-ratio: 4/3) and (min-width: 980px) {
-  .tiles-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-/* Footer */
-.home-footer {
-  width: 100%;
-  max-width: 820px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: clamp(4px, 1vh, 10px);
-}
-
-.settings-btn {
-  width: clamp(38px, 6vh, 48px);
-  height: clamp(38px, 6vh, 48px);
+/* ========================================================
+   TOP-RIGHT SETTINGS BUTTON (Blue circle, white border)
+   ======================================================== */
+.top-settings-btn {
+  position: absolute;
+  top: max(clamp(8px, 1.6vh, 18px), env(safe-area-inset-top));
+  right: max(clamp(10px, 2.5vw, 22px), env(safe-area-inset-right));
+  width: clamp(38px, 5.8vh, 48px);
+  height: clamp(38px, 5.8vh, 48px);
   border-radius: 50%;
-  background: #FFFFFF;
-  border: 3.5px solid #29B6F6;
-  color: #0288D1;
+  background: #0288D1;
+  border: clamp(2.5px, 0.4vh, 3.5px) solid #FFFFFF;
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   outline: none;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-  transition: transform 0.15s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 25;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.settings-btn:active {
+.top-settings-btn:hover {
+  transform: scale(1.08);
+}
+
+.top-settings-btn:active {
   transform: scale(0.92);
 }
 
 .settings-icon {
-  width: clamp(18px, 3vh, 24px);
-  height: clamp(18px, 3vh, 24px);
-  stroke-width: 2.5px;
+  width: clamp(20px, 3vh, 26px);
+  height: clamp(20px, 3vh, 26px);
+  stroke-width: 2.4px;
 }
 
-.made-with {
-  font-family: 'Fredoka', sans-serif;
-  font-size: clamp(0.9rem, 2vh, 1.15rem);
-  font-weight: 700;
-  color: #FFFFFF;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+/* ========================================================
+   HEADER / DEVA LOKA LOGO (Substantially larger)
+   ======================================================== */
+.home-header {
+  text-align: center;
+  z-index: 10;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* ========================================================
+   PORTRAIT MODE
+   - Logo: 55-70% of viewport width
+   - Girl: Large (30-40% width), anchored to BOTTOM-LEFT
+   - Games: Centered/Right in 1-column stack (never covers girl)
+   ======================================================== */
+@media (orientation: portrait) {
+  .home-container {
+    max-width: 520px;
+    padding-left: max(clamp(10px, 3vw, 20px), env(safe-area-inset-left));
+    padding-right: max(clamp(12px, 3.5vw, 24px), env(safe-area-inset-right));
+  }
+
+  .home-header {
+    margin-top: clamp(2px, 0.6vh, 6px);
+    margin-bottom: clamp(2px, 0.4vh, 6px);
+  }
+
+  .devaloka-logo-img {
+    width: clamp(225px, 64vw, 360px); /* 55-70% of viewport width */
+    max-height: clamp(75px, 14vh, 115px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.22));
+  }
+
+  .home-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  /* GIRL: Anchored to BOTTOM-LEFT, 30-40% width, zoomed & prominent */
+  .guide-region {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: clamp(112px, 34vw, 175px);
+    height: clamp(240px, 50vh, 400px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    pointer-events: none; /* Purely visual guide, no clicks/taps */
+    user-select: none;
+    z-index: 4;
+    overflow: hidden; /* Naturally crops lower portion of dress/feet */
+  }
+
+  .guide-img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    pointer-events: none;
+  }
+
+  .guide-character-img {
+    width: 140%; /* Zoomed into upper body & face as requested */
+    max-width: none;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: top 10% left;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+    pointer-events: none;
+    user-select: none;
+    margin-left: -15%;
+    margin-bottom: -10%;
+  }
+
+  .guide-ground-shadow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 85%;
+    height: 10px;
+    background: radial-gradient(ellipse at center, rgba(30, 20, 10, 0.35) 0%, rgba(30, 20, 10, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* GAMES REGION: Occupies right side (games NEVER cover the girl) */
+  .games-region {
+    width: calc(100% - clamp(112px, 34vw, 175px) - clamp(8px, 2vw, 16px));
+    max-width: calc(100% - clamp(112px, 34vw, 175px) - clamp(8px, 2vw, 16px));
+    margin-left: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    box-sizing: border-box;
+  }
+
+  /* Narrow portrait: single-column stack */
+  .games-grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 1vh, 8px);
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Wide Portrait (Tablets >= 560px) */
+@media (orientation: portrait) and (min-width: 560px) {
+  .home-container {
+    max-width: 720px;
+  }
+
+  .devaloka-logo-img {
+    width: clamp(300px, 56vw, 440px);
+  }
+
+  .guide-region {
+    position: relative;
+    flex: 0 0 clamp(180px, 32vw, 260px);
+    width: clamp(180px, 32vw, 260px);
+    height: 100%;
+    overflow: visible;
+  }
+
+  .guide-character-img {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 0;
+    object-fit: contain;
+  }
+
+  .games-region {
+    width: auto;
+    max-width: 480px;
+    margin-left: 0;
+    flex: 1;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(8px, 1.5vh, 14px);
+    max-width: 460px;
+  }
+}
+
+/* ========================================================
+   LANDSCAPE MODE (Desktop, Tablet, Mobile Landscape)
+   - Logo: 25-35% of viewport width
+   - Girl on left (preserved)
+   - 4 games on right in 2x2 grid
+   ======================================================== */
+@media (orientation: landscape) {
+  .home-container {
+    max-width: 1240px;
+    padding-top: max(clamp(4px, 1vh, 10px), env(safe-area-inset-top));
+    padding-bottom: max(clamp(4px, 0.8vh, 10px), env(safe-area-inset-bottom));
+  }
+
+  .home-header {
+    margin-top: 0;
+    margin-bottom: clamp(1px, 0.4vh, 4px);
+  }
+
+  .devaloka-logo-img {
+    width: clamp(240px, 28vw, 360px); /* 25-35% of viewport width */
+    max-height: clamp(60px, 13vh, 95px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.2));
+  }
+
+  .home-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    gap: clamp(16px, 3vw, 36px);
+    margin-bottom: clamp(2px, 0.4vh, 4px);
+  }
+
+  /* LEFT REGION: Preserved left-side placement for girl */
+  .guide-region {
+    flex: 0 0 clamp(160px, 24vw, 275px);
+    width: clamp(160px, 24vw, 275px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    pointer-events: none;
+    user-select: none;
+    z-index: 5;
+  }
+
+  .guide-img-container {
+    width: 100%;
+    max-height: clamp(180px, 58vh, 400px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .guide-character-img {
+    width: 100%;
+    height: auto;
+    max-height: clamp(170px, 56vh, 380px);
+    object-fit: contain;
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .guide-ground-shadow {
+    width: 68%;
+    height: clamp(8px, 1.8vh, 14px);
+    background: radial-gradient(ellipse at center, rgba(30, 20, 10, 0.32) 0%, rgba(30, 20, 10, 0) 70%);
+    border-radius: 50%;
+    margin-top: -5px;
+    pointer-events: none;
+  }
+
+  /* RIGHT REGION: 4 games in 2x2 grid */
+  .games-region {
+    flex: 1;
+    max-width: clamp(480px, 68vw, 760px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(8px, 1.5vh, 14px);
+    width: 100%;
+    align-content: center;
+  }
+}
+
+/* ========================================================
+   COMPACT SCREEN ADJUSTMENTS (Short viewports / small phones)
+   ======================================================== */
+@media (max-height: 480px) and (orientation: landscape) {
+  .devaloka-logo-img {
+    max-height: 46px;
+    width: clamp(190px, 24vw, 260px);
+  }
+  .guide-character-img {
+    max-height: 62vh;
+  }
+  .games-grid {
+    gap: 5px;
+  }
+}
+
+@media (max-height: 670px) and (orientation: portrait) {
+  .devaloka-logo-img {
+    width: clamp(200px, 60vw, 290px);
+    max-height: 68px;
+  }
+  .guide-region {
+    height: clamp(200px, 46vh, 320px);
+  }
+  .games-grid {
+    gap: 4px;
+  }
+}
+
+/* ========================================================
+   MIDDLE BOTTOM FOOTER PILL: "Made with ❤️ for Avani"
+   ======================================================== */
+.home-footer {
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding-top: clamp(2px, 0.5vh, 6px);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.made-with-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 6px;
+  background: #FFF4E3;
+  border: clamp(2px, 0.35vh, 2.5px) solid #FFCC80;
+  border-radius: 999px;
+  padding: clamp(2px, 0.5vh, 5px) clamp(14px, 3vw, 22px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(0.75rem, 1.5vh, 0.9rem);
+  font-weight: 700;
+  color: #4E342E;
+  user-select: none;
+}
+
+.heart {
+  color: #E53935;
+  font-size: 1em;
+  display: inline-block;
 }
 </style>

@@ -4,9 +4,12 @@ export interface GameCategory {
   subtitle?: string;
   iconName: string; // Lucide icon or custom vector name
   customIcon?: string;
+  cardImage?: string;
   bgColor: string;
   borderColor: string;
   textColor: string;
+  titleColor?: string;
+  subtitleColor?: string;
   enabled: boolean;
   comingSoonText?: string;
   badge?: string;
@@ -18,15 +21,16 @@ const baseUrl = import.meta.env.BASE_URL;
 export const games: GameCategory[] = [
   {
     id: "puja",
-    title: "Puja Time 🙏",
+    title: "Puja Time",
     subtitle: "Decorate Ganesha!",
     iconName: "Sparkles",
-    customIcon: `${baseUrl}assets/puja/aarti/aarti_large.png`,
-    bgColor: "#FFF8E1",
-    borderColor: "#FFB300",
-    textColor: "#E65100",
+    customIcon: `${baseUrl}assets/cards/card_puja.webp`,
+    bgColor: "linear-gradient(180deg, #FFF9ED 0%, #FFE9D1 100%)",
+    borderColor: "#FFA726",
+    textColor: "#D84315",
+    titleColor: "#D84315",
+    subtitleColor: "#BF360C",
     enabled: true,
-    badge: "New!",
     route: "/puja"
   },
   {
@@ -34,49 +38,55 @@ export const games: GameCategory[] = [
     title: "Find the God",
     subtitle: "Where is Ganesha? Tap to find!",
     iconName: "Sparkles",
-    customIcon: `${baseUrl}assets/vaahana/vishnu.png`,
-    bgColor: "#FFF0F5",
-    borderColor: "#FF4081",
-    textColor: "#C2185B",
+    customIcon: `${baseUrl}assets/cards/card_god.webp`,
+    bgColor: "linear-gradient(180deg, #F0F9FF 0%, #D8F0FE 100%)",
+    borderColor: "#29B6F6",
+    textColor: "#0D47A1",
+    titleColor: "#0D47A1",
+    subtitleColor: "#1565C0",
     enabled: true,
-    badge: "Fun Game!",
     route: "/identify-god"
   },
   {
     id: "vaahana",
     title: "Find the Ride",
-    subtitle: "What does Durga ride? Tap to find!",
+    subtitle: "What does Ganesha ride? Tap to find!",
     iconName: "Sparkles",
-    customIcon: `${baseUrl}assets/vaahana/ganesha.png`,
-    bgColor: "#FFF3E0",
-    borderColor: "#FF9800",
-    textColor: "#E65100",
+    customIcon: `${baseUrl}assets/cards/card_ride.webp`,
+    bgColor: "linear-gradient(180deg, #F1FBF0 0%, #DCF3D5 100%)",
+    borderColor: "#66BB6A",
+    textColor: "#1B5E20",
+    titleColor: "#1B5E20",
+    subtitleColor: "#2E7D32",
     enabled: true,
-    badge: "Fun Game!",
     route: "/vaahana"
   },
   {
     id: "special-item",
-    title: "Special Item",
+    title: "Find My Special Thing",
     subtitle: "What belongs to Krishna? Tap to find!",
     iconName: "Sparkles",
-    customIcon: `${baseUrl}assets/items/flute.svg`,
-    bgColor: "#E8F5E9",
-    borderColor: "#43A047",
-    textColor: "#1B5E20",
+    customIcon: `${baseUrl}assets/cards/card_special.webp`,
+    bgColor: "linear-gradient(180deg, #FBF6FF 0%, #EEDBFF 100%)",
+    borderColor: "#BA68C8",
+    textColor: "#6A1B9A",
+    titleColor: "#6A1B9A",
+    subtitleColor: "#7B1FA2",
     enabled: true,
-    badge: "New Game!",
     route: "/special-item"
   },
   {
     id: "puzzles",
     title: "Puzzles",
+    subtitle: "Put the pieces together!",
     iconName: "Puzzle",
-    bgColor: "#E3F2FD",
-    borderColor: "#1E88E5",
-    textColor: "#0D47A1",
+    customIcon: `${baseUrl}assets/puzzles/apple.svg`,
+    bgColor: "linear-gradient(180deg, #F8F2FF 0%, #EEDBFF 100%)",
+    borderColor: "#BA68C8",
+    textColor: "#6A1B9A",
+    titleColor: "#6A1B9A",
+    subtitleColor: "#7B1FA2",
     enabled: true,
-    badge: "8 Fun Puzzles",
     route: "/puzzles"
   },
   {

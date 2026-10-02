@@ -20,9 +20,9 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "fish",
     title: "Fish",
-    image: `${base}/assets/puzzles/fish.png`,
+    image: `${base}/assets/puzzles/fish.webp`,
     background: "underwater",
-    bgImage: `${base}/assets/backgrounds/underwater.png`,
+    bgImage: `${base}/assets/backgrounds/underwater.webp`,
     rows: 2,
     columns: 3,
     difficulty: "easy",
@@ -33,7 +33,7 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "tractor",
     title: "Tractor",
-    image: `${base}/assets/puzzles/tractor.png`,
+    image: `${base}/assets/puzzles/tractor.webp`,
     background: "farm",
     bgImage: `${base}/assets/backgrounds/farm.svg`,
     rows: 2,
@@ -46,7 +46,7 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "dog",
     title: "Dog",
-    image: `${base}/assets/puzzles/dog.png`,
+    image: `${base}/assets/puzzles/dog.webp`,
     background: "meadow",
     bgImage: `${base}/assets/backgrounds/meadow.svg`,
     rows: 2,
@@ -59,7 +59,7 @@ export const puzzles: PuzzleItem[] = [
   {
     id: "elephant",
     title: "Elephant",
-    image: `${base}/assets/puzzles/elephant.png`,
+    image: `${base}/assets/puzzles/elephant.webp`,
     background: "meadow",
     bgImage: `${base}/assets/backgrounds/meadow.svg`,
     rows: 2,

@@ -41,91 +41,91 @@ export const vaahanas: VaahanaOptionItem[] = [
         id: "mouse",
         name: "Mouse",
         emoji: "🐭",
-        image: `${baseUrl}assets/vaahana/mouse.png`
+        image: `${baseUrl}assets/vaahana/mouse.webp`
     },
     {
         id: "nandi",
         name: "Bull",
         emoji: "🐂",
-        image: `${baseUrl}assets/vaahana/bull.png`
+        image: `${baseUrl}assets/vaahana/bull.webp`
     },
     {
         id: "lion",
         name: "Lion",
         emoji: "🦁",
-        image: `${baseUrl}assets/vaahana/lion.png`
+        image: `${baseUrl}assets/vaahana/lion.webp`
     },
     {
         id: "peacock",
         name: "Peacock",
         emoji: "🦚",
-        image: `${baseUrl}assets/vaahana/peacock-removebg-preview.png`
+        image: `${baseUrl}assets/vaahana/peacock-removebg-preview.webp`
     },
     {
         id: "garuda",
         name: "Eagle",
         emoji: "🦅",
-        image: `${baseUrl}assets/vaahana/garuda.png`
+        image: `${baseUrl}assets/vaahana/garuda.webp`
     },
     {
         id: "swan",
         name: "Swan",
         emoji: "🦢",
-        image: `${baseUrl}assets/vaahana/swan.png`
+        image: `${baseUrl}assets/vaahana/swan.webp`
     },
     {
         id: "owl",
         name: "Owl",
         emoji: "🦉",
-        image: `${baseUrl}assets/vaahana/owl.png`
+        image: `${baseUrl}assets/vaahana/owl.webp`
     },
     {
         id: "elephant",
         name: "White Elephant",
         emoji: "🐘",
-        image: `${baseUrl}assets/vaahana/white_elephant.png`
+        image: `${baseUrl}assets/vaahana/white_elephant.webp`
     },
     {
         id: "horses",
         name: "Seven Horses",
         emoji: "🐎",
-        image: `${baseUrl}assets/vaahana/seven_horses.png`
+        image: `${baseUrl}assets/vaahana/seven_horses.webp`
     },
     {
         id: "crow",
         name: "Crow",
         emoji: "🐦‍⬛",
-        image: `${baseUrl}assets/vaahana/crow.png`
+        image: `${baseUrl}assets/vaahana/crow.webp`
     },
     {
         id: "buffalo",
         name: "Buffalo",
         emoji: "🐃",
-        image: `${baseUrl}assets/vaahana/buffalo.png`
+        image: `${baseUrl}assets/vaahana/buffalo.webp`
     },
     {
         id: "ram",
         name: "Sheep",
         emoji: "🐏",
-        image: `${baseUrl}assets/vaahana/ram.png`
+        image: `${baseUrl}assets/vaahana/ram.webp`
     },
     {
         id: "crocodile",
         name: "Crocodile",
         emoji: "🐊",
-        image: `${baseUrl}assets/vaahana/crocodile.png`
+        image: `${baseUrl}assets/vaahana/crocodile.webp`
     },
     {
         id: "tiger",
         name: "Tiger",
         emoji: "🐅",
-        image: `${baseUrl}assets/vaahana/tiger.png`
+        image: `${baseUrl}assets/vaahana/tiger.webp`
     },
     {
         id: "dogs",
         name: "Four Dogs",
         emoji: "🐕",
-        image: `${baseUrl}assets/vaahana/four_dogs.png`
+        image: `${baseUrl}assets/vaahana/four_dogs.webp`
     }
 ];
 

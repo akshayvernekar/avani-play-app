@@ -64,8 +64,8 @@ function getItemEmoji(deity: CentralDeity): string {
 
 function handleImgError(event: Event, id: string) {
   const target = event.target as HTMLImageElement;
-  if (target && target.src.endsWith('.png')) {
-    target.src = target.src.replace('.png', '.svg');
+  if (target && target.src?.match(/\.(webp|png)$/)) {
+    target.src = target.src.replace(/\.(webp|png)$/, '.svg');
   }
 }
 

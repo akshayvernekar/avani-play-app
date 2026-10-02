@@ -1,12 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import PuzzleSelectionView from '../views/PuzzleSelectionView.vue';
-import PuzzleGameView from '../views/PuzzleGameView.vue';
-import VaahanaSelectionView from '../views/VaahanaSelectionView.vue';
-import VaahanaGameView from '../views/VaahanaGameView.vue';
-import IdentifyGodView from '../views/IdentifyGodView.vue';
-import PujaGameView from '../views/PujaGameView.vue';
-import SpecialItemGameView from '../views/SpecialItemGameView.vue';
 
 const routes = [
   {
@@ -17,37 +10,37 @@ const routes = [
   {
     path: '/special-item',
     name: 'SpecialItemGame',
-    component: SpecialItemGameView
+    component: () => import('../views/SpecialItemGameView.vue')
   },
   {
     path: '/puja',
     name: 'PujaGame',
-    component: PujaGameView
+    component: () => import('../views/PujaGameView.vue')
   },
   {
     path: '/identify-god',
     name: 'IdentifyGod',
-    component: IdentifyGodView
+    component: () => import('../views/IdentifyGodView.vue')
   },
   {
     path: '/vaahana',
     name: 'VaahanaGame',
-    component: VaahanaGameView
+    component: () => import('../views/VaahanaGameView.vue')
   },
   {
     path: '/vaahana/:id',
     name: 'VaahanaGameWithId',
-    component: VaahanaGameView
+    component: () => import('../views/VaahanaGameView.vue')
   },
   {
     path: '/puzzles',
     name: 'PuzzleSelection',
-    component: PuzzleSelectionView
+    component: () => import('../views/PuzzleSelectionView.vue')
   },
   {
     path: '/puzzle/:id',
     name: 'PuzzleGame',
-    component: PuzzleGameView
+    component: () => import('../views/PuzzleGameView.vue')
   }
 ];
 

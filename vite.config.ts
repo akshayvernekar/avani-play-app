@@ -40,10 +40,21 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,mp3,wav}']
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,webp,mp3,wav}'],
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024
       }
     })
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          phaser: ['phaser'],
+          vendor: ['vue', 'vue-router', 'canvas-confetti', 'lucide-vue-next']
+        }
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')

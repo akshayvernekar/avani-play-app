@@ -74,13 +74,13 @@ export const centralDeities: CentralDeity[] = [
     id: "ganesha",
     name: "Ganesha",
     titleName: "Lord Ganesha",
-    image: `${baseUrl}assets/vaahana/ganesha.png`,
-    successImage: `${baseUrl}assets/vaahana/ganesha.png`,
+    image: `${baseUrl}assets/vaahana/ganesha.webp`,
+    successImage: `${baseUrl}assets/vaahana/ganesha.webp`,
     vahana: {
       id: "mouse",
       name: "Mouse",
       emoji: "🐭",
-      image: `${baseUrl}assets/vaahana/mouse.png`,
+      image: `${baseUrl}assets/vaahana/mouse.webp`,
       voiceText: "Ganesha's ride is the mouse!",
       hintText: "Ganesha loves riding with his friendly mouse!"
     },
@@ -88,7 +88,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "parashu", name: "Parashu (Axe)" }
     ],
     specialItems: [
-      { id: "modak", name: "Modak", category: "food", image: `${baseUrl}assets/items/modak.png`, fallbackImage: `${baseUrl}assets/items/modak.svg`, emoji: "🥟" }
+      { id: "modak", name: "Modak", category: "food", image: `${baseUrl}assets/items/modak.webp`, fallbackImage: `${baseUrl}assets/items/modak.svg`, emoji: "🥟" }
     ],
     questionText: "Where is Ganesha?",
     successText: "Yes! That's Ganesha!",
@@ -105,13 +105,13 @@ export const centralDeities: CentralDeity[] = [
     id: "shiva",
     name: "Shiva",
     titleName: "Lord Shiva",
-    image: `${baseUrl}assets/vaahana/shiva.png`,
-    successImage: `${baseUrl}assets/vaahana/shiva.png`,
+    image: `${baseUrl}assets/vaahana/shiva.webp`,
+    successImage: `${baseUrl}assets/vaahana/shiva.webp`,
     vahana: {
       id: "nandi",
       name: "Bull",
       emoji: "🐂",
-      image: `${baseUrl}assets/vaahana/bull.png`,
+      image: `${baseUrl}assets/vaahana/bull.webp`,
       voiceText: "Shiva's ride is Nandi the bull!",
       hintText: "Shiva rides with Nandi, the gentle white bull!"
     },
@@ -119,7 +119,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "trishul", name: "Trishul (Trident)" }
     ],
     specialItems: [
-      { id: "trishul", name: "Trishul", category: "weapon", image: `${baseUrl}assets/items/trishul.png`, fallbackImage: `${baseUrl}assets/items/trishul.svg`, emoji: "🔱" }
+      { id: "trishul", name: "Trishul", category: "weapon", image: `${baseUrl}assets/items/trishul.webp`, fallbackImage: `${baseUrl}assets/items/trishul.svg`, emoji: "🔱" }
     ],
     questionText: "Where is Shiva?",
     successText: "Yes! That's Shiva!",
@@ -136,13 +136,13 @@ export const centralDeities: CentralDeity[] = [
     id: "durga",
     name: "Durga",
     titleName: "Goddess Durga",
-    image: `${baseUrl}assets/vaahana/durga.png`,
-    successImage: `${baseUrl}assets/vaahana/durga.png`,
+    image: `${baseUrl}assets/vaahana/durga.webp`,
+    successImage: `${baseUrl}assets/vaahana/durga.webp`,
     vahana: {
       id: "lion",
       name: "Lion",
       emoji: "🦁",
-      image: `${baseUrl}assets/vaahana/lion.png`,
+      image: `${baseUrl}assets/vaahana/lion.webp`,
       voiceText: "Durga's ride is the brave lion!",
       hintText: "Goddess Durga rides with the mighty lion!"
     },
@@ -163,13 +163,13 @@ export const centralDeities: CentralDeity[] = [
     id: "kartikeya",
     name: "Kartikeya",
     titleName: "Kartikeya (Murugan)",
-    image: `${baseUrl}assets/vaahana/kartikeya.png`,
-    successImage: `${baseUrl}assets/vaahana/kartikeya.png`,
+    image: `${baseUrl}assets/vaahana/kartikeya.webp`,
+    successImage: `${baseUrl}assets/vaahana/kartikeya.webp`,
     vahana: {
       id: "peacock",
       name: "Peacock",
       emoji: "🦚",
-      image: `${baseUrl}assets/vaahana/peacock-removebg-preview.png`,
+      image: `${baseUrl}assets/vaahana/peacock-removebg-preview.webp`,
       voiceText: "Kartikeya's ride is the colorful peacock!",
       hintText: "Kartikeya rides with the beautiful peacock!"
     },
@@ -177,7 +177,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "vel", name: "Vel (Divine Spear)" }
     ],
     specialItems: [
-      { id: "vel", name: "Vel", category: "weapon", image: `${baseUrl}assets/items/vel.png`, fallbackImage: `${baseUrl}assets/items/vel.svg`, emoji: "🗡️" }
+      { id: "vel", name: "Vel", category: "weapon", image: `${baseUrl}assets/items/vel.webp`, fallbackImage: `${baseUrl}assets/items/vel.svg`, emoji: "🗡️" }
     ],
     questionText: "Where is Kartikeya?",
     successText: "Yes! That's Kartikeya!",
@@ -194,13 +194,13 @@ export const centralDeities: CentralDeity[] = [
     id: "vishnu",
     name: "Vishnu",
     titleName: "Lord Vishnu",
-    image: `${baseUrl}assets/vaahana/vishnu.png`,
-    successImage: `${baseUrl}assets/vaahana/vishnu.png`,
+    image: `${baseUrl}assets/vaahana/vishnu.webp`,
+    successImage: `${baseUrl}assets/vaahana/vishnu.webp`,
     vahana: {
       id: "garuda",
       name: "Eagle",
       emoji: "🦅",
-      image: `${baseUrl}assets/vaahana/garuda.png`,
+      image: `${baseUrl}assets/vaahana/garuda.webp`,
       voiceText: "Vishnu's ride is Garuda the eagle!",
       hintText: "Lord Vishnu soars with Garuda, the golden eagle!"
     },
@@ -208,7 +208,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "sudarshana_chakra", name: "Sudarshana Chakra" }
     ],
     specialItems: [
-      { id: "chakra", name: "Sudarshana Chakra", category: "weapon", image: `${baseUrl}assets/items/chakra.png`, fallbackImage: `${baseUrl}assets/items/chakra.svg`, emoji: "☸️" }
+      { id: "chakra", name: "Sudarshana Chakra", category: "weapon", image: `${baseUrl}assets/items/chakra.webp`, fallbackImage: `${baseUrl}assets/items/chakra.svg`, emoji: "☸️" }
     ],
     questionText: "Where is Vishnu?",
     successText: "Yes! That's Lord Vishnu!",
@@ -225,13 +225,13 @@ export const centralDeities: CentralDeity[] = [
     id: "saraswati",
     name: "Saraswati",
     titleName: "Goddess Saraswati",
-    image: `${baseUrl}assets/vaahana/saraswati.png`,
-    successImage: `${baseUrl}assets/vaahana/saraswati.png`,
+    image: `${baseUrl}assets/vaahana/saraswati.webp`,
+    successImage: `${baseUrl}assets/vaahana/saraswati.webp`,
     vahana: {
       id: "swan",
       name: "Swan",
       emoji: "🦢",
-      image: `${baseUrl}assets/vaahana/swan.png`,
+      image: `${baseUrl}assets/vaahana/swan.webp`,
       voiceText: "Saraswati's ride is the graceful swan!",
       hintText: "Goddess Saraswati glides with the serene swan!"
     },
@@ -239,8 +239,8 @@ export const centralDeities: CentralDeity[] = [
       { id: "veena", name: "Veena" }
     ],
     specialItems: [
-      { id: "veena", name: "Veena", category: "instrument", image: `${baseUrl}assets/items/veena.png`, fallbackImage: `${baseUrl}assets/items/veena.svg`, emoji: "🪕" },
-      { id: "books", name: "Books", category: "sacred_object", image: `${baseUrl}assets/items/books.png`, fallbackImage: `${baseUrl}assets/items/books.svg`, emoji: "📚" }
+      { id: "veena", name: "Veena", category: "instrument", image: `${baseUrl}assets/items/veena.webp`, fallbackImage: `${baseUrl}assets/items/veena.svg`, emoji: "🪕" },
+      { id: "books", name: "Books", category: "sacred_object", image: `${baseUrl}assets/items/books.webp`, fallbackImage: `${baseUrl}assets/items/books.svg`, emoji: "📚" }
     ],
     questionText: "Where is Saraswati?",
     successText: "Yes! That's Goddess Saraswati!",
@@ -259,18 +259,18 @@ export const centralDeities: CentralDeity[] = [
     id: "lakshmi",
     name: "Lakshmi",
     titleName: "Goddess Lakshmi",
-    image: `${baseUrl}assets/vaahana/lakshmi.png`,
-    successImage: `${baseUrl}assets/vaahana/lakshmi.png`,
+    image: `${baseUrl}assets/vaahana/lakshmi.webp`,
+    successImage: `${baseUrl}assets/vaahana/lakshmi.webp`,
     vahana: {
       id: "owl",
       name: "Owl",
       emoji: "🦉",
-      image: `${baseUrl}assets/vaahana/owl.png`,
+      image: `${baseUrl}assets/vaahana/owl.webp`,
       voiceText: "Lakshmi rides with the wise owl!",
       hintText: "Goddess Lakshmi's ride is the wise night owl!"
     },
     specialItems: [
-      { id: "pot_gold_coins", name: "Pot of Gold Coins", category: "object", image: `${baseUrl}assets/items/pot_gold_coins.png`, fallbackImage: `${baseUrl}assets/items/pot_gold_coins.svg`, emoji: "🏺" }
+      { id: "pot_gold_coins", name: "Pot of Gold Coins", category: "object", image: `${baseUrl}assets/items/pot_gold_coins.webp`, fallbackImage: `${baseUrl}assets/items/pot_gold_coins.svg`, emoji: "🏺" }
     ],
     questionText: "Where is Lakshmi?",
     successText: "Yes! That's Goddess Lakshmi!",
@@ -287,13 +287,13 @@ export const centralDeities: CentralDeity[] = [
     id: "brahma",
     name: "Brahma",
     titleName: "Lord Brahma",
-    image: `${baseUrl}assets/vaahana/brahma.png`,
-    successImage: `${baseUrl}assets/vaahana/brahma.png`,
+    image: `${baseUrl}assets/vaahana/brahma.webp`,
+    successImage: `${baseUrl}assets/vaahana/brahma.webp`,
     vahana: {
       id: "swan",
       name: "Swan",
       emoji: "🦢",
-      image: `${baseUrl}assets/vaahana/swan.png`,
+      image: `${baseUrl}assets/vaahana/swan.webp`,
       voiceText: "Brahma rides with the sacred white swan!",
       hintText: "Lord Brahma glides with the graceful swan!"
     },
@@ -314,13 +314,13 @@ export const centralDeities: CentralDeity[] = [
     id: "indra",
     name: "Indra",
     titleName: "Lord Indra",
-    image: `${baseUrl}assets/vaahana/indra.png`,
-    successImage: `${baseUrl}assets/vaahana/indra.png`,
+    image: `${baseUrl}assets/vaahana/indra.webp`,
+    successImage: `${baseUrl}assets/vaahana/indra.webp`,
     vahana: {
       id: "elephant",
       name: "White Elephant",
       emoji: "🐘",
-      image: `${baseUrl}assets/vaahana/white_elephant.png`,
+      image: `${baseUrl}assets/vaahana/white_elephant.webp`,
       voiceText: "Indra rides with the majestic white elephant!",
       hintText: "Lord Indra rides the mighty white elephant!"
     },
@@ -341,13 +341,13 @@ export const centralDeities: CentralDeity[] = [
     id: "surya",
     name: "Surya",
     titleName: "Surya Bhagavan",
-    image: `${baseUrl}assets/vaahana/surya.png`,
-    successImage: `${baseUrl}assets/vaahana/surya.png`,
+    image: `${baseUrl}assets/vaahana/surya.webp`,
+    successImage: `${baseUrl}assets/vaahana/surya.webp`,
     vahana: {
       id: "horses",
       name: "Seven Horses",
       emoji: "🐎",
-      image: `${baseUrl}assets/vaahana/seven_horses.png`,
+      image: `${baseUrl}assets/vaahana/seven_horses.webp`,
       voiceText: "Surya rides across the sky with seven horses!",
       hintText: "Surya rides a chariot drawn by seven radiant horses!"
     },
@@ -365,13 +365,13 @@ export const centralDeities: CentralDeity[] = [
     id: "shani",
     name: "Shani",
     titleName: "Lord Shani",
-    image: `${baseUrl}assets/vaahana/shani.png`,
-    successImage: `${baseUrl}assets/vaahana/shani.png`,
+    image: `${baseUrl}assets/vaahana/shani.webp`,
+    successImage: `${baseUrl}assets/vaahana/shani.webp`,
     vahana: {
       id: "crow",
       name: "Crow",
       emoji: "🐦‍⬛",
-      image: `${baseUrl}assets/vaahana/crow.png`,
+      image: `${baseUrl}assets/vaahana/crow.webp`,
       voiceText: "Shani rides with the loyal crow!",
       hintText: "Lord Shani flies with the clever black crow!"
     },
@@ -392,13 +392,13 @@ export const centralDeities: CentralDeity[] = [
     id: "yama",
     name: "Yama",
     titleName: "Lord Yama",
-    image: `${baseUrl}assets/vaahana/yama.png`,
-    successImage: `${baseUrl}assets/vaahana/yama.png`,
+    image: `${baseUrl}assets/vaahana/yama.webp`,
+    successImage: `${baseUrl}assets/vaahana/yama.webp`,
     vahana: {
       id: "buffalo",
       name: "Buffalo",
       emoji: "🐃",
-      image: `${baseUrl}assets/vaahana/buffalo.png`,
+      image: `${baseUrl}assets/vaahana/buffalo.webp`,
       voiceText: "Yama rides with the strong water buffalo!",
       hintText: "Lord Yama rides with the powerful buffalo!"
     },
@@ -407,7 +407,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "pasha", name: "Pasha (Noose)" }
     ],
     specialItems: [
-      { id: "staff", name: "Staff", category: "object", image: `${baseUrl}assets/items/staff.png`, fallbackImage: `${baseUrl}assets/items/staff.svg`, emoji: "🪄" }
+      { id: "staff", name: "Staff", category: "object", image: `${baseUrl}assets/items/staff.webp`, fallbackImage: `${baseUrl}assets/items/staff.svg`, emoji: "🪄" }
     ],
     questionText: "Where is Yama?",
     successText: "Yes! That's Lord Yama!",
@@ -424,13 +424,13 @@ export const centralDeities: CentralDeity[] = [
     id: "agni",
     name: "Agni",
     titleName: "Lord Agni",
-    image: `${baseUrl}assets/vaahana/agni.png`,
-    successImage: `${baseUrl}assets/vaahana/agni.png`,
+    image: `${baseUrl}assets/vaahana/agni.webp`,
+    successImage: `${baseUrl}assets/vaahana/agni.webp`,
     vahana: {
       id: "ram",
       name: "Sheep",
       emoji: "🐏",
-      image: `${baseUrl}assets/vaahana/ram.png`,
+      image: `${baseUrl}assets/vaahana/ram.webp`,
       voiceText: "Agni rides with the brave sheep!",
       hintText: "Lord Agni rides with the fiery, horned sheep!"
     },
@@ -448,13 +448,13 @@ export const centralDeities: CentralDeity[] = [
     id: "varuna",
     name: "Varuna",
     titleName: "Lord Varuna",
-    image: `${baseUrl}assets/vaahana/varuna.png`,
-    successImage: `${baseUrl}assets/vaahana/varuna.png`,
+    image: `${baseUrl}assets/vaahana/varuna.webp`,
+    successImage: `${baseUrl}assets/vaahana/varuna.webp`,
     vahana: {
       id: "crocodile",
       name: "Crocodile",
       emoji: "🐊",
-      image: `${baseUrl}assets/vaahana/crocodile.png`,
+      image: `${baseUrl}assets/vaahana/crocodile.webp`,
       voiceText: "Varuna rides with the friendly crocodile!",
       hintText: "Lord Varuna rules the ocean with the crocodile!"
     },
@@ -475,13 +475,13 @@ export const centralDeities: CentralDeity[] = [
     id: "ayyappa",
     name: "Ayyappa",
     titleName: "Swami Ayyappa",
-    image: `${baseUrl}assets/vaahana/ayyappa.png`,
-    successImage: `${baseUrl}assets/vaahana/ayyappa.png`,
+    image: `${baseUrl}assets/vaahana/ayyappa.webp`,
+    successImage: `${baseUrl}assets/vaahana/ayyappa.webp`,
     vahana: {
       id: "tiger",
       name: "Tiger",
       emoji: "🐅",
-      image: `${baseUrl}assets/vaahana/tiger.png`,
+      image: `${baseUrl}assets/vaahana/tiger.webp`,
       voiceText: "Swami Ayyappa rides with the courageous tiger!",
       hintText: "Swami Ayyappa rides with the fierce tiger!"
     },
@@ -489,7 +489,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "bow", name: "Bow and Arrow" }
     ],
     specialItems: [
-      { id: "bow_arrow", name: "Bow and Arrow", category: "weapon", image: `${baseUrl}assets/items/bow_arrow.png`, fallbackImage: `${baseUrl}assets/items/bow_arrow.svg`, emoji: "🏹" }
+      { id: "bow_arrow", name: "Bow and Arrow", category: "weapon", image: `${baseUrl}assets/items/bow_arrow.webp`, fallbackImage: `${baseUrl}assets/items/bow_arrow.svg`, emoji: "🏹" }
     ],
     questionText: "Where is Ayyappa?",
     successText: "Yes! That's Swami Ayyappa!",
@@ -506,13 +506,13 @@ export const centralDeities: CentralDeity[] = [
     id: "dattatreya",
     name: "Dattatreya",
     titleName: "Lord Dattatreya",
-    image: `${baseUrl}assets/vaahana/dattatreya.png`,
-    successImage: `${baseUrl}assets/vaahana/dattatreya.png`,
+    image: `${baseUrl}assets/vaahana/dattatreya.webp`,
+    successImage: `${baseUrl}assets/vaahana/dattatreya.webp`,
     vahana: {
       id: "dogs",
       name: "Four Dogs",
       emoji: "🐕",
-      image: `${baseUrl}assets/vaahana/four_dogs.png`,
+      image: `${baseUrl}assets/vaahana/four_dogs.webp`,
       voiceText: "Lord Dattatreya is accompanied by four faithful dogs!",
       hintText: "Lord Dattatreya walks with friendly dogs representing the Vedas!"
     },
@@ -521,7 +521,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "chakra", name: "Chakra" }
     ],
     specialItems: [
-      { id: "kamandalu", name: "Kamandalu", category: "sacred_object", image: `${baseUrl}assets/items/kamandalu.png`, fallbackImage: `${baseUrl}assets/items/kamandalu.svg`, emoji: "🫖" }
+      { id: "kamandalu", name: "Kamandalu", category: "sacred_object", image: `${baseUrl}assets/items/kamandalu.webp`, fallbackImage: `${baseUrl}assets/items/kamandalu.svg`, emoji: "🫖" }
     ],
     questionText: "Where is Dattatreya?",
     successText: "Yes! That's Lord Dattatreya!",
@@ -540,13 +540,13 @@ export const centralDeities: CentralDeity[] = [
     id: "hanuman",
     name: "Hanuman",
     titleName: "Lord Hanuman",
-    image: `${baseUrl}assets/vaahana/hanuman.png`,
-    successImage: `${baseUrl}assets/vaahana/hanuman.png`,
+    image: `${baseUrl}assets/vaahana/hanuman.webp`,
+    successImage: `${baseUrl}assets/vaahana/hanuman.webp`,
     weapons: [
       { id: "gada", name: "Gada (Mace)" }
     ],
     specialItems: [
-      { id: "gada", name: "Gada", category: "weapon", image: `${baseUrl}assets/items/gada.png`, fallbackImage: `${baseUrl}assets/items/gada.svg`, emoji: "🪓" }
+      { id: "gada", name: "Gada", category: "weapon", image: `${baseUrl}assets/items/gada.webp`, fallbackImage: `${baseUrl}assets/items/gada.svg`, emoji: "🪓" }
     ],
     questionText: "Where is Hanuman?",
     successText: "Yes! That's Lord Hanuman! Jai Bajrangbali!",
@@ -560,14 +560,14 @@ export const centralDeities: CentralDeity[] = [
     id: "krishna",
     name: "Krishna",
     titleName: "Lord Krishna",
-    image: `${baseUrl}assets/vaahana/krishna.png`,
-    successImage: `${baseUrl}assets/vaahana/krishna.png`,
+    image: `${baseUrl}assets/vaahana/krishna.webp`,
+    successImage: `${baseUrl}assets/vaahana/krishna.webp`,
     weapons: [
       { id: "flute", name: "Bansuri (Flute)" },
       { id: "sudarshana_chakra", name: "Sudarshana Chakra" }
     ],
     specialItems: [
-      { id: "flute", name: "Flute", category: "instrument", image: `${baseUrl}assets/items/flute.png`, fallbackImage: `${baseUrl}assets/items/flute.svg`, emoji: "🪈" }
+      { id: "flute", name: "Flute", category: "instrument", image: `${baseUrl}assets/items/flute.webp`, fallbackImage: `${baseUrl}assets/items/flute.svg`, emoji: "🪈" }
     ],
     questionText: "Where is Krishna?",
     successText: "Yes! That's Lord Krishna with his sweet flute!",
@@ -581,13 +581,13 @@ export const centralDeities: CentralDeity[] = [
     id: "rama",
     name: "Rama",
     titleName: "Lord Rama",
-    image: `${baseUrl}assets/vaahana/rama.png`,
-    successImage: `${baseUrl}assets/vaahana/rama.png`,
+    image: `${baseUrl}assets/vaahana/rama.webp`,
+    successImage: `${baseUrl}assets/vaahana/rama.webp`,
     weapons: [
       { id: "kodanda_bow", name: "Kodanda Bow and Arrow" }
     ],
     specialItems: [
-      { id: "bow_arrow", name: "Bow and Arrow", category: "weapon", image: `${baseUrl}assets/items/bow_arrow.png`, fallbackImage: `${baseUrl}assets/items/bow_arrow.svg`, emoji: "🏹" }
+      { id: "bow_arrow", name: "Bow and Arrow", category: "weapon", image: `${baseUrl}assets/items/bow_arrow.webp`, fallbackImage: `${baseUrl}assets/items/bow_arrow.svg`, emoji: "🏹" }
     ],
     questionText: "Where is Rama?",
     successText: "Yes! That's Lord Rama!",
@@ -601,8 +601,8 @@ export const centralDeities: CentralDeity[] = [
     id: "parvati",
     name: "Parvati",
     titleName: "Goddess Parvati",
-    image: `${baseUrl}assets/vaahana/parvati.png`,
-    successImage: `${baseUrl}assets/vaahana/parvati.png`,
+    image: `${baseUrl}assets/vaahana/parvati.webp`,
+    successImage: `${baseUrl}assets/vaahana/parvati.webp`,
     questionText: "Where is Parvati?",
     successText: "Yes! That's Goddess Parvati!",
     audio: {
@@ -614,8 +614,8 @@ export const centralDeities: CentralDeity[] = [
     id: "kali",
     name: "Kali",
     titleName: "Goddess Kali",
-    image: `${baseUrl}assets/vaahana/kali.png`,
-    successImage: `${baseUrl}assets/vaahana/kali.png`,
+    image: `${baseUrl}assets/vaahana/kali.webp`,
+    successImage: `${baseUrl}assets/vaahana/kali.webp`,
     weapons: [
       { id: "khadga", name: "Khadga (Sword)" }
     ],
@@ -631,10 +631,10 @@ export const centralDeities: CentralDeity[] = [
     id: "vamana",
     name: "Vamana",
     titleName: "Lord Vamana",
-    image: `${baseUrl}assets/vaahana/vamana.png`,
-    successImage: `${baseUrl}assets/vaahana/vamana.png`,
+    image: `${baseUrl}assets/vaahana/vamana.webp`,
+    successImage: `${baseUrl}assets/vaahana/vamana.webp`,
     specialItems: [
-      { id: "umbrella", name: "Umbrella", category: "object", image: `${baseUrl}assets/items/umbrella.png`, fallbackImage: `${baseUrl}assets/items/umbrella.svg`, emoji: "☂️" }
+      { id: "umbrella", name: "Umbrella", category: "object", image: `${baseUrl}assets/items/umbrella.webp`, fallbackImage: `${baseUrl}assets/items/umbrella.svg`, emoji: "☂️" }
     ],
     questionText: "Where is Vamana?",
     successText: "Yes! That's Lord Vamana!",
@@ -648,13 +648,13 @@ export const centralDeities: CentralDeity[] = [
     id: "parashurama",
     name: "Parashurama",
     titleName: "Lord Parashurama",
-    image: `${baseUrl}assets/vaahana/parashurama.png`,
-    successImage: `${baseUrl}assets/vaahana/parashurama.png`,
+    image: `${baseUrl}assets/vaahana/parashurama.webp`,
+    successImage: `${baseUrl}assets/vaahana/parashurama.webp`,
     weapons: [
       { id: "axe", name: "Axe" }
     ],
     specialItems: [
-      { id: "axe", name: "Axe", category: "weapon", image: `${baseUrl}assets/items/axe.png`, fallbackImage: `${baseUrl}assets/items/axe.svg`, emoji: "🪓" }
+      { id: "axe", name: "Axe", category: "weapon", image: `${baseUrl}assets/items/axe.webp`, fallbackImage: `${baseUrl}assets/items/axe.svg`, emoji: "🪓" }
     ],
     questionText: "Where is Parashurama?",
     successText: "Yes! That's Lord Parashurama!",
@@ -668,10 +668,10 @@ export const centralDeities: CentralDeity[] = [
     id: "balarama",
     name: "Balarama",
     titleName: "Lord Balarama",
-    image: `${baseUrl}assets/vaahana/balarama.png`,
-    successImage: `${baseUrl}assets/vaahana/balarama.png`,
+    image: `${baseUrl}assets/vaahana/balarama.webp`,
+    successImage: `${baseUrl}assets/vaahana/balarama.webp`,
     specialItems: [
-      { id: "plough", name: "Plough", category: "agricultural_tool", image: `${baseUrl}assets/items/plough.png`, fallbackImage: `${baseUrl}assets/items/plough.svg`, emoji: "🌾" }
+      { id: "plough", name: "Plough", category: "agricultural_tool", image: `${baseUrl}assets/items/plough.webp`, fallbackImage: `${baseUrl}assets/items/plough.svg`, emoji: "🌾" }
     ],
     questionText: "Where is Balarama?",
     successText: "Yes! That's Lord Balarama!",

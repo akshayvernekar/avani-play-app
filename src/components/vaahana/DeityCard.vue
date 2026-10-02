@@ -90,8 +90,8 @@ watch(() => [props.isSuccess, props.deity], () => {
 });
 
 function handleImageError() {
-  if (currentImage.value.endsWith('.png')) {
-    currentImage.value = currentImage.value.replace('.png', '.svg');
+  if (currentImage.value?.match(/\.(webp|png)$/)) {
+    currentImage.value = currentImage.value.replace(/\.(webp|png)$/, '.svg');
   }
 }
 

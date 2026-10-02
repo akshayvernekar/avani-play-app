@@ -72,9 +72,9 @@ function handleImageError() {
   if (!hasTriedFallback.value && props.item.fallbackImage && currentImage.value !== props.item.fallbackImage) {
     hasTriedFallback.value = true;
     currentImage.value = props.item.fallbackImage;
-  } else if (!hasTriedFallback.value && currentImage.value?.endsWith('.png')) {
+  } else if (!hasTriedFallback.value && currentImage.value?.match(/\.(webp|png)$/)) {
     hasTriedFallback.value = true;
-    currentImage.value = currentImage.value.replace('.png', '.svg');
+    currentImage.value = currentImage.value.replace(/\.(webp|png)$/, '.svg');
   } else {
     imgFailed.value = true;
   }

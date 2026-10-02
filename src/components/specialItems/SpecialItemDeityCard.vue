@@ -97,9 +97,9 @@ watch(() => props.deity, (newDeity) => {
 });
 
 function handleImageError() {
-  if (!hasTriedSvg.value && currentImage.value.endsWith('.png')) {
+  if (!hasTriedSvg.value && currentImage.value?.match(/\.(webp|png)$/)) {
     hasTriedSvg.value = true;
-    currentImage.value = currentImage.value.replace('.png', '.svg');
+    currentImage.value = currentImage.value.replace(/\.(webp|png)$/, '.svg');
   }
 }
 
