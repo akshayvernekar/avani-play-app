@@ -14,7 +14,7 @@ All assets maintain visual harmony with the chibi toddler-sticker aesthetic:
 
 ---
 
-## 📊 1. Deities Status Table (All 21 Complete)
+## 📊 1. Deities Status Table (All 24 Complete)
 
 | # | Deity | Ride (English) | In Find the Ride | In Find the God | Asset PNG Path | Fallback | Status |
 |---|---|---|---|---|---|---|---|
@@ -39,6 +39,9 @@ All assets maintain visual harmony with the chibi toddler-sticker aesthetic:
 | 19 | **Rama** | — | — | Yes | `public/assets/vaahana/rama.png` | `rama.svg` | ✅ Completed |
 | 20 | **Parvati** | — | — | Yes | `public/assets/vaahana/parvati.png` | `parvati.svg` | ✅ Completed |
 | 21 | **Kali** | — | — | Yes | `public/assets/vaahana/kali.png` | `kali.svg` | ✅ Completed |
+| 22 | **Vamana** | — | — | Yes | `public/assets/vaahana/vamana.png` | `vamana.svg` | ✅ Completed |
+| 23 | **Parashurama** | — | — | Yes | `public/assets/vaahana/parashurama.png` | `parashurama.svg` | ✅ Completed |
+| 24 | **Balarama** | — | — | Yes | `public/assets/vaahana/balarama.png` | `balarama.svg` | ✅ Completed |
 
 ---
 

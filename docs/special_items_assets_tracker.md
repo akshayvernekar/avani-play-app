@@ -31,9 +31,9 @@ All assets adhere strictly to the project's chibi toddler sticker aesthetic:
 | 10 | **Yama** | Staff | Object | `public/assets/vaahana/yama.png` | `yama.svg` | ✅ Completed | Existing asset |
 | 11 | **Ayyappa** | Bow and Arrow | Weapon | `public/assets/vaahana/ayyappa.png` | `ayyappa.svg` | ✅ Completed | Existing asset |
 | 12 | **Dattatreya** | Kamandalu | Sacred Object | `public/assets/vaahana/dattatreya.png` | `dattatreya.svg` | ✅ Completed | Existing asset |
-| 13 | **Vamana** | Umbrella | Object | `public/assets/vaahana/vamana.png` | `vamana.svg` | ✅ Generated | Generated & converted to transparent PNG |
-| 14 | **Parashurama** | Axe | Weapon | `public/assets/vaahana/parashurama.png` | `parashurama.svg` | ✅ Active | High-res PNG & SVG fallback active |
-| 15 | **Balarama** | Plough | Agricultural Tool | `public/assets/vaahana/balarama.png` | `balarama.svg` | ✅ Active | High-res PNG & SVG fallback active |
+| 13 | **Vamana** | Umbrella | Object | `public/assets/vaahana/vamana.png` | `vamana.svg` | ✅ Completed | Generated & converted to transparent PNG |
+| 14 | **Parashurama** | Axe | Weapon | `public/assets/vaahana/parashurama.png` | `parashurama.svg` | ✅ Completed | High-res PNG generated & transparent background processed |
+| 15 | **Balarama** | Plough | Agricultural Tool | `public/assets/vaahana/balarama.png` | `balarama.svg` | ✅ Completed | High-res PNG generated & transparent background processed |
 
 ---
 
