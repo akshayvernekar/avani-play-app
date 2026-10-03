@@ -28,7 +28,7 @@ All assets adhere strictly to the project's chibi toddler sticker aesthetic:
 | 7 | **Hanuman** | Gada | Weapon | `public/assets/vaahana/hanuman.png` | `hanuman.svg` | ✅ Completed | Existing asset |
 | 8 | **Krishna** | Flute | Instrument | `public/assets/vaahana/krishna.png` | `krishna.svg` | ✅ Completed | Existing asset |
 | 9 | **Rama** | Bow and Arrow | Weapon | `public/assets/vaahana/rama.png` | `rama.svg` | ✅ Completed | Existing asset |
-| 10 | **Yama** | Staff | Object | `public/assets/vaahana/yama.png` | `yama.svg` | ✅ Completed | Existing asset |
+| 10 | **Yama** | Yama Pasha | Weapon | `public/assets/vaahana/yama.png` | `yama.svg` | ✅ Completed | Existing asset |
 | 11 | **Ayyappa** | Bow and Arrow | Weapon | `public/assets/vaahana/ayyappa.png` | `ayyappa.svg` | ✅ Completed | Existing asset |
 | 12 | **Dattatreya** | Kamandalu | Sacred Object | `public/assets/vaahana/dattatreya.png` | `dattatreya.svg` | ✅ Completed | Existing asset |
 | 13 | **Vamana** | Umbrella | Object | `public/assets/vaahana/vamana.png` | `vamana.svg` | ✅ Completed | Generated & converted to transparent PNG |
@@ -50,7 +50,7 @@ All assets adhere strictly to the project's chibi toddler sticker aesthetic:
 | 7 | `gada` | Gada | Hanuman | Weapon | `public/assets/items/gada.png` | `gada.svg` / 🪓 | ✅ Active | High-res PNG & SVG fallback |
 | 8 | `flute` | Flute | Krishna | Instrument | `public/assets/items/flute.png` | `flute.svg` / 🪈 | ✅ Active | High-res PNG & SVG fallback |
 | 9 | `bow_arrow` | Bow and Arrow | Rama, Ayyappa | Weapon | `public/assets/items/bow_arrow.png` | `bow_arrow.svg` / 🏹 | ✅ Active | High-res PNG & SVG fallback |
-| 10 | `staff` | Staff | Yama | Object | `public/assets/items/staff.png` | `staff.svg` / 🪄 | ✅ Active | High-res PNG & SVG fallback |
+| 10 | `pasha` | Yama Pasha | Yama | Weapon | `public/assets/items/pasha.png` | `pasha.svg` / 🪢 | ✅ Active | High-res PNG & SVG fallback |
 | 11 | `kamandalu` | Kamandalu | Dattatreya | Sacred Object | `public/assets/items/kamandalu.png` | `kamandalu.svg` / 🫖 | ✅ Active | High-res PNG & SVG fallback |
 | 12 | `umbrella` | Umbrella | Vamana | Object | `public/assets/items/umbrella.png` | `umbrella.svg` / ☂️ | ✅ Active | High-res PNG & SVG fallback |
 | 13 | `axe` | Axe | Parashurama | Weapon | `public/assets/items/axe.png` | `axe.svg` / 🪓 | ✅ Active | High-res PNG & SVG fallback |

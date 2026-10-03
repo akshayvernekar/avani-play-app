@@ -407,7 +407,7 @@ export const centralDeities: CentralDeity[] = [
       { id: "pasha", name: "Pasha (Noose)" }
     ],
     specialItems: [
-      { id: "staff", name: "Staff", category: "object", image: `${baseUrl}assets/items/staff.png`, fallbackImage: `${baseUrl}assets/items/staff.webp`, emoji: "🪄" }
+      { id: "pasha", name: "Yama Pasha", category: "weapon", image: `${baseUrl}assets/items/pasha.png`, fallbackImage: `${baseUrl}assets/items/pasha.webp`, emoji: "🪢" }
     ],
     questionText: "Where is Yama?",
     successText: "Yes! That's Lord Yama!",

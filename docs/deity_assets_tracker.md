@@ -96,7 +96,7 @@ python3 scripts/quadrant_asset_pipeline.py --process \
 | 5 | **Kamandalu** | Brahma, Dattatreya | `sacred_object` | `public/assets/items/kamandalu.png` | `kamandalu.webp` | ✅ Nano Banana (Sacred Objects Quad) |
 | 6 | **Pot of Gold Coins** | Lakshmi | `object` | `public/assets/items/pot_gold_coins.png` | `pot_gold_coins.webp` | ✅ Nano Banana (Sacred Objects Quad) |
 | 7 | **Sacred Books** | Saraswati | `sacred_object` | `public/assets/items/books.png` | `books.webp` | ✅ Nano Banana (Sacred Objects Quad) |
-| 8 | **Sacred Staff** | Yama | `object` | `public/assets/items/staff.png` | `staff.webp` | ✅ Nano Banana (Sacred Objects Quad) |
+| 8 | **Yama Pasha** | Yama | `weapon` | `public/assets/items/pasha.png` | `pasha.webp` | ✅ Nano Banana (Sacred Lasso) |
 | 9 | **Veena** | Saraswati | `instrument` | `public/assets/items/veena.png` | `veena.webp` | ✅ Nano Banana (Music & Food Quad) |
 | 10 | **Flute** | Krishna | `instrument` | `public/assets/items/flute.png` | `flute.webp` | ✅ Nano Banana (Music & Food Quad) |
 | 11 | **Modak** | Ganesha | `food` | `public/assets/items/modak.png` | `modak.webp` | ✅ Nano Banana (Music & Food Quad) |
