@@ -65,6 +65,47 @@ All assets maintain visual harmony with the chibi toddler-sticker aesthetic:
 | 14 | **Tiger** | Ayyappa | `public/assets/vaahana/tiger.png` | 🐅 Emoji | ✅ Completed | Playful vibrant orange striped baby tiger cub |
 | 15 | **Owl** | Lakshmi | `public/assets/vaahana/owl.png` | 🦉 Emoji | ✅ Completed | Wise cute cream and brown barn owl with sparkling golden eyes |
 
+## 🎁 3. Special Items Status Table & 4-in-1 Generation
+
+### 4-in-1 Nano Banana Pipeline (`scripts/quadrant_asset_pipeline.py`)
+Generates 4 distinct items in a single 2x2 grid request to optimize tokens and API costs:
+- **Quadrant Split**: Automatically divides into TL, TR, BL, BR with divider-line insets.
+- **Edge-Seeded Flood Fill**: Transparent background removal while preserving internal whites and highlights.
+- **Aura Attenuation**: Soft-filters ambient golden/yellow divine halos back to clean object outlines.
+- **Uniform Square Canvases**: 512x512 transparent PNG & WebP outputs with centered 10% padding.
+
+```bash
+# 1. Print formatted prompt template
+python3 scripts/quadrant_asset_pipeline.py --prompt --category weapons
+
+# 2. Extract, remove background, and save 4 transparent PNG + WebP assets
+python3 scripts/quadrant_asset_pipeline.py --process \
+  --input "<path_to_quadrant_image.jpg>" \
+  --category weapons \
+  --output-dir public/assets/items
+```
+
+### Special Items Status (All 15 Complete + Vajra)
+
+| # | Item Name | Associated Deities | Category | Asset PNG Path | Fallback | Status |
+|---|---|---|---|---|---|---|
+| 1 | **Trishula** | Shiva | `weapon` | `public/assets/items/trishul.png` | `trishul.webp` | ✅ Nano Banana (Weapons Quad) |
+| 2 | **Sudarshana Chakra** | Vishnu | `weapon` | `public/assets/items/chakra.png` | `chakra.webp` | ✅ Nano Banana (Weapons Quad) |
+| 3 | **Gada** | Hanuman | `weapon` | `public/assets/items/gada.png` | `gada.webp` | ✅ Nano Banana (Weapons Quad) |
+| 4 | **Bow & Arrow** | Rama, Ayyappa | `weapon` | `public/assets/items/bow_arrow.png` | `bow_arrow.webp` | ✅ Nano Banana (Weapons Quad) |
+| 5 | **Kamandalu** | Brahma, Dattatreya | `sacred_object` | `public/assets/items/kamandalu.png` | `kamandalu.webp` | ✅ Nano Banana (Sacred Objects Quad) |
+| 6 | **Pot of Gold Coins** | Lakshmi | `object` | `public/assets/items/pot_gold_coins.png` | `pot_gold_coins.webp` | ✅ Nano Banana (Sacred Objects Quad) |
+| 7 | **Sacred Books** | Saraswati | `sacred_object` | `public/assets/items/books.png` | `books.webp` | ✅ Nano Banana (Sacred Objects Quad) |
+| 8 | **Sacred Staff** | Yama | `object` | `public/assets/items/staff.png` | `staff.webp` | ✅ Nano Banana (Sacred Objects Quad) |
+| 9 | **Veena** | Saraswati | `instrument` | `public/assets/items/veena.png` | `veena.webp` | ✅ Nano Banana (Music & Food Quad) |
+| 10 | **Flute** | Krishna | `instrument` | `public/assets/items/flute.png` | `flute.webp` | ✅ Nano Banana (Music & Food Quad) |
+| 11 | **Modak** | Ganesha | `food` | `public/assets/items/modak.png` | `modak.webp` | ✅ Nano Banana (Music & Food Quad) |
+| 12 | **Plough** | Balarama | `agricultural_tool` | `public/assets/items/plough.png` | `plough.webp` | ✅ Nano Banana (Music & Food Quad) |
+| 13 | **Vel** | Kartikeya | `weapon` | `public/assets/items/vel.png` | `vel.webp` | ✅ Nano Banana (Divine Regalia Quad) |
+| 14 | **Parashu Axe** | Parashurama | `weapon` | `public/assets/items/axe.png` | `axe.webp` | ✅ Nano Banana (Divine Regalia Quad) |
+| 15 | **Umbrella** | Vamana | `object` | `public/assets/items/umbrella.png` | `umbrella.webp` | ✅ Nano Banana (Divine Regalia Quad) |
+| 16 | **Vajra** | Indra | `weapon` | `public/assets/items/vajra.png` | `vajra.webp` | ✅ Nano Banana (Divine Regalia Quad) |
+
 ---
 
 ## 🛡️ Fallback Architecture
@@ -75,13 +116,7 @@ All assets maintain visual harmony with the chibi toddler-sticker aesthetic:
 2. **Rides**: Handled by `VaahanaOption.vue`:
    - Automatically loads `option.image` (`${id}.png`).
    - On `@error` or if missing, falls back to the large, colorful, high-contrast Toddler Emoji card (`option.emoji`).
+3. **Special Items**: Handled by `SpecialItemOptionCard.vue`:
+   - Automatically loads `${id}.png` or `${id}.webp`.
+   - On `@error`, falls back to `${id}.svg` or category fallback emoji.
 
----
-
-## 🛠️ Transparent Background Processing Script
-
-Saved in `scratch/make_transparent.py`:
-
-```bash
-python3 scratch/make_transparent.py "<input_image.jpg>" "<output_image.png>" 25
-```
