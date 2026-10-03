@@ -1,5 +1,9 @@
 <template>
   <div class="game-view-container" :style="bgStyle">
+    <!-- Dedicated Background Layer with soften/contrast filter matching Homepage -->
+    <div class="game-bg-layer" aria-hidden="true"></div>
+    <div class="game-bg-overlay" aria-hidden="true"></div>
+
     <!-- Top Control Bar (Slim, fits in landscape and portrait) -->
     <header class="top-nav">
       <div class="nav-left">
@@ -334,10 +338,6 @@ const bgStyle = computed(() => {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background-image: var(--bg-landscape);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
   display: flex;
   flex-direction: column;
   padding: clamp(6px, 1.2vh, 12px) clamp(8px, 1.8vw, 18px);
@@ -346,7 +346,29 @@ const bgStyle = computed(() => {
   padding-top: max(clamp(6px, 1.2vh, 12px), env(safe-area-inset-top));
   padding-bottom: max(clamp(6px, 1.2vh, 12px), env(safe-area-inset-bottom));
   box-sizing: border-box;
+}
+
+/* Dedicated Background Layer (matching Homepage softened & contrast settings) */
+.game-bg-layer {
+  position: absolute;
+  inset: -8px; /* Bleed past edges to keep blur crisp */
+  background-image: var(--bg-landscape);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   transition: background-image 0.25s ease;
+  pointer-events: none;
+  z-index: 1;
+  filter: saturate(0.70) contrast(0.78) brightness(0.97) blur(0.8px);
+  transform: translateZ(0);
+}
+
+.game-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 252, 245, 0.08); /* Gentle warm ethereal veil */
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* Top Control Bar */
@@ -439,6 +461,8 @@ const bgStyle = computed(() => {
 
 /* Landscape Split Stage: Left ~48%, Right ~52% with clean grid */
 .game-stage-landscape {
+  position: relative;
+  z-index: 3;
   flex: 1;
   min-height: 0;
   width: 100%;
@@ -480,7 +504,7 @@ const bgStyle = computed(() => {
 
 /* Portrait Responsive Layout (dual orientation standard) */
 @media (orientation: portrait) {
-  .game-view-container {
+  .game-bg-layer {
     background-image: var(--bg-portrait);
   }
 

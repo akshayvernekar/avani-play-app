@@ -1,5 +1,9 @@
 <template>
   <div class="game-view-container" :style="bgStyle">
+    <!-- Dedicated Background Layer with soften/contrast filter matching Homepage -->
+    <div class="game-bg-layer" aria-hidden="true"></div>
+    <div class="game-bg-overlay" aria-hidden="true"></div>
+
     <!-- Top Control Bar (Slim, fits in landscape) -->
     <header class="top-nav">
       <div class="nav-left">
