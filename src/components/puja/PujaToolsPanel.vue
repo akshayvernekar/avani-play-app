@@ -23,7 +23,10 @@
         :class="{ 'is-active': activeCategory === cat.id }"
         @click="$emit('category-change', cat.id)"
       >
-        <span class="cat-tab-icon">{{ cat.emoji }}</span>
+        <span class="cat-tab-icon">
+          <img v-if="cat.image" :src="cat.image" :alt="cat.label" class="cat-tab-img" />
+          <template v-else>{{ cat.emoji }}</template>
+        </span>
         <span class="cat-tab-label">{{ cat.label }}</span>
       </button>
     </div>
@@ -181,6 +184,16 @@ defineExpose({
   font-size: clamp(18px, 3vh, 26px);
   line-height: 1.1;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cat-tab-img {
+  width: clamp(20px, 3.2vh, 28px);
+  height: clamp(20px, 3.2vh, 28px);
+  object-fit: contain;
+  display: block;
 }
 
 .cat-tab-label {

@@ -46,12 +46,11 @@ export interface PujaDeityConfig {
 
 const baseUrl = import.meta.env.BASE_URL;
 
-export const pujaCategories: { id: PujaCategory; label: string; emoji: string }[] = [
+export const pujaCategories: { id: PujaCategory; label: string; emoji: string; image?: string }[] = [
   { id: 'flowers', label: 'Flowers', emoji: '🌸' },
   { id: 'garlands', label: 'Garlands', emoji: '📿' },
-  { id: 'offerings', label: 'Offerings', emoji: '🍬' },
+  { id: 'offerings', label: 'Offerings', emoji: '🟡', image: `${baseUrl}assets/puja/offerings/laddoo.webp` },
   { id: 'lights', label: 'Diyas', emoji: '🪔' },
-  { id: 'incense', label: 'Incense', emoji: '🪔' },
   { id: 'aarti', label: 'Aarti', emoji: '✨' }
 ];
 
@@ -185,7 +184,7 @@ export const pujaItems: Record<PujaCategory, PujaItem[]> = {
   lights: [
     {
       id: 'diya',
-      name: 'Clay Diya',
+      name: 'Diya',
       emoji: '🪔',
       image: `${baseUrl}assets/puja/lights/diya_lit.webp`,
       type: 'lights',
@@ -193,28 +192,6 @@ export const pujaItems: Record<PujaCategory, PujaItem[]> = {
       sound: 'whoosh',
       snapRadius: 25
     },
-    {
-      id: 'diya_pair',
-      name: 'Twin Diyas',
-      emoji: '🪔',
-      image: `${baseUrl}assets/puja/lights/diya_lit.webp`,
-      type: 'lights',
-      placement: 'scene_right',
-      sound: 'whoosh',
-      snapRadius: 25
-    },
-    {
-      id: 'lamp_brass',
-      name: 'Brass Deepam',
-      emoji: '🏮',
-      image: `${baseUrl}assets/puja/lights/lamp_brass.webp`,
-      type: 'lights',
-      placement: 'platform',
-      sound: 'whoosh',
-      snapRadius: 25
-    }
-  ],
-  incense: [
     {
       id: 'incense_stick',
       name: 'Agarbatti',
@@ -224,18 +201,9 @@ export const pujaItems: Record<PujaCategory, PujaItem[]> = {
       placement: 'platform',
       sound: 'incense',
       snapRadius: 25
-    },
-    {
-      id: 'incense_holder',
-      name: 'Dhoop Stand',
-      emoji: '💨',
-      image: `${baseUrl}assets/puja/incense/incense_holder.webp`,
-      type: 'incense',
-      placement: 'scene_left',
-      sound: 'incense',
-      snapRadius: 25
     }
   ],
+  incense: [],
   aarti: [
     {
       id: 'aarti_small',

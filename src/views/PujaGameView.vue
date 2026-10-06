@@ -176,14 +176,11 @@ function handleCategoryChange(category: PujaCategory) {
     feedbackText.value = 'Add a garland and adjust it on Ganesha! 📿';
     feedbackIcon.value = '📿';
   } else if (category === 'offerings') {
-    feedbackText.value = 'Place delicious modak & sweets in front of Ganesha! 🍬';
-    feedbackIcon.value = '🍬';
+    feedbackText.value = 'Place delicious modak & laddoo in front of Ganesha! 🟡';
+    feedbackIcon.value = '🟡';
   } else if (category === 'lights') {
-    feedbackText.value = 'Place diyas and light them up! 🪔';
+    feedbackText.value = 'Place diya and fragrant agarbatti! 🪔';
     feedbackIcon.value = '🪔';
-  } else if (category === 'incense') {
-    feedbackText.value = 'Place fragrant agarbatti! 💨';
-    feedbackIcon.value = '💨';
   }
 }
 

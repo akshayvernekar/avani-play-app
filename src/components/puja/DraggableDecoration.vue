@@ -19,11 +19,6 @@
       />
       <span v-else class="decoration-emoji">{{ decoration.item.emoji }}</span>
 
-      <!-- Interactive Diya Flame if it's a lit diya -->
-      <div v-if="decoration.item.type === 'lights' && decoration.lit !== false" class="diya-flame-anim">
-        <div class="flame-core"></div>
-        <div class="flame-glow"></div>
-      </div>
 
       <!-- Smoke wisp if it's incense -->
       <div v-if="decoration.item.type === 'incense'" class="incense-smoke-group">
@@ -147,44 +142,6 @@ function onPointerDown(e: PointerEvent) {
 }
 
 /* Diya Flame */
-.diya-flame-anim {
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(14px, 2.8vh, 22px);
-  height: clamp(20px, 3.8vh, 32px);
-  pointer-events: none;
-}
-
-.flame-core {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 80%, #FFFFFF 0%, #FFEE58 40%, #FF9800 80%, #F4511E 100%);
-  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
-  animation: flicker 0.25s infinite alternate ease-in-out;
-}
-
-.flame-glow {
-  position: absolute;
-  inset: -6px;
-  background: radial-gradient(circle, rgba(255, 193, 7, 0.6) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: glowPulse 0.5s infinite alternate ease-in-out;
-}
-
-@keyframes flicker {
-  0% { transform: scaleY(1) rotate(-2deg); opacity: 0.95; }
-  25% { transform: scaleY(1.08) rotate(2deg); opacity: 1; }
-  50% { transform: scaleY(0.92) rotate(-1deg); opacity: 0.92; }
-  75% { transform: scaleY(1.05) rotate(1deg); opacity: 1; }
-  100% { transform: scaleY(0.98) rotate(-2deg); opacity: 0.96; }
-}
-
-@keyframes glowPulse {
-  0% { opacity: 0.5; transform: scale(0.95); }
-  100% { opacity: 0.9; transform: scale(1.15); }
-}
 
 /* Incense Smoke */
 .incense-smoke-group {
