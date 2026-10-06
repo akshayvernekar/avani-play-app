@@ -4,7 +4,7 @@
     class="puja-scene-container"
     :class="{ 'aarti-glowing': isAartiActive || isCelebration }"
   >
-    <!-- Layer 1: Background (Clean Temple Sanctum) -->
+    <!-- Layer 1: Background (Clean Temple Sanctum - Softened contrast) -->
     <div class="scene-layer layer-bg">
       <img 
         v-if="!bgFailed" 
@@ -15,6 +15,7 @@
         @error="bgFailed = true" 
       />
       <div v-else class="bg-gradient-fallback"></div>
+      <div class="bg-overlay" aria-hidden="true"></div>
     </div>
 
     <!-- Layer 2: Fixed Deity Idol Figure -->
@@ -92,8 +93,10 @@ defineExpose({
   pointer-events: none;
 }
 
-/* Layer 1: Temple BG */
+/* Layer 1: Temple BG (Softened, reduced contrast matching homepage) */
 .layer-bg {
+  position: absolute;
+  inset: 0;
   z-index: 1;
   overflow: hidden;
   border-radius: inherit;
@@ -104,6 +107,15 @@ defineExpose({
   height: 100%;
   object-fit: cover;
   object-position: center;
+  filter: saturate(0.70) contrast(0.78) brightness(0.97) blur(0.8px);
+  transform: scale(1.02) translateZ(0);
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 252, 245, 0.08); /* Gentle warm ethereal veil */
+  pointer-events: none;
 }
 
 .bg-gradient-fallback {
